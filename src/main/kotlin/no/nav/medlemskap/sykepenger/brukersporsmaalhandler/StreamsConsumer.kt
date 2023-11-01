@@ -32,7 +32,7 @@ class StreamsConsumer(environment: Environment) {
         props[SslConfigs.SSL_KEYSTORE_TYPE_CONFIG] = Configuration.KafkaConfig().keystoreType
         val builder = StreamsBuilder()
         builder.stream<String, String>(Configuration.KafkaConfig().streamFrom)
-            .mapValues { t -> TailService().handleMessage(t) }
+            .map { key, value -> TailService().handleMessage2(key,value) }
             .to(Configuration.KafkaConfig().streamTo)
         val topology = builder.build()
         val kafkaStreams = KafkaStreams(topology, props)

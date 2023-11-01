@@ -8,6 +8,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.avklaring
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.ReglerService
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
+import org.apache.kafka.streams.KeyValue
 import java.time.LocalDate
 
 class TailService() {
@@ -32,6 +33,27 @@ class TailService() {
 
         } else {
             return json
+        }
+    }
+    fun handleMessage2(key:String,json: String?): KeyValue<String,String> {
+        if (json != null) {
+            try {
+                val resultatGammelRegelMotorJson = JacksonParser().ToJson(json)
+                val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
+                val responsRegelMotorHale = ReglerService.kjørRegler(resultatGammelRegelMotor)
+                val konklusjon:Konklusjon = lagKonklusjon(resultatGammelRegelMotor,responsRegelMotorHale)
+                val konklusjoner: List<Konklusjon> = listOf(konklusjon)
+                val konklusjonerJson = JacksonParser().ToJson(konklusjoner)
+                val haleRespons: ObjectNode = resultatGammelRegelMotorJson.deepCopy()
+                val t:ObjectNode = haleRespons.set("konklusjon", konklusjonerJson)
+                return KeyValue(key,haleRespons.toPrettyString())
+            } catch (e: Exception) {
+                println("ERROR:" + e.message)
+                return KeyValue(key,json)
+            }
+
+        } else {
+            return KeyValue(key,json)
         }
     }
 
