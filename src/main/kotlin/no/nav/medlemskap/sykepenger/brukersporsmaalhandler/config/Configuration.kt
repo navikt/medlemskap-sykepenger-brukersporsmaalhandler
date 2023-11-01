@@ -79,6 +79,7 @@ data class Configuration(
         val bootstrapServers: String = "KAFKA_BROKERS".configProperty(),
         val securityProtocol: String = "SSL",
         val trustStorePath: String = "KAFKA_TRUSTSTORE_PATH".configProperty(),
+        val applicationID :String= "medlemskap-hale-Test",
         val groupID: String = "medlemskap-sykepenger-listener_v2",
         val flexConsumerGroup: String = "medlemskap-sykepenger-flex-listener",
         val trustStorePassword: String = "KAFKA_CREDSTORE_PASSWORD".configProperty(),
@@ -88,5 +89,7 @@ data class Configuration(
         val enabled: String = "KAFKA_ENABLED".configProperty(),
         val kafkaEnabled: String = "KAFKA_ENABLED".configProperty(),
         val topic : String =  "medlemskap.medlemskap-uavklart",
+        val streamFrom : String =  "medlemskap.medlemskap-uavklart",
+        val streamTo : String =  "medlemskap.medlemskap-uavklart",
     )
 }
