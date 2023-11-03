@@ -8,7 +8,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat.C
 abstract class Regler(
     val ytelse: Ytelse,
     val regelFactory: RegelFactory,
-    val overstyrteRegler: Map<RegelId, Svar>
+    val overstyrteRegler: Map<RegelId, Svar> = emptyMap()
 ) {
 
     abstract fun hentHovedflyt(): Regelflyt

@@ -3,7 +3,6 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.config.Configuration
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.config.Environment
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.config.KafkaConfig
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.common.config.SslConfigs
 import org.apache.kafka.common.serialization.Serdes
@@ -32,7 +31,8 @@ class StreamsConsumer(environment: Environment) {
         props[SslConfigs.SSL_KEYSTORE_TYPE_CONFIG] = Configuration.KafkaConfig().keystoreType
         val builder = StreamsBuilder()
         builder.stream<String, String>(Configuration.KafkaConfig().streamFrom)
-            .map { key, value -> TailService().handleMessage2(key,value) }
+            .map { key, value -> TailService().handleKeyValueMessage(key,value) }
+            //loggging for metrikker osv....peek { key, value ->  }
             .to(Configuration.KafkaConfig().streamTo)
         val topology = builder.build()
         val kafkaStreams = KafkaStreams(topology, props)

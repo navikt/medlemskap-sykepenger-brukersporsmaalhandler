@@ -18,8 +18,8 @@ class ReglerForBrukerSporsmaal(
     override fun hentHovedflyt(): Regelflyt {
 
         return lagRegelflyt(
-            regel = hentRegel(RegelId.GS6001),
-            hvisJa = medlemskonklusjonUavklart(ytelse,),
+            regel = hentRegel(RegelId.SP6001),
+            hvisJa = medlemskonklusjonUavklart(ytelse),
             hvisNei = konklusjonJa(ytelse)
         )
     }

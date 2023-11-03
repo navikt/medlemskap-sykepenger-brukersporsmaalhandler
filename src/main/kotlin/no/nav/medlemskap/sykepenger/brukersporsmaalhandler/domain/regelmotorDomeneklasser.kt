@@ -1,15 +1,21 @@
 
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain
 
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Fakta
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 import java.time.LocalDate
 
 
 data class Konklusjon(
+    val hvem: String = "SP6000",
     val dato:LocalDate,
-    val status:Status,
+    val status: Svar,
     val lovvalg:Lovvalg?,
     val medlemskap:Medlemskap?,
     val dekning:Dekning?,
+    val fakta: List<Fakta> = emptyList(),
+    val reglerKjørt: List<Resultat> = listOf(),
     val avklaringsListe: List<avklaring> = emptyList()
 )
 data class avklaring(

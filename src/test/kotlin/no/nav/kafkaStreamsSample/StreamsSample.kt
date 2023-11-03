@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.JacksonParser
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.config.Configuration
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.*
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.common.config.SslConfigs
 import org.apache.kafka.common.serialization.Serdes
@@ -58,7 +59,7 @@ fun domapping(t: String?) :String?{
             val new: ObjectNode =  node.deepCopy()
             val konklusjon = Konklusjon(
                 dato = LocalDate.now(),
-                status = Status.UAVKLART,
+                status = Svar.UAVKLART,
                 lovvalg = null,
                 medlemskap = null,
                 dekning = null,
@@ -103,7 +104,7 @@ fun domapping2(t: String?) :String?{
             val new: ObjectNode =  node.deepCopy()
             val konklusjon = Konklusjon(
                 dato = LocalDate.now().minusDays(10),
-                status = Status.UAVKLART,
+                status = Svar.UAVKLART,
                 lovvalg = null,
                 medlemskap = null,
                 dekning = null,
@@ -129,7 +130,7 @@ fun domapping2(t: String?) :String?{
             )
             val konklusjon2 = Konklusjon(
                 dato = LocalDate.now().minusDays(2),
-                status = Status.JA,
+                status = Svar.JA,
                 lovvalg = Lovvalg("NOR"),
                 medlemskap = Medlemskap("JA","§2-1"),
                 dekning = Dekning("FULL"),

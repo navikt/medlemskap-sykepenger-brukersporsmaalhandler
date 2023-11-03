@@ -5,6 +5,8 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.RegelId
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ArbeidUtenforNorgeBrukerSporsmaalRegel
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.norskeborgere.FinnesBrukerSvarForOppholdUtenforEØSRegel
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.norskeborgere.HarBrukerOppgittOppholdUtenforEØSRegel
 
 class RegelFactory(private val datagrunnlag: Datagrunnlag) {
 
@@ -16,7 +18,9 @@ class RegelFactory(private val datagrunnlag: Datagrunnlag) {
 
     fun create(regelId: RegelId): Regel {
         return when (regelId) {
-            RegelId.GS6001 -> ArbeidUtenforNorgeBrukerSporsmaalRegel.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6001 -> ArbeidUtenforNorgeBrukerSporsmaalRegel.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6002 -> HarBrukerOppgittOppholdUtenforEØSRegel.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6003 -> FinnesBrukerSvarForOppholdUtenforEØSRegel.fraDatagrunnlag(datagrunnlag).regel
           else -> throw java.lang.RuntimeException("Ukjent regel: $regelId")
         }
     }

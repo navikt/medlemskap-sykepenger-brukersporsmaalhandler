@@ -2,40 +2,21 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler
 
 import com.fasterxml.jackson.databind.node.ObjectNode
 import mu.KotlinLogging
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.Konklusjon
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.Status
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.avklaring
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.ReglerService
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Årsak
 import org.apache.kafka.streams.KeyValue
 import java.time.LocalDate
+import net.logstash.logback.argument.StructuredArguments.kv
 
 class TailService() {
     private val logger = KotlinLogging.logger { }
     private val secureLogger = KotlinLogging.logger("tjenestekall")
-    fun handleMessage(json: String?): String? {
-        if (json != null) {
-            try {
-                val resultatGammelRegelMotorJson = JacksonParser().ToJson(json)
-                val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
-                val responsRegelMotorHale = ReglerService.kjørRegler(resultatGammelRegelMotor)
-                val konklusjon:Konklusjon = lagKonklusjon(resultatGammelRegelMotor,responsRegelMotorHale)
-                val konklusjoner: List<Konklusjon> = listOf(konklusjon)
-                val konklusjonerJson = JacksonParser().ToJson(konklusjoner)
-                val haleRespons: ObjectNode = resultatGammelRegelMotorJson.deepCopy()
-                val t:ObjectNode = haleRespons.set("konklusjon", konklusjonerJson)
-                return haleRespons.toPrettyString()
-            } catch (e: Exception) {
-                println("ERROR:" + e.message)
-                return json
-            }
 
-        } else {
-            return json
-        }
-    }
-    fun handleMessage2(key:String,json: String?): KeyValue<String,String> {
+    fun handleKeyValueMessage(key:String, json: String?): KeyValue<String,String> {
         if (json != null) {
             try {
                 val resultatGammelRegelMotorJson = JacksonParser().ToJson(json)
@@ -48,7 +29,10 @@ class TailService() {
                 val t:ObjectNode = haleRespons.set("konklusjon", konklusjonerJson)
                 return KeyValue(key,haleRespons.toPrettyString())
             } catch (e: Exception) {
-                println("ERROR:" + e.message)
+                logger.error("teknisk feil i regelkjøring: ${e.message}",
+                    kv("soknadID",key),
+                    kv("stacktrace",e.stackTrace)
+                )
                 return KeyValue(key,json)
             }
 
@@ -58,34 +42,60 @@ class TailService() {
     }
 
     private fun lagKonklusjon(resultatGammelRegelMotor: Kjøring, responsRegelMotorHale: Resultat): Konklusjon {
-        val konklusjon = Konklusjon(
-            dato = LocalDate.now(),
-            status = Status.UAVKLART,
-            lovvalg = null,
-            medlemskap = null,
-            dekning = null,
-            avklaringsListe = listOf(
-                avklaring(
-                    regel_id = "SP6001",
-                    avklaringstekst = "Har du utført arbeid utenfor norge",
-                    svar = "JA",
-                    status = "UAVKLART",
-                    beskrivelse = null,
-                    hvem = "SP6000",
-                    tidspunkt = LocalDate.now()
-                ),
-                avklaring(
-                    regel_id = "REGEL_1_3_1",
-                    avklaringstekst = "Er hele perioden uten medlemskap innenfor 12-måneders perioden?",
-                    svar = "NEI",
-                    status = "UAVKLART",
-                    beskrivelse = null,
-                    hvem = "SP6000/Gammel regel motor",
-                    tidspunkt = LocalDate.now()
-                )
-            )
-        )
-        return konklusjon
 
+        if (responsRegelMotorHale.svar == Svar.JA){
+            return Konklusjon(
+                dato = LocalDate.now(),
+                status = Svar.JA,
+                lovvalg = null,
+                dekning = Dekning("FULL"),
+                medlemskap = Medlemskap("JA","§2-1"),
+                avklaringsListe = emptyList(),
+                reglerKjørt = responsRegelMotorHale.delresultat,
+                fakta = responsRegelMotorHale.fakta
+            )
+        }
+        else if (responsRegelMotorHale.svar == Svar.NEI){
+            return Konklusjon(
+                dato = LocalDate.now(),
+                status = Svar.NEI,
+                lovvalg = null,
+                dekning =null,
+                medlemskap = Medlemskap("NEI",""),
+                reglerKjørt = responsRegelMotorHale.delresultat,
+                avklaringsListe = emptyList(),
+                fakta = responsRegelMotorHale.fakta
+            )
+        }
+        else{
+
+            return Konklusjon(
+                dato = LocalDate.now(),
+                status = Svar.UAVKLART,
+                lovvalg = null,
+                dekning =null,
+                medlemskap = null,
+                reglerKjørt = responsRegelMotorHale.delresultat,
+                avklaringsListe = finnAvklaringsPunkter(resultatGammelRegelMotor,responsRegelMotorHale),
+                fakta = responsRegelMotorHale.fakta
+            )
+        }
     }
+
+    private fun finnAvklaringsPunkter(resultatGammelRegelMotor: Kjøring, responsRegelMotorHale: Resultat): List<avklaring> {
+    val avklaringsListe:MutableList<avklaring> = mutableListOf()
+        avklaringsListe.addAll(responsRegelMotorHale.årsaker.map { mapToAvklaring(it) })
+        avklaringsListe.addAll(resultatGammelRegelMotor.resultat.årsaker.map { mapToAvklaringModel2(it) })
+        return avklaringsListe
+    }
+
+    private fun mapToAvklaringModel2(aarsak: no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Årsak):avklaring {
+        return avklaring(aarsak.regelId,aarsak.avklaring,aarsak.svar.name,"UAVKLART",null,"SP6000", LocalDate.now())
+    }
+
+    fun mapToAvklaring(aarsak:Årsak):avklaring{
+        return avklaring(aarsak.regelId.name,aarsak.avklaring,aarsak.svar.name,"UAVKLART",null,"SP6000", LocalDate.now())
+    }
+
+
 }

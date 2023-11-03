@@ -1,4 +1,4 @@
-package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1
+package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.norskeborgere
 
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.BasisRegel
@@ -11,16 +11,17 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Bru
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import java.time.LocalDate
 
-class ArbeidUtenforNorgeBrukerSporsmaalRegel(
+class HarBrukerOppgittOppholdUtenforEØSRegel(
     ytelse: Ytelse,
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
-) : BasisRegel(RegelId.SP6001, ytelse) {
+) : BasisRegel(RegelId.SP6002, ytelse) {
 
     override fun operasjon(): Resultat {
 
-        if (brukerInput!=null && !brukerInput.arbeidUtenforNorge){
+
+        if (brukerInput!=null && brukerInput.oppholdUtenforEos==null){
             return nei(regelId)
         }
         return ja(regelId)
@@ -30,8 +31,8 @@ class ArbeidUtenforNorgeBrukerSporsmaalRegel(
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): ArbeidUtenforNorgeBrukerSporsmaalRegel {
-            return ArbeidUtenforNorgeBrukerSporsmaalRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): HarBrukerOppgittOppholdUtenforEØSRegel {
+            return HarBrukerOppgittOppholdUtenforEØSRegel(
                 ytelse = datagrunnlag.ytelse,
                 startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput

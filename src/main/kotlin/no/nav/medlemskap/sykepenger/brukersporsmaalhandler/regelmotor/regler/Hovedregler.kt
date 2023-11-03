@@ -1,7 +1,6 @@
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler
 
 
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.JacksonParser
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regel.Companion.jaKonklusjon
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regel.Companion.neiKonklusjon
@@ -11,6 +10,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Gam
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ReglerForBrukerSporsmaal
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.norskeborgere.ReglerForOppholdUtenforEOS
 
 class Hovedregler(private val kjøring: Kjøring) {
 
@@ -20,22 +20,19 @@ class Hovedregler(private val kjøring: Kjøring) {
         val ytelse = Ytelse.SYKEPENGER
         val resultater = mutableListOf<Resultat>()
 
+        val brukerspørsmålResultat = reglerForBrukerSporsmaal.kjørRegel()
+        resultater.add(brukerspørsmålResultat)
         val fakta:MutableList<Fakta> = utledFaktaFraForrigekjoring(kjøring.resultat)
         val faktum = fakta.map { it.faktum }.toList()
         if (faktum.contains(Faktum.NORSK_BORGER)){
-            //kjør flyt for Norske borgere
+            resultater.addAll(kjørReglerForNorskeBorgere())
         }
         else if (faktum.contains(Faktum.EØS_BORGER) && !faktum.contains(Faktum.NORSK_BORGER)){
-            // kjør flyt for EOS borgere
-
-            //
+            resultater.addAll(kjørReglerForEøsBorgere())
         }
         else{
-            //kjør 3 lands borgere flyt
+            resultater.addAll(kjørReglerForTredjelandsborgere())
         }
-
-        val brukerspørsmålResultat = reglerForBrukerSporsmaal.kjørRegel()
-        resultater.add(brukerspørsmålResultat)
 
         val respons = utledResultat(ytelse, resultater)
         respons.fakta = fakta
@@ -67,24 +64,14 @@ class Hovedregler(private val kjøring: Kjøring) {
         return emptyList()
     }
 
-    private fun kjørReglerForNorskeBorgere(overstyrteRegler: Map<RegelId, Svar>): List<Resultat> {
-        return emptyList()
+    private fun kjørReglerForNorskeBorgere(): List<Resultat> {
+        return listOf(
+            ReglerForOppholdUtenforEOS.fraDatagrunnlag(kjøring.datagrunnlag),
+        ).map { it.kjørHovedflyt() }
     }
 
-    private fun kjørReglerForEøsBorgere(
-        overstyrteRegler: Map<RegelId, Svar>,
-        resultatEOSFamilie: Resultat?
-    ): List<Resultat> {
-        val resultater = mutableListOf<Resultat>()
-
-        if (resultatEOSFamilie?.svar == Svar.JA) {
-
-        }
-        val reglerForEØSBorgerResultater = listOf<Resultat>()
-
-        resultater.addAll(reglerForEØSBorgerResultater)
-
-        return resultater
+    private fun kjørReglerForEøsBorgere(): List<Resultat> {
+        return emptyList()
     }
 
     private fun kjørFellesRegler(): List<Resultat> {

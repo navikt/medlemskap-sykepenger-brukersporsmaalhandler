@@ -10,7 +10,9 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
     REGEL_MEDLEM_KONKLUSJON("LOVME", "Er bruker medlem?", "Kan ikke konkludere med medlemskap", "Bruker er medlem", "Kan ikke konkludere med medlemskap"),
     REGEL_FLYT_KONKLUSJON("RFK", "Svar på regelflyt", "Regelflyt konkluderer med NEI"),
     REGEL_OPPLYSNINGER("OPPLYSNINGER", "Finnes det registrerte opplysninger på bruker?", "Alle de følgende ble NEI"),
-    GS6001("ArbeidUtland","Har Bruker svart JA i arbeid utland","Bruker har oppgitt NEI i arbeid utland","jabegrunnelse","uavklartRespons")
+    SP6001("ArbeidUtland","Har Bruker svart JA i arbeid utland","Bruker har oppgitt NEI i arbeid utland","jabegrunnelse","uavklartRespons"),
+    SP6002("Opphold Utenfor EØS","Har Bruker svart JA i opphold utenfor EØS","Bruker har oppgitt NEI i Opphold utenfor EØS","Bruker har oppgitt JA i Opphold utenfor EØS","Bruker har oppgitt JA i Opphold utenfor EØS"),
+    SP6003("Finnes brukersvar for OppholdUtenfor EØS","Finnes brukersvar for OppholdUtenfor EØS","Det finnes ikke brukersvar for OppholdUtenforEØS","Det finnes brukersvar for OppholdUtenforEØS")
     ;
 
     fun begrunnelse(svar: Svar): String {
