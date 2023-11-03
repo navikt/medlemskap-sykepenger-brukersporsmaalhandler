@@ -43,6 +43,8 @@ class TailService() {
 
     private fun lagKonklusjon(resultatGammelRegelMotor: Kjøring, responsRegelMotorHale: Resultat): Konklusjon {
 
+        println("Arbeider i to land : ${responsRegelMotorHale.arbeiderItoLand()?.name}")
+        println("Oppholder seg i EØS : ${responsRegelMotorHale.oppholderSegIEØS()?.name}")
         if (responsRegelMotorHale.svar == Svar.JA){
             return Konklusjon(
                 dato = LocalDate.now(),
