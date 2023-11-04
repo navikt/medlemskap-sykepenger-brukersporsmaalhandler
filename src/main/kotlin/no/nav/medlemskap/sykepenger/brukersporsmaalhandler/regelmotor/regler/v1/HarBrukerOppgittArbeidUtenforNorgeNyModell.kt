@@ -11,27 +11,27 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Bru
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import java.time.LocalDate
 
-class ArbeidUtenforNorgeBrukerSporsmaalRegel(
+class HarBrukerOppgittArbeidUtenforNorgeNyModell(
     ytelse: Ytelse,
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
-) : BasisRegel(RegelId.SP6001, ytelse) {
+) : BasisRegel(RegelId.SP6110, ytelse) {
 
     override fun operasjon(): Resultat {
 
-        if (brukerInput!=null && !brukerInput.arbeidUtenforNorge){
-            return nei(regelId)
+        if (brukerInput!=null && brukerInput.utfortAarbeidUtenforNorge !=null){
+            return ja(regelId)
         }
-        return ja(regelId)
+        return nei(regelId)
 
     }
 
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): ArbeidUtenforNorgeBrukerSporsmaalRegel {
-            return ArbeidUtenforNorgeBrukerSporsmaalRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): HarBrukerOppgittArbeidUtenforNorgeNyModell {
+            return HarBrukerOppgittArbeidUtenforNorgeNyModell(
                 ytelse = datagrunnlag.ytelse,
                 startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput

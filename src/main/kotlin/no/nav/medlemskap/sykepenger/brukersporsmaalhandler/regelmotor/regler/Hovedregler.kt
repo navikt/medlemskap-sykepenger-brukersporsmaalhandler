@@ -8,20 +8,20 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regel.Comp
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat.Companion.finnÅrsaker
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.GammelkjøringResultat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ArbeiderBrukeriToLandRegelFlyt
 
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ReglerForBrukerSporsmaal
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.norskeborgere.ReglerForOppholdUtenforEOS
 
 class Hovedregler(private val kjøring: Kjøring) {
 
-    private val reglerForBrukerSporsmaal = ReglerForBrukerSporsmaal.fraDatagrunnlag(kjøring.datagrunnlag)
     fun kjørHovedregler(): Resultat {
 
         val ytelse = Ytelse.SYKEPENGER
         val resultater = mutableListOf<Resultat>()
-
-        val brukerspørsmålResultat = reglerForBrukerSporsmaal.kjørRegel()
-        resultater.add(brukerspørsmålResultat)
+        val arbeidItoLand = ArbeiderBrukeriToLandRegelFlyt.fraDatagrunnlag(kjøring.datagrunnlag).kjørHovedflyt()
+        resultater.add(arbeidItoLand)
+        //val brukerspørsmålResultat = reglerForBrukerSporsmaal.kjørRegel()
+        //resultater.add(brukerspørsmålResultat)
         val fakta:MutableList<Fakta> = utledFaktaFraForrigekjoring(kjøring.resultat)
         val faktum = fakta.map { it.faktum }.toList()
         if (faktum.contains(Faktum.NORSK_BORGER)){

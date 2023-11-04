@@ -5,11 +5,13 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.RegelFactory
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.konklusjonJa
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.konklusjonNei
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.konklusjonUavklart
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.medlemskonklusjonUavklart
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.InputPeriode
 
-class ReglerForBrukerSporsmaal(
+class ArbeiderBrukeriToLandRegelFlyt(
     val periode: InputPeriode,
     ytelse: Ytelse,
     regelFactory: RegelFactory,
@@ -17,11 +19,20 @@ class ReglerForBrukerSporsmaal(
 
     override fun hentHovedflyt(): Regelflyt {
 
-        return lagRegelflyt(
-            regel = hentRegel(RegelId.SP6001),
-            hvisJa = medlemskonklusjonUavklart(ytelse),
-            hvisNei = konklusjonJa(ytelse)
+       val arbeidUtlandOppgittGammelModellRegel = lagRegelflyt(
+           regel = hentRegel(RegelId.SP6100),
+           hvisJa = konklusjonUavklart(ytelse,RegelId.ARBEID_I_TO_LAND),
+           hvisNei = konklusjonNei(ytelse,RegelId.ARBEID_I_TO_LAND),
+           hvisUavklart = medlemskonklusjonUavklart(ytelse)
+       )
+
+        val harBrukerOppgittArbeidUtenforNorgeNyModell = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6110),
+            hvisJa = konklusjonUavklart(ytelse,RegelId.ARBEID_I_TO_LAND),
+            hvisNei = arbeidUtlandOppgittGammelModellRegel
         )
+
+        return harBrukerOppgittArbeidUtenforNorgeNyModell
     }
 
     fun kjørRegel(): Resultat {
@@ -29,9 +40,9 @@ class ReglerForBrukerSporsmaal(
     }
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): ReglerForBrukerSporsmaal {
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): ArbeiderBrukeriToLandRegelFlyt {
             with(datagrunnlag) {
-                return ReglerForBrukerSporsmaal(
+                return ArbeiderBrukeriToLandRegelFlyt(
                     periode = periode,
                     ytelse = ytelse,
                     regelFactory = RegelFactory(datagrunnlag)
