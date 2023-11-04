@@ -10,7 +10,8 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Gam
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ArbeiderBrukeriToLandRegelFlyt
 
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.norskeborgere.ReglerForOppholdUtenforEOS
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforEOS
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.ReglerForUtsjekkAvGammelRegelMotorNorskeBorgere
 
 class Hovedregler(private val kjøring: Kjøring) {
 
@@ -20,8 +21,7 @@ class Hovedregler(private val kjøring: Kjøring) {
         val resultater = mutableListOf<Resultat>()
         val arbeidItoLand = ArbeiderBrukeriToLandRegelFlyt.fraDatagrunnlag(kjøring.datagrunnlag).kjørHovedflyt()
         resultater.add(arbeidItoLand)
-        //val brukerspørsmålResultat = reglerForBrukerSporsmaal.kjørRegel()
-        //resultater.add(brukerspørsmålResultat)
+
         val fakta:MutableList<Fakta> = utledFaktaFraForrigekjoring(kjøring.resultat)
         val faktum = fakta.map { it.faktum }.toList()
         if (faktum.contains(Faktum.NORSK_BORGER)){
@@ -67,6 +67,7 @@ class Hovedregler(private val kjøring: Kjøring) {
     private fun kjørReglerForNorskeBorgere(): List<Resultat> {
         return listOf(
             ReglerForOppholdUtenforEOS.fraDatagrunnlag(kjøring.datagrunnlag),
+            ReglerForUtsjekkAvGammelRegelMotorNorskeBorgere.fraDatagrunnlag(kjøring.datagrunnlag,kjøring.resultat.årsaker),
         ).map { it.kjørHovedflyt() }
     }
 

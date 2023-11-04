@@ -140,7 +140,8 @@ enum class Faktum {
     TREDJELANDSBORGER,
     EØS_BORGER,
     TREDJELANDSBORGER_MED_EOS_FAMILIE,
-    NORSK_BORGER
+    NORSK_BORGER,
+    IKKE_SJEKKET_UT,
 
 }
 class Fakta(

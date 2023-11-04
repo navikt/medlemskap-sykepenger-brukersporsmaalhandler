@@ -1,4 +1,4 @@
-package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.norskeborgere
+package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler
 
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.BasisRegel
@@ -11,12 +11,12 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Bru
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import java.time.LocalDate
 
-class FinnesBrukerSvarForOppholdUtenforEØSRegel(
+class HarBrukerOppgittOppholdUtenforEØSRegel(
     ytelse: Ytelse,
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
-) : BasisRegel(RegelId.SP6003, ytelse) {
+) : BasisRegel(RegelId.SP6002, ytelse) {
 
     override fun operasjon(): Resultat {
 
@@ -31,8 +31,8 @@ class FinnesBrukerSvarForOppholdUtenforEØSRegel(
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): FinnesBrukerSvarForOppholdUtenforEØSRegel {
-            return FinnesBrukerSvarForOppholdUtenforEØSRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): HarBrukerOppgittOppholdUtenforEØSRegel {
+            return HarBrukerOppgittOppholdUtenforEØSRegel(
                 ytelse = datagrunnlag.ytelse,
                 startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput

@@ -3,14 +3,11 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler
 import com.fasterxml.jackson.databind.node.ObjectNode
 import mu.KotlinLogging
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.*
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.ReglerService
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Årsak
 import org.apache.kafka.streams.KeyValue
 import java.time.LocalDate
 import net.logstash.logback.argument.StructuredArguments.kv
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.arbeiderItoLand
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.oppholderSegIEØS
 
@@ -88,8 +85,20 @@ class TailService() {
 
     private fun finnAvklaringsPunkter(resultatGammelRegelMotor: Kjøring, responsRegelMotorHale: Resultat): List<avklaring> {
     val avklaringsListe:MutableList<avklaring> = mutableListOf()
-        avklaringsListe.addAll(responsRegelMotorHale.årsaker.map { mapToAvklaring(it) })
-        avklaringsListe.addAll(resultatGammelRegelMotor.resultat.årsaker.map { mapToAvklaringModel2(it) })
+        avklaringsListe.addAll(responsRegelMotorHale.årsaker.filterNot { it.regelId == RegelId.SP6500 }.map { mapToAvklaring(it) })
+        val avklaringerGammelKjøring = resultatGammelRegelMotor.resultat.årsaker.map{mapToAvklaringModel2(it) }
+
+        //håndterer norske borgere
+        if (responsRegelMotorHale.fakta.find { Faktum.NORSK_BORGER == it.faktum } !=null ){
+
+            val kanAlleRegelBruddSjekkesUtNorskeBorgereRegelResultat = responsRegelMotorHale.finnRegelResultat(RegelId.SP6500)
+            val faktum = kanAlleRegelBruddSjekkesUtNorskeBorgereRegelResultat!!.fakta.find { Faktum.IKKE_SJEKKET_UT ==it.faktum }
+            if (faktum != null) {
+                val rest = avklaringerGammelKjøring.filter { faktum.kilde.contains(it.regel_id) }
+                avklaringsListe.addAll(rest)
+            }
+        }
+
         return avklaringsListe
     }
 

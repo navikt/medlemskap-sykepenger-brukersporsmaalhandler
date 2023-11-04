@@ -4,7 +4,6 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.RegelFactory
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.konklusjonJa
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.konklusjonNei
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.konklusjonUavklart
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.medlemskonklusjonUavklart

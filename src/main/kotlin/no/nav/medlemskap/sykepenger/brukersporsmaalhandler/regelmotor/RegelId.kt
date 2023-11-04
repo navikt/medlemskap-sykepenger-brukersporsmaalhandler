@@ -16,6 +16,7 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
     SP6003("Finnes brukersvar for OppholdUtenfor EØS","Finnes brukersvar for OppholdUtenfor EØS","Det finnes ikke brukersvar for OppholdUtenforEØS","Det finnes brukersvar for OppholdUtenforEØS"),
     ARBEID_I_TO_LAND("ARBEID_I_TO_LAND", "Er det sansynlig at bruker arbeider  i to land?"),
     SP6120("ArbeidUtlandNyModell","har bruker oppgitt JA i arbeid utland ny modell","bruker har  oppgitt NEI i arbeid utland ny modell","bruker har oppgitt JA i arbeid utland ny modell"),
+    SP6500("Regelutsjekk Norske borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk"),
 
     ;
 
