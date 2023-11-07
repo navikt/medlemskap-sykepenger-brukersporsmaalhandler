@@ -36,7 +36,7 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
         return Resultat(
             regelId = RegelId.SP6500,
             svar = Svar.NEI,
-            fakta = listOf(Fakta(Faktum.IKKE_SJEKKET_UT,toBeControlled.map { it.regelId }))
+            utledetInformasjon = listOf(UtledetInformasjon(Informasjon.IKKE_SJEKKET_UT,toBeControlled.map { it.regelId }))
         )
     }
 

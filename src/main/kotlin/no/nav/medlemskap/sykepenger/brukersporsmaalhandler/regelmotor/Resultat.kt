@@ -11,7 +11,7 @@ data class Resultat(
     val begrunnelse: String = regelId.begrunnelse(svar),
     var harDekning: Svar? = null,
     var dekning: String = "",
-    var fakta: List<Fakta> = listOf(),
+    var utledetInformasjon: List<UtledetInformasjon> = listOf(),
     val delresultat: List<Resultat> = listOf(),
     private val konklusjonstype: Konklusjonstype = Konklusjonstype.REGEL,
     private val årsak: Årsak? = null,
@@ -136,7 +136,7 @@ data class Resultat(
     }
 }
 
-enum class Faktum {
+enum class Informasjon {
     TREDJELANDSBORGER,
     EØS_BORGER,
     TREDJELANDSBORGER_MED_EOS_FAMILIE,
@@ -144,7 +144,7 @@ enum class Faktum {
     IKKE_SJEKKET_UT,
 
 }
-class Fakta(
-    val faktum: Faktum?,
+class UtledetInformasjon(
+    val informasjon: Informasjon?,
     val kilde:List<String> = listOf()
 )

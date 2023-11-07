@@ -1,7 +1,7 @@
 
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain
 
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Fakta
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.UtledetInformasjon
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 import java.time.LocalDate
@@ -13,8 +13,8 @@ data class Konklusjon(
     val status: Svar,
     val lovvalg:Lovvalg?,
     val medlemskap:Medlemskap?,
-    val dekning:Dekning?,
-    val fakta: List<Fakta> = emptyList(),
+    val dekningForSP:DekningsAltrnativer = DekningsAltrnativer.UAVKLART,
+    val utledetInformasjoner: List<UtledetInformasjon> = emptyList(),
     val reglerKjørt: List<Resultat> = listOf(),
     val avklaringsListe: List<avklaring> = emptyList()
 )
@@ -40,10 +40,22 @@ data class Medlemskap(
     //val avklaringsListe: List<avklaring>
 )
 
-data class Dekning(
-    val dekning:String,
-    //val avklaringsListe: List<avklaring>
-)
 
+
+enum class DekningsAltrnativer{
+    JA,
+    NEI,
+    UAVKLART
+
+}
+
+enum class Trygdeavtale{ //er omfattet av en trygdeavtale
+    JA,
+    NEI,
+    UAVKLART
+
+}
+
+//utledet_informasjon
 
 

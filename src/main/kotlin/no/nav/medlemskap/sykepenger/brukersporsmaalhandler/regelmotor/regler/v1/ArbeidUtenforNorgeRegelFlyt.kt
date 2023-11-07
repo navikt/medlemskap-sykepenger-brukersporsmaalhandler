@@ -10,7 +10,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.InputPeriode
 
-class ArbeiderBrukeriToLandRegelFlyt(
+class ArbeidUtenforNorgeRegelFlyt(
     val periode: InputPeriode,
     ytelse: Ytelse,
     regelFactory: RegelFactory,
@@ -39,9 +39,9 @@ class ArbeiderBrukeriToLandRegelFlyt(
     }
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): ArbeiderBrukeriToLandRegelFlyt {
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): ArbeidUtenforNorgeRegelFlyt {
             with(datagrunnlag) {
-                return ArbeiderBrukeriToLandRegelFlyt(
+                return ArbeidUtenforNorgeRegelFlyt(
                     periode = periode,
                     ytelse = ytelse,
                     regelFactory = RegelFactory(datagrunnlag)

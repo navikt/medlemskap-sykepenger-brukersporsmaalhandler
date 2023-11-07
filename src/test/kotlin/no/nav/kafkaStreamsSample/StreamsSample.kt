@@ -62,7 +62,6 @@ fun domapping(t: String?) :String?{
                 status = Svar.UAVKLART,
                 lovvalg = null,
                 medlemskap = null,
-                dekning = null,
                 avklaringsListe = listOf(
                     avklaring(
                         regel_id = "SP6001",
@@ -107,7 +106,6 @@ fun domapping2(t: String?) :String?{
                 status = Svar.UAVKLART,
                 lovvalg = null,
                 medlemskap = null,
-                dekning = null,
                 avklaringsListe = listOf(
                     avklaring(
                         regel_id = "SP6001",
@@ -133,7 +131,7 @@ fun domapping2(t: String?) :String?{
                 status = Svar.JA,
                 lovvalg = Lovvalg("NOR"),
                 medlemskap = Medlemskap("JA","§2-1"),
-                dekning = Dekning("FULL"),
+                dekningForSP = DekningsAltrnativer.JA,
                 avklaringsListe = listOf(
                     avklaring(
                         regel_id = "SP6001",

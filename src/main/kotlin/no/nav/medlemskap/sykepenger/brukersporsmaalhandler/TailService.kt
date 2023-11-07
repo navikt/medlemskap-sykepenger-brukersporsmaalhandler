@@ -42,18 +42,16 @@ class TailService() {
 
     private fun lagKonklusjon(resultatGammelRegelMotor: Kjøring, responsRegelMotorHale: Resultat): Konklusjon {
 
-        println("Arbeider i to land : ${responsRegelMotorHale.arbeiderItoLand()?.name}")
-        println("Oppholder seg i EØS : ${responsRegelMotorHale.oppholderSegIEØS()?.name}")
         if (responsRegelMotorHale.svar == Svar.JA){
             return Konklusjon(
                 dato = LocalDate.now(),
                 status = Svar.JA,
                 lovvalg = null,
-                dekning = Dekning("FULL"),
+                dekningForSP = DekningsAltrnativer.JA,
                 medlemskap = Medlemskap("JA","§2-1"),
                 avklaringsListe = emptyList(),
                 reglerKjørt = responsRegelMotorHale.delresultat,
-                fakta = responsRegelMotorHale.fakta
+                utledetInformasjoner = responsRegelMotorHale.utledetInformasjon
             )
         }
         else if (responsRegelMotorHale.svar == Svar.NEI){
@@ -61,11 +59,11 @@ class TailService() {
                 dato = LocalDate.now(),
                 status = Svar.NEI,
                 lovvalg = null,
-                dekning =null,
+                dekningForSP = DekningsAltrnativer.NEI,
                 medlemskap = Medlemskap("NEI",""),
                 reglerKjørt = responsRegelMotorHale.delresultat,
                 avklaringsListe = emptyList(),
-                fakta = responsRegelMotorHale.fakta
+                utledetInformasjoner = responsRegelMotorHale.utledetInformasjon
             )
         }
         else{
@@ -74,11 +72,11 @@ class TailService() {
                 dato = LocalDate.now(),
                 status = Svar.UAVKLART,
                 lovvalg = null,
-                dekning =null,
+                dekningForSP = DekningsAltrnativer.UAVKLART,
                 medlemskap = null,
                 reglerKjørt = responsRegelMotorHale.delresultat,
                 avklaringsListe = finnAvklaringsPunkter(resultatGammelRegelMotor,responsRegelMotorHale),
-                fakta = responsRegelMotorHale.fakta
+                utledetInformasjoner = responsRegelMotorHale.utledetInformasjon
             )
         }
     }
@@ -89,17 +87,39 @@ class TailService() {
         val avklaringerGammelKjøring = resultatGammelRegelMotor.resultat.årsaker.map{mapToAvklaringModel2(it) }
 
         //håndterer norske borgere
-        if (responsRegelMotorHale.fakta.find { Faktum.NORSK_BORGER == it.faktum } !=null ){
-
-            val kanAlleRegelBruddSjekkesUtNorskeBorgereRegelResultat = responsRegelMotorHale.finnRegelResultat(RegelId.SP6500)
-            val faktum = kanAlleRegelBruddSjekkesUtNorskeBorgereRegelResultat!!.fakta.find { Faktum.IKKE_SJEKKET_UT ==it.faktum }
-            if (faktum != null) {
-                val rest = avklaringerGammelKjøring.filter { faktum.kilde.contains(it.regel_id) }
-                avklaringsListe.addAll(rest)
-            }
+        if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.NORSK_BORGER == it.informasjon } !=null ){
+            avklaringsListe.addAll(finnAvklaringerSomIkkeErSjekketUt(avklaringerGammelKjøring,responsRegelMotorHale,RegelId.SP6500))
+        }
+        //håndterer EØS borgere
+        else if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.EØS_BORGER == it.informasjon } !=null ){
+            avklaringsListe.addAll(avklaringerGammelKjøring)
+        }
+        //håndterer EØS borgere
+        else if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.TREDJELANDSBORGER == it.informasjon } !=null ){
+            avklaringsListe.addAll(avklaringerGammelKjøring)
+        }
+        else if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE == it.informasjon } !=null ){
+            avklaringsListe.addAll(avklaringerGammelKjøring)
         }
 
         return avklaringsListe
+    }
+
+    private fun finnAvklaringerSomIkkeErSjekketUt(
+        avklaringerGammelKjøring: List<avklaring>,
+        responsRegelMotorHale: Resultat,
+        regelId: RegelId
+    ): List<avklaring> {
+        val kanAlleRegelBruddSjekkesUtRegelResultat = responsRegelMotorHale.finnRegelResultat(regelId)
+        if (kanAlleRegelBruddSjekkesUtRegelResultat == null){
+            return avklaringerGammelKjøring
+        }
+        val faktum = kanAlleRegelBruddSjekkesUtRegelResultat!!.utledetInformasjon.find { Informasjon.IKKE_SJEKKET_UT ==it.informasjon }
+        if (faktum != null) {
+            val rest = avklaringerGammelKjøring.filter { faktum.kilde.contains(it.regel_id) }
+           return rest
+        }
+        return emptyList()
     }
 
     private fun mapToAvklaringModel2(aarsak: no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Årsak):avklaring {

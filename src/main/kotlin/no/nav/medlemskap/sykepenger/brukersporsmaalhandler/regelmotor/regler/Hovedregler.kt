@@ -1,6 +1,5 @@
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler
 
-
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regel.Companion.jaKonklusjon
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regel.Companion.neiKonklusjon
@@ -8,7 +7,8 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regel.Comp
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat.Companion.finnÅrsaker
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.GammelkjøringResultat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ArbeiderBrukeriToLandRegelFlyt
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ArbeidUtenforNorgeRegelFlyt
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.SkalHaleFlytUtføresRegel
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforEOS
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.ReglerForUtsjekkAvGammelRegelMotorNorskeBorgere
@@ -19,42 +19,55 @@ class Hovedregler(private val kjøring: Kjøring) {
 
         val ytelse = Ytelse.SYKEPENGER
         val resultater = mutableListOf<Resultat>()
-        val arbeidItoLand = ArbeiderBrukeriToLandRegelFlyt.fraDatagrunnlag(kjøring.datagrunnlag).kjørHovedflyt()
-        resultater.add(arbeidItoLand)
 
-        val fakta:MutableList<Fakta> = utledFaktaFraForrigekjoring(kjøring.resultat)
-        val faktum = fakta.map { it.faktum }.toList()
-        if (faktum.contains(Faktum.NORSK_BORGER)){
-            resultater.addAll(kjørReglerForNorskeBorgere())
-        }
-        else if (faktum.contains(Faktum.EØS_BORGER) && !faktum.contains(Faktum.NORSK_BORGER)){
-            resultater.addAll(kjørReglerForEøsBorgere())
+        val utledetInformasjon:MutableList<UtledetInformasjon> = utledFaktaFraForrigekjoring(kjøring.resultat)
+        val skalHaleFlytkjøresResultat = SkalHaleFlytUtføresRegel.fraDatagrunnlag(kjøring).utfør()
+        resultater.add(skalHaleFlytkjøresResultat)
+        if (Svar.JA == skalHaleFlytkjøresResultat.svar){
+
+            val arbeidItoLand = ArbeidUtenforNorgeRegelFlyt.fraDatagrunnlag(kjøring.datagrunnlag).kjørHovedflyt()
+            resultater.add(arbeidItoLand)
+
+            val faktum = utledetInformasjon.map { it.informasjon }.toList()
+            if (faktum.contains(Informasjon.NORSK_BORGER)){
+                resultater.addAll(kjørReglerForNorskeBorgere())
+            }
+            else if (faktum.contains(Informasjon.EØS_BORGER) && !faktum.contains(Informasjon.NORSK_BORGER)){
+                resultater.addAll(kjørReglerForEøsBorgere())
+            }
+            else{
+                resultater.addAll(kjørReglerForTredjelandsborgere())
+            }
         }
         else{
-            resultater.addAll(kjørReglerForTredjelandsborgere())
+            //hale skal ikke kjøres!!!
+
+            val respons =  lagKonklusjon(uavklartResultat(ytelse), resultater)
+            respons.utledetInformasjon = utledetInformasjon
+            return respons
         }
 
         val respons = utledResultat(ytelse, resultater)
-        respons.fakta = fakta
+        respons.utledetInformasjon = utledetInformasjon
         return respons
     }
 
-    private fun utledFaktaFraForrigekjoring(resultat: GammelkjøringResultat): MutableList<Fakta> {
-        val fakta = mutableListOf<Fakta>()
+    private fun utledFaktaFraForrigekjoring(resultat: GammelkjøringResultat): MutableList<UtledetInformasjon> {
+        val fakta = mutableListOf<UtledetInformasjon>()
         if (kjøring.resultat.erNorskBorger()){
-            fakta.add(Fakta(Faktum.NORSK_BORGER, listOf(RegelId.REGEL_11.name)))
+            fakta.add(UtledetInformasjon(Informasjon.NORSK_BORGER, listOf(RegelId.REGEL_11.name)))
         }
         if (kjøring.resultat.erEøsBorger()){
-            fakta.add(Fakta(Faktum.EØS_BORGER, listOf(RegelId.REGEL_2.name)))
+            fakta.add(UtledetInformasjon(Informasjon.EØS_BORGER, listOf(RegelId.REGEL_2.name)))
         }
 
         if (kjøring.resultat.erFamilieEOS()){
-            fakta.add(Fakta(Faktum.TREDJELANDSBORGER_MED_EOS_FAMILIE, listOf("REGEL_11","REGEL_2")))
+            fakta.add(UtledetInformasjon(Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE, listOf("REGEL_11","REGEL_2")))
         }
 
 
         if (!kjøring.resultat.erNorskBorger() && !kjøring.resultat.erEøsBorger() && !kjøring.resultat.erFamilieEOS()){
-            fakta.add(Fakta(Faktum.TREDJELANDSBORGER, listOf("REGEL_28","REGEL_29")))
+            fakta.add(UtledetInformasjon(Informasjon.TREDJELANDSBORGER, listOf("REGEL_28","REGEL_29")))
         }
         return fakta
     }
