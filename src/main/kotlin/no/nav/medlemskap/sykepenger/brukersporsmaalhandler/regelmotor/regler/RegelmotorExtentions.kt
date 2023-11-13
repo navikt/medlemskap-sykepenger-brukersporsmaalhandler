@@ -5,7 +5,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 
 fun Resultat.arbeiderItoLand(): Svar? {
-   return  this.finnRegelResultat(RegelId.ARBEID_I_TO_LAND)?.svar
+   return  this.finnRegelResultat(RegelId.ARBEID_UTLAND_FLYT)?.svar
 }
 
 fun Resultat.oppholderSegIEØS(): Svar? {

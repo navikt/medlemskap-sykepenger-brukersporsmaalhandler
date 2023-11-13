@@ -42,6 +42,30 @@ class TailService() {
 
     private fun lagKonklusjon(resultatGammelRegelMotor: Kjøring, responsRegelMotorHale: Resultat): Konklusjon {
 
+        if (Svar.JA == resultatGammelRegelMotor.resultat.svar){
+            return Konklusjon(
+                dato = resultatGammelRegelMotor.tidspunkt.toLocalDate(),
+                status = Svar.JA,
+                lovvalg = null,
+                dekningForSP = DekningsAltrnativer.UAVKLART,
+                medlemskap = Medlemskap("JA",""),
+                avklaringsListe = emptyList(),
+                reglerKjørt = responsRegelMotorHale.delresultat,
+                utledetInformasjoner = responsRegelMotorHale.utledetInformasjon
+            )
+        }
+        if (Svar.NEI == resultatGammelRegelMotor.resultat.svar){
+            return Konklusjon(
+                dato = resultatGammelRegelMotor.tidspunkt.toLocalDate(),
+                status = Svar.NEI,
+                lovvalg = null,
+                dekningForSP = DekningsAltrnativer.UAVKLART,
+                medlemskap = Medlemskap("JA",""),
+                avklaringsListe = finnAvklaringsPunkter(resultatGammelRegelMotor,responsRegelMotorHale),
+                reglerKjørt = responsRegelMotorHale.delresultat,
+                utledetInformasjoner = responsRegelMotorHale.utledetInformasjon
+            )
+        }
         if (responsRegelMotorHale.svar == Svar.JA){
             return Konklusjon(
                 dato = LocalDate.now(),

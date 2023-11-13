@@ -4,9 +4,9 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.RegelFactory
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.konklusjonNei
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.konklusjonUavklart
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.medlemskonklusjonUavklart
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.regelflytJa
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.InputPeriode
 
@@ -20,14 +20,20 @@ class ArbeidUtenforNorgeRegelFlyt(
 
        val arbeidUtlandOppgittGammelModellRegel = lagRegelflyt(
            regel = hentRegel(RegelId.SP6100),
-           hvisJa = konklusjonUavklart(ytelse,RegelId.ARBEID_I_TO_LAND),
-           hvisNei = konklusjonNei(ytelse,RegelId.ARBEID_I_TO_LAND),
+           hvisJa = konklusjonUavklart(ytelse,RegelId.ARBEID_UTLAND_FLYT),
+           hvisNei = regelflytJa(ytelse,RegelId.ARBEID_UTLAND_FLYT),
            hvisUavklart = medlemskonklusjonUavklart(ytelse)
        )
 
+        val harBrukerSvartNeiIArbeidUtlandNyModell = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6120),
+            hvisJa = regelflytJa(ytelse,RegelId.ARBEID_UTLAND_FLYT),
+            hvisNei = konklusjonUavklart(ytelse,RegelId.ARBEID_UTLAND_FLYT),
+        )
+
         val harBrukerOppgittArbeidUtenforNorgeNyModell = lagRegelflyt(
             regel = hentRegel(RegelId.SP6110),
-            hvisJa = konklusjonUavklart(ytelse,RegelId.ARBEID_I_TO_LAND),
+            hvisJa = harBrukerSvartNeiIArbeidUtlandNyModell,
             hvisNei = arbeidUtlandOppgittGammelModellRegel
         )
 

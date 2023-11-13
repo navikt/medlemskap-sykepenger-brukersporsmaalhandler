@@ -11,7 +11,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Bru
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import java.time.LocalDate
 
-class HarBrukerSvartJAForArbeidUtenforNorgeNyModell(
+class HarBrukerSvartNeiForArbeidUtenforNorgeNyModell(
     ytelse: Ytelse,
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
@@ -20,7 +20,7 @@ class HarBrukerSvartJAForArbeidUtenforNorgeNyModell(
 
     override fun operasjon(): Resultat {
 
-        if (brukerInput!=null && brukerInput.utfortAarbeidUtenforNorge?.svar != false){
+        if (brukerInput!=null && brukerInput.utfortAarbeidUtenforNorge?.svar == false){
             return ja(regelId)
         }
         return nei(regelId)
@@ -30,8 +30,8 @@ class HarBrukerSvartJAForArbeidUtenforNorgeNyModell(
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): HarBrukerSvartJAForArbeidUtenforNorgeNyModell {
-            return HarBrukerSvartJAForArbeidUtenforNorgeNyModell(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): HarBrukerSvartNeiForArbeidUtenforNorgeNyModell {
+            return HarBrukerSvartNeiForArbeidUtenforNorgeNyModell(
                 ytelse = datagrunnlag.ytelse,
                 startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput

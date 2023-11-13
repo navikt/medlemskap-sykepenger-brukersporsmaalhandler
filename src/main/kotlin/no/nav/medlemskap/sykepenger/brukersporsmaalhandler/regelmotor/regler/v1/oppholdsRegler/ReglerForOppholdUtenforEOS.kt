@@ -3,6 +3,7 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.RegelId
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.regelflytJa
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.regelflytNei
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regler
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Ytelse
@@ -19,15 +20,14 @@ class ReglerForOppholdUtenforEOS(
     override fun hentHovedflyt(): Regelflyt {
 
 
-        val harbrukerOppgittJaIOppholdUtenforEOS = lagRegelflyt(
+        val harbrukerOppgittNeiIOppholdUtenforEOS = lagRegelflyt(
             regel = hentRegel(RegelId.SP6002),
-            hvisJa = Regelflyt.medlemskonklusjonUavklart(ytelse),
-            hvisNei = regelflytNei(ytelse, RegelId.SP6002)
+            hvisJa = regelflytJa(ytelse, RegelId.SP6002),
+            hvisNei = Regelflyt.medlemskonklusjonUavklart(ytelse),
         )
-
         val finnesBrukerSvarForOppholdUtenforEØS = lagRegelflyt(
             regel = hentRegel(RegelId.SP6003),
-            hvisJa = harbrukerOppgittJaIOppholdUtenforEOS,
+            hvisJa = harbrukerOppgittNeiIOppholdUtenforEOS,
             hvisNei = Regelflyt.medlemskonklusjonUavklart(ytelse),
         )
 

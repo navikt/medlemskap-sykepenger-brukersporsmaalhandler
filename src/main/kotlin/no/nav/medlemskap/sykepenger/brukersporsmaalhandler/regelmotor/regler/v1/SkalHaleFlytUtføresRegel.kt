@@ -19,7 +19,7 @@ class SkalHaleFlytUtføresRegel(
 
     override fun operasjon(): Resultat {
 
-        if (1 == resultatGammelRegelMotor?.årsaker?.size  && resultatGammelRegelMotor.årsaker.first().regelId == "REGEL_C"){
+        if (1 == resultatGammelRegelMotor?.årsaker?.size  && resultatGammelRegelMotor.årsaker.first().regelId == "REGEL_3"){
             return ja(regelId)
         }
         else{

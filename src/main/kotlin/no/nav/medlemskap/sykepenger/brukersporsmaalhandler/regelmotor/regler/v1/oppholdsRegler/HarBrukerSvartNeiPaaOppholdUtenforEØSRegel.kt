@@ -11,7 +11,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Bru
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import java.time.LocalDate
 
-class HarBrukerOppgittOppholdUtenforEØSRegel(
+class HarBrukerSvartNeiPaaOppholdUtenforEØSRegel(
     ytelse: Ytelse,
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
@@ -21,18 +21,18 @@ class HarBrukerOppgittOppholdUtenforEØSRegel(
     override fun operasjon(): Resultat {
 
 
-        if (brukerInput!=null && brukerInput.oppholdUtenforEos==null){
-            return nei(regelId)
+        if (brukerInput?.oppholdUtenforEos != null && !brukerInput.oppholdUtenforEos!!.svar){
+            return ja(regelId)
         }
-        return ja(regelId)
+        return nei(regelId)
 
     }
 
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): HarBrukerOppgittOppholdUtenforEØSRegel {
-            return HarBrukerOppgittOppholdUtenforEØSRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): HarBrukerSvartNeiPaaOppholdUtenforEØSRegel {
+            return HarBrukerSvartNeiPaaOppholdUtenforEØSRegel(
                 ytelse = datagrunnlag.ytelse,
                 startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput
