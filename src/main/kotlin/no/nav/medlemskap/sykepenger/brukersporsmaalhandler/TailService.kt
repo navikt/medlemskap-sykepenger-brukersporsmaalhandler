@@ -113,17 +113,22 @@ class TailService() {
         //håndterer norske borgere
         if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.NORSK_BORGER == it.informasjon } !=null ){
             avklaringsListe.addAll(finnAvklaringerSomIkkeErSjekketUt(avklaringerGammelKjøring,responsRegelMotorHale,RegelId.SP6500))
+            return avklaringsListe.filterNot { it.regel_id == RegelId.SP6500.name }
         }
         //håndterer EØS borgere
         else if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.EØS_BORGER == it.informasjon } !=null ){
-            avklaringsListe.addAll(avklaringerGammelKjøring)
+            avklaringsListe.addAll(finnAvklaringerSomIkkeErSjekketUt(avklaringerGammelKjøring,responsRegelMotorHale,RegelId.SP6600))
+            return avklaringsListe.filterNot { it.regel_id == RegelId.SP6600.name }
         }
-        //håndterer EØS borgere
+        //håndterer 3 lands borgere
         else if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.TREDJELANDSBORGER == it.informasjon } !=null ){
             avklaringsListe.addAll(avklaringerGammelKjøring)
+            return avklaringsListe
         }
+        //håndterer 3 lands borgere med EOS familie
         else if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE == it.informasjon } !=null ){
             avklaringsListe.addAll(avklaringerGammelKjøring)
+            return avklaringsListe
         }
 
         return avklaringsListe

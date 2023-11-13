@@ -1,4 +1,4 @@
-package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk
+package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.eosborgere
 
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.RegelId
@@ -12,7 +12,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Inp
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Årsak
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.RegelFactory
 
-class ReglerForUtsjekkAvGammelRegelMotorNorskeBorgere(
+class ReglerForUtsjekkAvGammelRegelMotorEOSBorgere(
     val periode: InputPeriode,
     ytelse: Ytelse,
     regelFactory: RegelFactory,
@@ -21,20 +21,20 @@ class ReglerForUtsjekkAvGammelRegelMotorNorskeBorgere(
     override fun hentHovedflyt(): Regelflyt {
 
 
-        val kanAlleRegelBruddSjekkesUtNorskeBorgere = lagRegelflyt(
-            regel = hentRegel(RegelId.SP6500),
+        val kanAlleRegelBruddSjekkesUtEOSBorgere = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6600),
             hvisJa = regelflytJa(ytelse, RegelId.REGEL_UTSJEKK),
             hvisNei = regelflytUavklart(ytelse,RegelId.REGEL_UTSJEKK),
         )
 
 
-        return kanAlleRegelBruddSjekkesUtNorskeBorgere
+        return kanAlleRegelBruddSjekkesUtEOSBorgere
     }
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag,årsaker:List<Årsak>): ReglerForUtsjekkAvGammelRegelMotorNorskeBorgere {
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag,årsaker:List<Årsak>): ReglerForUtsjekkAvGammelRegelMotorEOSBorgere {
 
-            return ReglerForUtsjekkAvGammelRegelMotorNorskeBorgere(
+            return ReglerForUtsjekkAvGammelRegelMotorEOSBorgere(
                 periode = datagrunnlag.periode,
                 ytelse = datagrunnlag.ytelse,
                 regelFactory = RegelFactory(datagrunnlag, årsaker = årsaker),

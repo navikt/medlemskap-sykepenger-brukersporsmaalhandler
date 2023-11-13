@@ -12,6 +12,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforEOS
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.ReglerForUtsjekkAvGammelRegelMotorNorskeBorgere
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.eosborgere.ReglerForUtsjekkAvGammelRegelMotorEOSBorgere
 
 class Hovedregler(private val kjøring: Kjøring) {
 
@@ -85,7 +86,10 @@ class Hovedregler(private val kjøring: Kjøring) {
     }
 
     private fun kjørReglerForEøsBorgere(): List<Resultat> {
-        return emptyList()
+        return listOf(
+            ReglerForOppholdUtenforEOS.fraDatagrunnlag(kjøring.datagrunnlag),
+            ReglerForUtsjekkAvGammelRegelMotorEOSBorgere.fraDatagrunnlag(kjøring.datagrunnlag,kjøring.resultat.årsaker),
+        ).map { it.kjørHovedflyt() }
     }
 
     private fun kjørFellesRegler(): List<Resultat> {

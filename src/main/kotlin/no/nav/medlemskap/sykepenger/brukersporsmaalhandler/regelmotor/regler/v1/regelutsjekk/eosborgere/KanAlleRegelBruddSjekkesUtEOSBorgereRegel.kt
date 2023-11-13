@@ -1,4 +1,4 @@
-package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk
+package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.eosborgere
 
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
@@ -7,13 +7,13 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Dat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Årsak
 import java.time.LocalDate
 
-class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
+class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
     ytelse: Ytelse,
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
     private val årsaker: List<Årsak> = emptyList()
 
-    ) : BasisRegel(RegelId.SP6500, ytelse) {
+    ) : BasisRegel(RegelId.SP6600, ytelse) {
         val reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland =
             listOf(
                 "REGEL_3"
@@ -42,8 +42,8 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag,årsaker: List<Årsak>): KanAlleRegelBruddSjekkesUtNorskeBorgereRegel {
-            return KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag,årsaker: List<Årsak>): KanAlleRegelBruddSjekkesUtEOSBorgereRegel {
+            return KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
                 ytelse = datagrunnlag.ytelse,
                 startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput,
