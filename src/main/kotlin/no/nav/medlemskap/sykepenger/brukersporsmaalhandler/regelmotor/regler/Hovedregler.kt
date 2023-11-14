@@ -11,8 +11,10 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.SkalHaleFlytUtføresRegel
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforEOS
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforNorge
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.ReglerForUtsjekkAvGammelRegelMotorNorskeBorgere
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.eosborgere.ReglerForUtsjekkAvGammelRegelMotorEOSBorgere
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.tredelandsborgere.ReglerForUtsjekkAvGammelRegelMotorTredjelandBorgere
 
 class Hovedregler(private val kjøring: Kjøring) {
 
@@ -26,8 +28,8 @@ class Hovedregler(private val kjøring: Kjøring) {
         resultater.add(skalHaleFlytkjøresResultat)
         if (Svar.JA == skalHaleFlytkjøresResultat.svar){
 
-            val arbeidItoLand = ArbeidUtenforNorgeRegelFlyt.fraDatagrunnlag(kjøring.datagrunnlag).kjørHovedflyt()
-            resultater.add(arbeidItoLand)
+            val arbeidutenforNorgeFlyt = ArbeidUtenforNorgeRegelFlyt.fraDatagrunnlag(kjøring.datagrunnlag).kjørHovedflyt()
+            resultater.add(arbeidutenforNorgeFlyt)
 
             val faktum = utledetInformasjon.map { it.informasjon }.toList()
             if (faktum.contains(Informasjon.NORSK_BORGER)){
@@ -36,6 +38,10 @@ class Hovedregler(private val kjøring: Kjøring) {
             else if (faktum.contains(Informasjon.EØS_BORGER) && !faktum.contains(Informasjon.NORSK_BORGER)){
                 resultater.addAll(kjørReglerForEøsBorgere())
             }
+            else if (faktum.contains(Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE)){
+                resultater.addAll(kjørReglerForEøsBorgere())
+            }
+            //3LandsBorgere
             else{
                 resultater.addAll(kjørReglerForTredjelandsborgere())
             }
@@ -75,7 +81,10 @@ class Hovedregler(private val kjøring: Kjøring) {
 
 
     private fun kjørReglerForTredjelandsborgere(): List<Resultat> {
-        return emptyList()
+        return listOf(
+            ReglerForOppholdUtenforNorge.fraDatagrunnlag(kjøring.datagrunnlag),
+            ReglerForUtsjekkAvGammelRegelMotorTredjelandBorgere.fraDatagrunnlag(kjøring.datagrunnlag,kjøring.resultat.årsaker),
+        ).map { it.kjørHovedflyt() }
     }
 
     private fun kjørReglerForNorskeBorgere(): List<Resultat> {

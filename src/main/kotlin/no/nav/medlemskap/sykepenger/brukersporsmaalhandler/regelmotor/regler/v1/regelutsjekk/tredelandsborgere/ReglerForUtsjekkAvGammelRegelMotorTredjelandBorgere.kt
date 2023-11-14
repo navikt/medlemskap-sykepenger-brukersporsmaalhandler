@@ -1,4 +1,4 @@
-package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.eosborgere
+package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.tredelandsborgere
 
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.RegelId
@@ -11,9 +11,8 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Dat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.InputPeriode
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Årsak
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.RegelFactory
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.tredelandsborgere.ReglerForUtsjekkAvGammelRegelMotorTredjelandBorgere
 
-class ReglerForUtsjekkAvGammelRegelMotorEOSBorgere(
+class ReglerForUtsjekkAvGammelRegelMotorTredjelandBorgere(
     val periode: InputPeriode,
     ytelse: Ytelse,
     regelFactory: RegelFactory,
@@ -23,7 +22,7 @@ class ReglerForUtsjekkAvGammelRegelMotorEOSBorgere(
 
 
         val kanAlleRegelBruddSjekkesUtEOSBorgere = lagRegelflyt(
-            regel = hentRegel(RegelId.SP6600),
+            regel = hentRegel(RegelId.SP6700),
             hvisJa = regelflytJa(ytelse, RegelId.REGEL_UTSJEKK),
             hvisNei = regelflytUavklart(ytelse,RegelId.REGEL_UTSJEKK),
         )

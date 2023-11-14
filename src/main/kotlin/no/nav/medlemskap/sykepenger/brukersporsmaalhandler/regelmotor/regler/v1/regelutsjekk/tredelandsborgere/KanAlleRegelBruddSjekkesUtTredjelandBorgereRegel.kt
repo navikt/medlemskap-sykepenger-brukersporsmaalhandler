@@ -1,21 +1,19 @@
-package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.eosborgere
+package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.tredelandsborgere
 
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Brukerinput
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Årsak
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.bådeArbeidUtlandOgOppholdUtenforEOSFalse
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.tredelandsborgere.KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel
 import java.time.LocalDate
 
-class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
+class KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel(
     ytelse: Ytelse,
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
     private val årsaker: List<Årsak> = emptyList()
 
-    ) : BasisRegel(RegelId.SP6600, ytelse) {
+    ) : BasisRegel(RegelId.SP6700, ytelse) {
         val reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland =
             listOf(
                 "REGEL_3"
@@ -28,7 +26,7 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
         val toBeControlled:MutableList<Årsak> = mutableListOf()
         toBeControlled.addAll(årsaker)
         //fjer alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
-        if (true == brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSFalse()){
+        if (true == brukerInput?.bådeArbeidUtlandOgOppholdUtenforNorgeFalse()){
            toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland.contains(it.regelId)}
         }
         if (toBeControlled.isEmpty()){
@@ -53,7 +51,11 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
             )
         }
     }
+
 }
 
+fun Brukerinput.bådeArbeidUtlandOgOppholdUtenforNorgeFalse() :Boolean{
+    return (false == utfortAarbeidUtenforNorge?.svar) && (false == oppholdUtenforNorge?.svar)
+}
 
 

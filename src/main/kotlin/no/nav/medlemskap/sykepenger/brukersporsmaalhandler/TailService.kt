@@ -60,7 +60,7 @@ class TailService() {
                 status = Svar.NEI,
                 lovvalg = null,
                 dekningForSP = DekningsAltrnativer.UAVKLART,
-                medlemskap = Medlemskap("JA",""),
+                medlemskap = Medlemskap("Nei",""),
                 avklaringsListe = finnAvklaringsPunkter(resultatGammelRegelMotor,responsRegelMotorHale),
                 reglerKjørt = responsRegelMotorHale.delresultat,
                 utledetInformasjoner = responsRegelMotorHale.utledetInformasjon
@@ -122,13 +122,13 @@ class TailService() {
         }
         //håndterer 3 lands borgere
         else if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.TREDJELANDSBORGER == it.informasjon } !=null ){
-            avklaringsListe.addAll(avklaringerGammelKjøring)
-            return avklaringsListe
+            avklaringsListe.addAll(finnAvklaringerSomIkkeErSjekketUt(avklaringerGammelKjøring,responsRegelMotorHale,RegelId.SP6700))
+            return avklaringsListe.filterNot { it.regel_id == RegelId.SP6700.name }
         }
         //håndterer 3 lands borgere med EOS familie
         else if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE == it.informasjon } !=null ){
-            avklaringsListe.addAll(avklaringerGammelKjøring)
-            return avklaringsListe
+            avklaringsListe.addAll(finnAvklaringerSomIkkeErSjekketUt(avklaringerGammelKjøring,responsRegelMotorHale,RegelId.SP6600))
+            return avklaringsListe.filterNot { it.regel_id == RegelId.SP6700.name }
         }
 
         return avklaringsListe
