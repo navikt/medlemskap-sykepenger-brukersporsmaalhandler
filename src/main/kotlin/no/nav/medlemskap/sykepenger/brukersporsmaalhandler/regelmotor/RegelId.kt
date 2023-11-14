@@ -22,7 +22,7 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
     SP6120("ArbeidUtlandNyModell","har bruker oppgitt NEI i arbeid utland ny modell","bruker har  oppgitt JA i arbeid utland ny modell","bruker har oppgitt NEI i arbeid utland ny modell"),
     SP6500("Regelutsjekk Norske borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk"),
     SP6600("Regelutsjekk EOS borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk"),
-    SP6700("Regelutsjekk 3 lanfd borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk"), ;
+    SP6700("Regelutsjekk 3 land borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk"), ;
     ;
 
     fun begrunnelse(svar: Svar): String {

@@ -33,9 +33,9 @@ class ReglerForUtsjekkAvGammelRegelMotorEOSBorgere(
     }
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag,årsaker:List<Årsak>): ReglerForUtsjekkAvGammelRegelMotorTredjelandBorgere {
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag,årsaker:List<Årsak>): ReglerForUtsjekkAvGammelRegelMotorEOSBorgere {
 
-            return ReglerForUtsjekkAvGammelRegelMotorTredjelandBorgere(
+            return ReglerForUtsjekkAvGammelRegelMotorEOSBorgere(
                 periode = datagrunnlag.periode,
                 ytelse = datagrunnlag.ytelse,
                 regelFactory = RegelFactory(datagrunnlag, årsaker = årsaker),

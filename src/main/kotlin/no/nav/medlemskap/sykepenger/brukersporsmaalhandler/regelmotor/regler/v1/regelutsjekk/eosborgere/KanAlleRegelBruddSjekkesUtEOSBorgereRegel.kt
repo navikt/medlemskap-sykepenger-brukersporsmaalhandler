@@ -44,8 +44,8 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag,årsaker: List<Årsak>): KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel {
-            return KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag,årsaker: List<Årsak>): KanAlleRegelBruddSjekkesUtEOSBorgereRegel {
+            return KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
                 ytelse = datagrunnlag.ytelse,
                 startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput,
