@@ -26,6 +26,13 @@ class TailService() {
                 val konklusjonerJson = JacksonParser().ToJson(konklusjoner)
                 val haleRespons: ObjectNode = resultatGammelRegelMotorJson.deepCopy()
                 val t:ObjectNode = haleRespons.set("konklusjon", konklusjonerJson)
+                secureLogger.info("post prosessering ferdig",
+                    kv("gammeltsvar",responsRegelMotorHale.svar.name),
+                    kv("konklusjon",konklusjon.status.name),
+                    kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }),
+                    kv("response",haleRespons.toPrettyString()),
+                    kv("callId",key)
+                )
                 return KeyValue(key,haleRespons.toPrettyString())
             } catch (e: Exception) {
                 logger.error("teknisk feil i regelkjøring: ${e.message}",
@@ -128,7 +135,7 @@ class TailService() {
         //håndterer 3 lands borgere med EOS familie
         else if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE == it.informasjon } !=null ){
             avklaringsListe.addAll(finnAvklaringerSomIkkeErSjekketUt(avklaringerGammelKjøring,responsRegelMotorHale,RegelId.SP6600))
-            return avklaringsListe.filterNot { it.regel_id == RegelId.SP6700.name }
+            return avklaringsListe.filterNot { it.regel_id == RegelId.SP6600.name }
         }
 
         return avklaringsListe
