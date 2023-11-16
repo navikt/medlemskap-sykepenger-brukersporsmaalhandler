@@ -33,6 +33,24 @@ class TailService() {
                     kv("response",haleRespons.toPrettyString()),
                     kv("callId",key)
                 )
+                if (responsRegelMotorHale.svar.name != responsRegelMotorHale.svar.name){
+                    secureLogger.info("post prosessering ferdig. Differanse i svar!",
+                        kv("gammeltsvar",responsRegelMotorHale.svar.name),
+                        kv("konklusjon",konklusjon.status.name),
+                        kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }),
+                        kv("response",haleRespons.toPrettyString()),
+                        kv("callId",key))
+                }
+                else
+                {
+                    secureLogger.info("post prosessering ferdig",
+                        kv("gammeltsvar",responsRegelMotorHale.svar.name),
+                        kv("konklusjon",konklusjon.status.name),
+                        kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }),
+                        kv("response",haleRespons.toPrettyString()),
+                        kv("callId",key)
+                    )
+                }
                 return KeyValue(key,haleRespons.toPrettyString())
             } catch (e: Exception) {
                 logger.error("teknisk feil i regelkjøring: ${e.message}",
