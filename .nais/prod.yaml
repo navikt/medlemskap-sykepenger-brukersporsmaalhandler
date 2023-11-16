@@ -39,6 +39,7 @@ spec:
   secureLogs:
     enabled: true
   kafka:
+    streams: true
     pool: nav-prod
   protected: true
   accessPolicy:
