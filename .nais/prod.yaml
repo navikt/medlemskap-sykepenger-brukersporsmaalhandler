@@ -1,0 +1,53 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: medlemskap-sykepenger-brukersporsmaalhandler
+  namespace: medlemskap
+  labels:
+    team: medlemskap
+spec:
+  gcp:
+  azure:
+    application:
+      enabled: true
+  image: {{image}}
+  liveness:
+    path: "/isAlive"
+    port: 8080
+    initialDelay: 20
+    timeout: 60
+  readiness:
+    path: "/isReady"
+    port: 8080
+    initialDelay: 20
+    timeout: 60
+  ingresses:
+    - https://medlemskap-sykepenger-brukersporsmaalhandler.intern.nav.no
+  replicas:
+    min: 2
+    max: 2
+    cpuThresholdPercentage: 50
+  prometheus:
+    enabled: true
+    path: "/metrics"
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
+  requests:
+    cpu: "200m"
+    memory: "256Mi"
+  secureLogs:
+    enabled: true
+  kafka:
+    streams: true
+    pool: nav-prod
+  protected: true
+  accessPolicy:
+    inbound:
+      rules:
+        - application: medlemskap-sykepenger-listener
+    outbound:
+      rules:
+      external:
+        - host: login.microsoftonline.com
+  env:
