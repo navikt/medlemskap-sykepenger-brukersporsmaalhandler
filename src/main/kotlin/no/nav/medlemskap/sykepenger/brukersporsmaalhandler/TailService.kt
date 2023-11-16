@@ -26,22 +26,25 @@ class TailService() {
                 val konklusjonerJson = JacksonParser().ToJson(konklusjoner)
                 val haleRespons: ObjectNode = resultatGammelRegelMotorJson.deepCopy()
                 val t:ObjectNode = haleRespons.set("konklusjon", konklusjonerJson)
-                if (responsRegelMotorHale.svar.name != responsRegelMotorHale.svar.name){
+                if (resultatGammelRegelMotor.resultat.svar.name != konklusjon.status.name){
                     secureLogger.info("post prosessering ferdig. Differanse i svar!",
-                        kv("gammeltsvar",responsRegelMotorHale.svar.name),
+                        kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
                         kv("konklusjon",konklusjon.status.name),
                         kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }),
                         kv("response",haleRespons.toPrettyString()),
-                        kv("callId",key))
+                        kv("callId",key),
+                        kv("analyse","JA"))
+
                 }
                 else
                 {
                     secureLogger.info("post prosessering ferdig",
-                        kv("gammeltsvar",responsRegelMotorHale.svar.name),
+                        kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
                         kv("konklusjon",konklusjon.status.name),
                         kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }),
                         kv("response",haleRespons.toPrettyString()),
-                        kv("callId",key)
+                        kv("callId",key),
+                        kv("analyse","JA")
                     )
                 }
                 return KeyValue(key,haleRespons.toPrettyString())
