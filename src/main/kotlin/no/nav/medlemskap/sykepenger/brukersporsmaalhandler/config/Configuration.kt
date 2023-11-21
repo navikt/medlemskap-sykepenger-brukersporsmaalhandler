@@ -88,8 +88,7 @@ data class Configuration(
         val keystorePassword: String = "KAFKA_CREDSTORE_PASSWORD".configProperty(),
         val enabled: String = "KAFKA_ENABLED".configProperty(),
         val kafkaEnabled: String = "KAFKA_ENABLED".configProperty(),
-        val topic : String =  "medlemskap.medlemskap-uavklart",
-        val streamFrom : String =  "medlemskap.medlemskap-vurdert",
-        val streamTo : String =  "medlemskap.medlemskap-hale-analyse",
+        val streamFrom : String =  "medlemskap.medlemskap-stage1",
+        val streamTo : String =  "medlemskap.medlemskap-vurdert",
     )
 }
