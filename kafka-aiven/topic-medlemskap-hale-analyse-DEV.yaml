@@ -1,7 +1,7 @@
 apiVersion: kafka.nais.io/v1
 kind: Topic
 metadata:
-  name: medlemskap-hale-analyse
+  name: medlemskap-hale-'analyse
   namespace: medlemskap
   labels:
     team: medlemskap
