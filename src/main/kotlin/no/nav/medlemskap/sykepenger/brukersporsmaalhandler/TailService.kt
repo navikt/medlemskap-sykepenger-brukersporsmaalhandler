@@ -33,7 +33,7 @@ class TailService() {
                         kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }),
                         kv("response",haleRespons.toPrettyString()),
                         kv("callId",key),
-                        kv("analyse","JA"))
+                        kv("analyse","NEI"))
 
                 }
                 else
@@ -44,7 +44,7 @@ class TailService() {
                         kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }),
                         kv("response",haleRespons.toPrettyString()),
                         kv("callId",key),
-                        kv("analyse","JA")
+                        kv("analyse","NEI")
                     )
                 }
                 return KeyValue(key,haleRespons.toPrettyString())

@@ -30,6 +30,7 @@ private val defaultProperties = ConfigurationMap(
         "KAFKA_CREDSTORE_PASSWORD" to "changeme",
         "KAFKA_ENABLED" to "false",
         "AZURE_APP_TENANT_ID" to "966ac572-f5b7-4bbe-aa88-c76419c0f851",
+        "KAFKA_STREAMS_APPLICATION_ID" to "medlemskap.medlemskap-sykepenger-brukersporsmaalhandler_local"
     )
 )
 
@@ -79,7 +80,7 @@ data class Configuration(
         val bootstrapServers: String = "KAFKA_BROKERS".configProperty(),
         val securityProtocol: String = "SSL",
         val trustStorePath: String = "KAFKA_TRUSTSTORE_PATH".configProperty(),
-        val applicationID :String= "medlemskap-hale-analyse",
+        val applicationID :String= "KAFKA_STREAMS_APPLICATION_ID".configProperty(),
         val groupID: String = "medlemskap-sykepenger-listener_v2",
         val flexConsumerGroup: String = "medlemskap-sykepenger-flex-listener",
         val trustStorePassword: String = "KAFKA_CREDSTORE_PASSWORD".configProperty(),
@@ -88,8 +89,7 @@ data class Configuration(
         val keystorePassword: String = "KAFKA_CREDSTORE_PASSWORD".configProperty(),
         val enabled: String = "KAFKA_ENABLED".configProperty(),
         val kafkaEnabled: String = "KAFKA_ENABLED".configProperty(),
-        val topic : String =  "medlemskap.medlemskap-uavklart",
-        val streamFrom : String =  "medlemskap.medlemskap-vurdert",
-        val streamTo : String =  "medlemskap.medlemskap-hale-analyse",
+        val streamFrom : String =  "medlemskap.medlemskap-stage1",
+        val streamTo : String =  "medlemskap.medlemskap-vurdert",
     )
 }

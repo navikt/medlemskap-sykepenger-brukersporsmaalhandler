@@ -1,7 +1,7 @@
 apiVersion: kafka.nais.io/v1
 kind: Topic
 metadata:
-  name: medlemskap-hale-'analyse
+  name: medlemskap-stage1
   namespace: medlemskap
   labels:
     team: medlemskap
@@ -10,11 +10,14 @@ spec:
   config:
     cleanupPolicy: delete
     minimumInSyncReplicas: 1
-    partitions: 2
+    partitions: 1
     replication: 3
     retentionBytes: -1
-    retentionHours: 164
+    retentionHours: 5
   acl:
+    - team: medlemskap
+      application: medlemskap-oppslag
+      access: readwrite
     - team: medlemskap
       application: medlemskap-sykepenger-brukersporsmaalhandler
       access: readwrite
