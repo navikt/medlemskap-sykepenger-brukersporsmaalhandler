@@ -18,6 +18,11 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
             listOf(
                 "REGEL_3"
             )
+        val reglerSomSjekkesUtMedArbeidINorgeTrue =
+        listOf(
+            "REGEL_3","REGEL_9"
+        )
+
     override fun operasjon(): Resultat {
 
         if (årsaker.isEmpty()){
@@ -25,12 +30,16 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
         }
         val toBeControlled:MutableList<Årsak> = mutableListOf()
         toBeControlled.addAll(årsaker)
-        //fjer alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
+        //fjern alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
         if (true == brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSFalse()){
            toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland.contains(it.regelId)}
         }
+
         if (toBeControlled.isEmpty()){
             return Resultat.ja(regelId)
+        }
+        if (true == brukerInput?.arbeidUtlandTrue()){
+            toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeTrue.contains(it.regelId)}
         }
         return Resultat(
             regelId = RegelId.SP6500,
@@ -56,6 +65,9 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
 
 fun Brukerinput.bådeArbeidUtlandOgOppholdUtenforEOSFalse() :Boolean{
     return (false == utfortAarbeidUtenforNorge?.svar) && (false == oppholdUtenforEos?.svar)
+}
+fun Brukerinput.arbeidUtlandTrue() :Boolean{
+    return (true == utfortAarbeidUtenforNorge?.svar)
 }
 
 

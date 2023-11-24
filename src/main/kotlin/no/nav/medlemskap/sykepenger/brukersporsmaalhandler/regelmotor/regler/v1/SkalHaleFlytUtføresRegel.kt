@@ -22,6 +22,13 @@ class SkalHaleFlytUtføresRegel(
         if (1 == resultatGammelRegelMotor?.årsaker?.size  && resultatGammelRegelMotor.årsaker.first().regelId == "REGEL_3"){
             return ja(regelId)
         }
+        if (2 == resultatGammelRegelMotor?.årsaker?.size  &&
+            resultatGammelRegelMotor.årsaker
+            .map { it.regelId }
+            .containsAll(listOf("REGEL_3","REGEL_9"))
+            ) {
+            return ja(regelId)
+            }
         else{
             return nei(regelId)
         }
