@@ -38,7 +38,7 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
         if (toBeControlled.isEmpty()){
             return Resultat.ja(regelId)
         }
-        if (true == brukerInput?.arbeidUtlandTrue()){
+        if (false == brukerInput?.arbeidUtlandTrue()){
             toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeTrue.contains(it.regelId)}
         }
         return Resultat(
