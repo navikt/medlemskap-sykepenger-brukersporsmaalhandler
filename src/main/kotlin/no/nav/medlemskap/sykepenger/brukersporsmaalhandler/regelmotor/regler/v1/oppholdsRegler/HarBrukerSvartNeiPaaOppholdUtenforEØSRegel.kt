@@ -16,7 +16,7 @@ class HarBrukerSvartNeiPaaOppholdUtenforEØSRegel(
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
-) : BasisRegel(RegelId.SP6002, ytelse) {
+) : BasisRegel(RegelId.SP6311, ytelse) {
 
     override fun operasjon(): Resultat {
 

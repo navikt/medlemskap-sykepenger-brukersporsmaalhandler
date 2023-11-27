@@ -9,5 +9,5 @@ fun Resultat.arbeiderItoLand(): Svar? {
 }
 
 fun Resultat.oppholderSegIEØS(): Svar? {
-    return  this.finnRegelResultat(RegelId.SP6002)?.svar
+    return  this.finnRegelResultat(RegelId.SP6311)?.svar
 }
