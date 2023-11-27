@@ -16,7 +16,7 @@ class FinnesBrukerSvarForOppholdUtenforEØSRegel(
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
-) : BasisRegel(RegelId.SP6003, ytelse) {
+) : BasisRegel(RegelId.SP6301, ytelse) {
 
     override fun operasjon(): Resultat {
 

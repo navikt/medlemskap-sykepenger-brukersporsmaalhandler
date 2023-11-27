@@ -21,7 +21,7 @@ class ReglerForOppholdUtenforNorge(
 
         val harbrukerOppgittNeiIOppholdUtenforNorge = lagRegelflyt(
             regel = hentRegel(RegelId.SP6702),
-            hvisJa = regelflytJa(ytelse, RegelId.SP6002),
+            hvisJa = regelflytJa(ytelse, RegelId.SP6311),
             hvisNei = Regelflyt.medlemskonklusjonUavklart(ytelse),
         )
         val finnesBrukerSvarForOppholdUtenforNorge = lagRegelflyt(
