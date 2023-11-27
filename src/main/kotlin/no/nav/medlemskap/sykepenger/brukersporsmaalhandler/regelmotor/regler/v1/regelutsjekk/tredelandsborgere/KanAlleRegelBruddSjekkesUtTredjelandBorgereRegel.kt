@@ -33,7 +33,7 @@ class KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel(
             return Resultat.ja(regelId)
         }
         return Resultat(
-            regelId = RegelId.SP6500,
+            regelId = RegelId.SP6700,
             svar = Svar.NEI,
             utledetInformasjon = listOf(UtledetInformasjon(Informasjon.IKKE_SJEKKET_UT,toBeControlled.map { it.regelId }))
         )
