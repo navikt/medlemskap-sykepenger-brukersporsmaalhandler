@@ -72,10 +72,17 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.mockk:mockk:1.11.0")
     testImplementation("io.ktor:ktor-client-mock:$ktorVersion")
+    testImplementation(platform("io.cucumber:cucumber-bom:7.11.0"))
+
+    testImplementation("io.cucumber:cucumber-java")
+    testImplementation("io.cucumber:cucumber-junit-platform-engine")
+    testImplementation("org.junit.platform:junit-platform-suite")
+    testImplementation("org.junit.jupiter:junit-jupiter")
 
 }
 
 tasks {
+
     compileTestKotlin{
         kotlinOptions {
             jvmTarget = "15"
@@ -103,6 +110,7 @@ tasks {
         useJUnitPlatform()
         //Trengs inntil videre for bytebuddy med java 16, som brukes av mockk.
         jvmArgs = listOf("-Dnet.bytebuddy.experimental=true")
+        systemProperty("cucumber.junit-platform.naming-strategy", "long")
     }
 }
 
