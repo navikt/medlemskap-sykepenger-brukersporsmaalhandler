@@ -28,4 +28,4 @@ Egenskap: Flyt test av arbeid utenfor norge
     Eksempler:
       | Resultat | arbeidUtenforNorge |FOM        | TOM        | årsak |LAND    |
       | UAVKLART | true               |  1.1.2022 | 1.1.2024   |SP6120 | india  |
-      | JA       | false               |     NULL  | NULL      |  NULL |  null  |
+      | JA       | false              |     NULL  | NULL       |  NULL |  null  |
