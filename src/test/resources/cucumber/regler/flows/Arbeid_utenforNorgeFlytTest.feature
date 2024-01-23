@@ -17,7 +17,7 @@ Egenskap: Flyt test av arbeid utenfor norge
       | JA       |false               |  NULL |
 
   Scenariomal: Arbeid utenforNorge flyt blir kalt med nye bruker spørsmål
-    Gitt arbeidUtenforNorgeNyModell er definert som
+    Gitt utfoertArbeidUtenforNorge
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge |LAND|
       | <FOM>           | <TOM>           | <arbeidUtenforNorge>          | <LAND>|
 

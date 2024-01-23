@@ -1,6 +1,7 @@
 package no.nav.medlemskap.cucumber.steps
 
 import io.cucumber.datatable.DataTable
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.*
 import java.util.*
 
@@ -70,5 +71,16 @@ class DomainMapper {
         }
         return null
     }
+    fun mapÅrsaker(datatable: DataTable): List<Årsak> {
+        val rows: List<Map<String, String>> = datatable.asMaps(
+            String::class.java,
+            String::class.java
+        )
+        val årsaker = rows.map { it.get("REGELBRUDD") }.toList().filter { it!!.isNotEmpty() }
+        val list = årsaker.map { Årsak(it!!,"",Svar.UAVKLART) }
+        return list
+    }
+
+
 
 }

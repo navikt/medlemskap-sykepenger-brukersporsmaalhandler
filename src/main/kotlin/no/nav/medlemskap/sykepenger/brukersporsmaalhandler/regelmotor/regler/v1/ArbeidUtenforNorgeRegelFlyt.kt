@@ -10,6 +10,11 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.InputPeriode
 
+/*
+* SP6100 Regel flyt for arbeid utenfor norge.
+* Kjøres for alle borgere uavhengig av regelverk (Norske borgere, EØS borgere og 3 lands borgere)
+* */
+
 class ArbeidUtenforNorgeRegelFlyt(
     val periode: InputPeriode,
     ytelse: Ytelse,

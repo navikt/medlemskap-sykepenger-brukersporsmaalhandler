@@ -12,5 +12,5 @@ Egenskap: SP6100 Arbeid utenfor Norge gammel modell
 
     Eksempler:
       | Resultat | arbeidUtenforNorge |
-      | JA | true |
-      | NEI| false|
+      | JA       | true               |
+      | NEI      | false              |

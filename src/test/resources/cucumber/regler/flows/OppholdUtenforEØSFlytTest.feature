@@ -5,13 +5,13 @@
 Egenskap: Flyt test av opphold utenfor EØS
 
   Scenariomal: opphold utenforNorge EØS blir kalt uten nye bruker spørsmål
-    Gitt arbeidUtenforNorgeGammelModell er "true"
+    Gitt arbeidUtenforNorgeGammelModell er "false"
     Når oppholdUtenforEØSRegler kjøres
     Så skal resultat av regel være  være "<Resultat>"
-    Og årsak etter regelkjøring er "<årsak>"
+    Og årsak etter regelkjøring er "<ÅRSAK>"
 
     Eksempler:
-      | Resultat |  årsak |
+      | Resultat |  ÅRSAK |
       | UAVKLART |  SP6301|
 
   Scenariomal: opphold utenforNorge EØS blir kalt med nye bruker spørsmål
@@ -21,9 +21,10 @@ Egenskap: Flyt test av opphold utenfor EØS
 
     Når oppholdUtenforEØSRegler kjøres
     Så skal resultat av regel være  være "<Resultat>"
-    Og årsak etter regelkjøring er "<årsak>"
+    Og årsak etter regelkjøring er "<ÅRSAK>"
+    Og begrunnelse på årsak er "<BEGRUNNELSE>"
 
     Eksempler:
-      | Resultat | oppholdUtenforEOS |FOM        | TOM        | årsak |LAND    |
-      | UAVKLART | true               |  1.1.2022 | 1.1.2024   |SP6311 | india  |
-      | JA       | false              |     NULL  | NULL       |  NULL |  null  |
+      | Resultat | oppholdUtenforEOS  |FOM        | TOM        |  LAND    |ÅRSAK      |BEGRUNNELSE                                |
+      | UAVKLART | true               |  1.1.2022 | 1.1.2024   | india    |  SP6311   |Bruker har oppgitt JA i Opphold utenfor EØS|
+      | JA       | false              |     NULL  | NULL       |  null    |  NULL     |null                                       |

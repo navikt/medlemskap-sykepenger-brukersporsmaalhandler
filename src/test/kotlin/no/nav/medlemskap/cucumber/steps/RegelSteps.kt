@@ -23,31 +23,32 @@ import java.time.LocalDateTime
 class RegelSteps  {
     var brukerinput :Brukerinput? = null
     var resultat_gammel_kjoring :String? = null
+    var utfortAarbeidUtenforNorge:UtfortAarbeidUtenforNorge? = null
+    var oppholdUtenforEos:OppholdUtenforEos? = null
+    var arbeidUtenforNorgeGammelModell = false
     var svar:String? = null
     var årsaker = mutableListOf<Årsak>()
     var regelkjoringResultat:Resultat? = null
     var inputPeriode:InputPeriode = InputPeriode(LocalDate.now(), LocalDate.now())
    @Gitt("arbeidUtenforNorgeGammelModell er {string}")
    fun function(arbeidutenfornorge:String){
-       brukerinput = Brukerinput(arbeidutenfornorge.toBoolean())
+       this.arbeidUtenforNorgeGammelModell = arbeidutenfornorge.toBoolean()
    }
 
 
     @Gitt("OppholdUtenforEos")
     fun OppholdUtenforEos(datatable: DataTable){
-            val oppholdUtenforEOS = DomainMapper().mapOppholdUtenforEos(datatable)
-            brukerinput = Brukerinput(false, oppholdUtenforEos = oppholdUtenforEOS)
-
+            this.oppholdUtenforEos = DomainMapper().mapOppholdUtenforEos(datatable)
+            //brukerinput = Brukerinput(false, oppholdUtenforEos = this.oppholdUtenforEos)
     }
-    @Gitt("arbeidUtenforNorgeNyModell er definert som")
-    fun arbeidUtenforNorgeNyModell_er_definert_som(datatable: DataTable){
-        val utfoertArbeidUtenforNorge = DomainMapper().mapArbeidUtlandNyModell(datatable)
-        brukerinput = Brukerinput(utfoertArbeidUtenforNorge.svar, utfortAarbeidUtenforNorge = utfoertArbeidUtenforNorge)
-
+    @Og("utfoertArbeidUtenforNorge")
+    fun arbeidUtenforNorgeNyModell(datatable: DataTable){
+        this.utfortAarbeidUtenforNorge = DomainMapper().mapArbeidUtlandNyModell(datatable)
     }
-    @Gitt("følgende innslag i brukerinput")
-    fun function(datatable:DataTable){
-        brukerinput = Brukerinput(false)
+
+    @Gitt("årsaker i gammel kjøring")
+    fun årsaker(datatable:DataTable){
+        this.årsaker.addAll(DomainMapper().mapÅrsaker(datatable))
     }
     @Når("medlemskap beregnes med følgende parametre")
     fun fun1(datatable:DataTable){
@@ -65,7 +66,7 @@ class RegelSteps  {
             svar =  "OK"
     }
     @Så("skal svar være {string}")
-    fun demo3( statsborgerskapskategori: String){
+    fun skal_svar_være( statsborgerskapskategori: String){
         Assertions.assertEquals(statsborgerskapskategori, svar)
     }
     @Når("gammelt resultat for gammelregelkjøring er {string}")
@@ -89,17 +90,24 @@ class RegelSteps  {
     @Når("regel {string} kjøres")
     fun NårRegelKjøres(regelId: String){
 
-    val regelFactory = RegelFactory(hentDatagrunnlag())
+    val regelFactory = RegelFactory(hentDatagrunnlag(),this.årsaker)
     val regel = regelFactory.create(regelId)
         regelkjoringResultat = regel.utfør()
     }
+
 
     private fun hentDatagrunnlag(): Datagrunnlag {
     return Datagrunnlag(
         ytelse = Ytelse.SYKEPENGER,
         periode = inputPeriode,
         fnr = "12345678901",
-        brukerinput = brukerinput!!
+        brukerinput = Brukerinput(
+            arbeidUtenforNorge = this.arbeidUtenforNorgeGammelModell,
+            oppholdUtenforEos = this.oppholdUtenforEos,
+            utfortAarbeidUtenforNorge = this.utfortAarbeidUtenforNorge,
+            oppholdUtenforNorge = null,
+            oppholdstilatelse = null
+        )
     )
     }
 
@@ -149,8 +157,17 @@ class RegelSteps  {
             Assertions.assertEquals(forventetÅrsakRegelID,
                 regelkjoringResultat?.årsaker?.first()?.regelId?.name ?: "")
         }
-
-
+    }
+    @Og("begrunnelse på årsak er {string}")
+    fun begrunnelse_paa_aarsak_er(begrunnelse :String){
+        if ("NULL".equals(begrunnelse.uppercase()))
+        {
+            Assertions.assertTrue(regelkjoringResultat!!.årsaker.isEmpty())
+        }
+        else{
+            Assertions.assertEquals(begrunnelse,
+                regelkjoringResultat?.årsaker?.first()?.begrunnelse?: "")
+        }
     }
 }
 
