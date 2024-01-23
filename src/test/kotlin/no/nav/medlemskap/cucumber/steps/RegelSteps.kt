@@ -12,6 +12,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Ytelse
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.RegelFactory
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ArbeidUtenforNorgeRegelFlyt
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.SkalHaleFlytUtføresRegel
 import org.junit.jupiter.api.Assertions
 import java.time.LocalDate
@@ -29,6 +30,14 @@ class RegelSteps  {
    fun function(arbeidutenfornorge:String){
        brukerinput = Brukerinput(arbeidutenfornorge.toBoolean())
    }
+
+
+    @Gitt("arbeidUtenforNorgeNyModell er definert som")
+    fun arbeidUtenforNorgeNyModell_er_definert_som(datatable: DataTable){
+            val utfoertArbeidUtenforNorge = DomainMapper().mapArbeidUtlandNyModell(datatable)
+            brukerinput = Brukerinput(utfoertArbeidUtenforNorge.svar, utfortAarbeidUtenforNorge = utfoertArbeidUtenforNorge)
+
+    }
     @Gitt("følgende innslag i brukerinput")
     fun function(datatable:DataTable){
         brukerinput = Brukerinput(false)
@@ -56,6 +65,12 @@ class RegelSteps  {
     fun gammeltResultatForGammelregelkjoring(resultat_gammel_kjoring:String){
         this.resultat_gammel_kjoring = resultat_gammel_kjoring
         //println("Resultat gammel kjøring : $resultat_gammel_kjoring")
+    }
+
+    @Når("arbeidutenforNorgeFlyt kjøres")
+    fun arbeidutenforNorgeFlytkjøres(){
+        regelkjoringResultat = ArbeidUtenforNorgeRegelFlyt.fraDatagrunnlag(hentDatagrunnlag()).kjørHovedflyt()
+        print("test")
     }
 
     @Når("regel {string} kjøres")
@@ -110,6 +125,19 @@ class RegelSteps  {
     fun skalResultatAvRegelVære( forventetSvar: String?){
 
         Assertions.assertEquals(forventetSvar,regelkjoringResultat?.svar?.name)
+    }
+    @Og("årsak etter regelkjøring er {string}")
+    fun årsak_etter_regelkjøring_er(forventetÅrsakRegelID :String){
+        if ("NULL".equals(forventetÅrsakRegelID.uppercase()))
+            {
+            Assertions.assertTrue(regelkjoringResultat!!.årsaker.isEmpty())
+            }
+        else{
+            Assertions.assertEquals(forventetÅrsakRegelID,
+                regelkjoringResultat?.årsaker?.first()?.regelId?.name ?: "")
+        }
+
+
     }
 }
 
