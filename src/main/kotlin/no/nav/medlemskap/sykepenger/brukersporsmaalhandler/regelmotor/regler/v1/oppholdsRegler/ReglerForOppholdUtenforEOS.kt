@@ -10,6 +10,11 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Dat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.InputPeriode
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.RegelFactory
 
+
+/*
+* SP6300 Regler for opphold utenfor EØS. Relevant for Norske borgere og EØS borgere
+* og 3 lands borgere med EØS familie
+* */
 class ReglerForOppholdUtenforEOS(
     val periode: InputPeriode,
     ytelse: Ytelse,

@@ -1,9 +1,7 @@
 package no.nav.medlemskap.cucumber.steps
 
 import io.cucumber.datatable.DataTable
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.ArbeidUtenforNorge
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Periode
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.UtfortAarbeidUtenforNorge
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.*
 import java.util.*
 
 class DomainMapper {
@@ -38,6 +36,39 @@ class DomainMapper {
                 arbeidUtenforNorge = emptyList())
         }
 
+    }
+
+    fun mapOppholdUtenforEos(datatable: DataTable): OppholdUtenforEos? {
+        val rows: List<Map<String, String>> = datatable.asMaps(
+            String::class.java,
+            String::class.java
+        )
+        val haroppholdtsegutenforEØS = rows.first()["Har oppholdt seg utenfor EØS"].toBoolean()
+        if (haroppholdtsegutenforEØS){
+            val fom = rows.first()["Fra og med dato"]
+            val tom = rows.first()["Til og med dato"]
+            val land = rows.first()["LAND"]
+            return OppholdUtenforEos(id =UUID.randomUUID().toString(),
+                sporsmalstekst = "spørsmåltext ",
+                svar= true,
+                oppholdUtenforEOS = listOf(
+                    Opphold(
+                        id = "",
+                        land=land!!,
+                        grunn = "",
+                        perioder = listOf(Periode(fom!!,tom!!))
+                    )
+                )
+            )
+        }
+        else{
+            return OppholdUtenforEos(id =UUID.randomUUID().toString(),
+                sporsmalstekst = "spørsmåltext ",
+                svar= false,
+                oppholdUtenforEOS = emptyList()
+            )
+        }
+        return null
     }
 
 }

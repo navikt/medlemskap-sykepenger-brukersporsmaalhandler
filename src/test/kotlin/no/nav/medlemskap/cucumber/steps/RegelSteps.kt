@@ -14,6 +14,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.RegelFactory
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ArbeidUtenforNorgeRegelFlyt
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.SkalHaleFlytUtføresRegel
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforEOS
 import org.junit.jupiter.api.Assertions
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -32,10 +33,16 @@ class RegelSteps  {
    }
 
 
+    @Gitt("OppholdUtenforEos")
+    fun OppholdUtenforEos(datatable: DataTable){
+            val oppholdUtenforEOS = DomainMapper().mapOppholdUtenforEos(datatable)
+            brukerinput = Brukerinput(false, oppholdUtenforEos = oppholdUtenforEOS)
+
+    }
     @Gitt("arbeidUtenforNorgeNyModell er definert som")
     fun arbeidUtenforNorgeNyModell_er_definert_som(datatable: DataTable){
-            val utfoertArbeidUtenforNorge = DomainMapper().mapArbeidUtlandNyModell(datatable)
-            brukerinput = Brukerinput(utfoertArbeidUtenforNorge.svar, utfortAarbeidUtenforNorge = utfoertArbeidUtenforNorge)
+        val utfoertArbeidUtenforNorge = DomainMapper().mapArbeidUtlandNyModell(datatable)
+        brukerinput = Brukerinput(utfoertArbeidUtenforNorge.svar, utfortAarbeidUtenforNorge = utfoertArbeidUtenforNorge)
 
     }
     @Gitt("følgende innslag i brukerinput")
@@ -65,6 +72,12 @@ class RegelSteps  {
     fun gammeltResultatForGammelregelkjoring(resultat_gammel_kjoring:String){
         this.resultat_gammel_kjoring = resultat_gammel_kjoring
         //println("Resultat gammel kjøring : $resultat_gammel_kjoring")
+    }
+
+    @Når("oppholdUtenforEØSRegler kjøres")
+    fun oppholdUtenforEØSReglerKjøres(){
+        regelkjoringResultat = ReglerForOppholdUtenforEOS.fraDatagrunnlag(hentDatagrunnlag()).kjørHovedflyt()
+        print("oppholdUtenforEØSRegler kjøres")
     }
 
     @Når("arbeidutenforNorgeFlyt kjøres")
