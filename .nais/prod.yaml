@@ -42,7 +42,6 @@ spec:
   kafka:
     streams: true
     pool: nav-prod
-  protected: true
   accessPolicy:
     inbound:
       rules:
