@@ -16,6 +16,13 @@ spec:
     port: 8080
     initialDelay: 20
     timeout: 60
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+    requests:
+      cpu: "200m"
+      memory: "256Mi"
   ingresses:
     - https://medlemskap-sykepenger-brukersporsmaalhandler.intern.dev.nav.no
   readiness:
@@ -30,12 +37,6 @@ spec:
   prometheus:
     enabled: true
     path: "/metrics"
-  limits:
-    cpu: "200m"
-    memory: "256Mi"
-  requests:
-    cpu: "200m"
-    memory: "256Mi"
   secureLogs:
     enabled: true
   kafka:
