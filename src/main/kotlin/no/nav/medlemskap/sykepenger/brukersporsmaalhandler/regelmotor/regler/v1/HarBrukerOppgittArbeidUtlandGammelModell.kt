@@ -16,7 +16,7 @@ class HarBrukerOppgittArbeidUtlandGammelModell(
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
-) : BasisRegel(RegelId.SP6100, ytelse) {
+) : BasisRegel(RegelId.SP6130, ytelse) {
 
     override fun operasjon(): Resultat {
 

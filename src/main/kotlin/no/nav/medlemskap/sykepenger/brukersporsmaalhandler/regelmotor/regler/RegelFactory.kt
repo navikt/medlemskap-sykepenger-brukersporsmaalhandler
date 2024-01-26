@@ -27,12 +27,12 @@ class RegelFactory(private val datagrunnlag: Datagrunnlag,private val årsaker:L
 
     fun create(regelId: RegelId): Regel {
         return when (regelId) {
-            RegelId.SP6100 -> HarBrukerOppgittArbeidUtlandGammelModell.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6130 -> HarBrukerOppgittArbeidUtlandGammelModell.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6311 -> HarBrukerSvartNeiPaaOppholdUtenforEØSRegel.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6301 -> FinnesBrukerSvarForOppholdUtenforEØSRegel.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6110 -> HarBrukerOppgittArbeidUtenforNorgeNyModell.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6120 -> HarBrukerSvartNeiForArbeidUtenforNorgeNyModell.fraDatagrunnlag(datagrunnlag).regel
-            RegelId.SP6500 -> KanAlleRegelBruddSjekkesUtNorskeBorgereRegel.fraDatagrunnlag(datagrunnlag,årsaker).regel
+            RegelId.SP6510 -> KanAlleRegelBruddSjekkesUtNorskeBorgereRegel.fraDatagrunnlag(datagrunnlag,årsaker).regel
             RegelId.SP6600 -> KanAlleRegelBruddSjekkesUtEOSBorgereRegel.fraDatagrunnlag(datagrunnlag,årsaker).regel
             RegelId.SP6700 -> KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel.fraDatagrunnlag(datagrunnlag,årsaker).regel
             RegelId.SP6702 -> HarBrukerSvartNeiPaaOppholdUtenforNorgeRegel.fraDatagrunnlag(datagrunnlag).regel

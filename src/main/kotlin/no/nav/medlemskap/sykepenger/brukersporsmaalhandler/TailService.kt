@@ -130,13 +130,13 @@ class TailService() {
 
     private fun finnAvklaringsPunkter(resultatGammelRegelMotor: Kjøring, responsRegelMotorHale: Resultat): List<avklaring> {
     val avklaringsListe:MutableList<avklaring> = mutableListOf()
-        avklaringsListe.addAll(responsRegelMotorHale.årsaker.filterNot { it.regelId == RegelId.SP6500 }.map { mapToAvklaring(it) })
+        avklaringsListe.addAll(responsRegelMotorHale.årsaker.filterNot { it.regelId == RegelId.SP6510 }.map { mapToAvklaring(it) })
         val avklaringerGammelKjøring = resultatGammelRegelMotor.resultat.årsaker.map{mapToAvklaringModel2(it) }
 
         //håndterer norske borgere
         if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.NORSK_BORGER == it.informasjon } !=null ){
-            avklaringsListe.addAll(finnAvklaringerSomIkkeErSjekketUt(avklaringerGammelKjøring,responsRegelMotorHale,RegelId.SP6500))
-            return avklaringsListe.filterNot { it.regel_id == RegelId.SP6500.name }
+            avklaringsListe.addAll(finnAvklaringerSomIkkeErSjekketUt(avklaringerGammelKjøring,responsRegelMotorHale,RegelId.SP6510))
+            return avklaringsListe.filterNot { it.regel_id == RegelId.SP6510.name }
         }
         //håndterer EØS borgere
         else if (responsRegelMotorHale.utledetInformasjon.find { Informasjon.EØS_BORGER == it.informasjon } !=null ){

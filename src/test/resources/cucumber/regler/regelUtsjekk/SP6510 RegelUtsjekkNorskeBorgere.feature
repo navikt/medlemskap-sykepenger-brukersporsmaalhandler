@@ -2,9 +2,9 @@
 # encoding: UTF-8
 
 
-Egenskap: SP6500 RegelUtsjekk Norske borgere
+Egenskap: SP6510 RegelUtsjekk Norske borgere
 
-  Scenariomal: SP6500 bli kalt med nye brukerspørsmål og bare regel 3 bryter
+  Scenariomal: SP6510 bli kalt med nye brukerspørsmål og bare regel 3 bryter
     Gitt årsaker i gammel kjøring
       | REGELBRUDD |
       | REGEL_3    |
@@ -18,18 +18,18 @@ Egenskap: SP6500 RegelUtsjekk Norske borgere
       | null            | null            | <oppholdUtenforEOS>          | THAILAND |
 
 
-    Når regel "SP6500" kjøres
+    Når regel "SP6510" kjøres
     Så skal resultat av regel være  være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
       | NEI      | true               | true              |
       | JA       | false              | false             |
-      | NEI      | false              | true              |
+      | JA       | false              | true              |
       | NEI      | true               | false             |
 
 
-  Scenariomal: SP6500 bli kalt med nye brukerspørsmål der flere regler bryter
+  Scenariomal: SP6510 bli kalt med nye brukerspørsmål der flere regler bryter
     Gitt årsaker i gammel kjøring
       | REGELBRUDD |
       | REGEL_3    |
@@ -44,7 +44,7 @@ Egenskap: SP6500 RegelUtsjekk Norske borgere
       | null            | null            | <oppholdUtenforEOS>          | THAILAND |
 
 
-    Når regel "SP6500" kjøres
+    Når regel "SP6510" kjøres
     Så skal resultat av regel være  være "<Resultat>"
 
     Eksempler:
@@ -54,7 +54,7 @@ Egenskap: SP6500 RegelUtsjekk Norske borgere
       | NEI      | false              | true              |
       | NEI      | true               | false             |
 
-  Scenariomal: SP6500 bli kalt med nye brukerspørsmål der  regleL 3 og REGEL_9 bryter
+  Scenariomal: SP6510 bli kalt med nye brukerspørsmål der  regleL 3 og REGEL_9 bryter
     Gitt årsaker i gammel kjøring
       | REGELBRUDD |
       | REGEL_3    |
@@ -69,7 +69,7 @@ Egenskap: SP6500 RegelUtsjekk Norske borgere
       | null            | null            | <oppholdUtenforEOS>          | THAILAND |
 
 
-    Når regel "SP6500" kjøres
+    Når regel "SP6510" kjøres
     Så skal resultat av regel være  være "<Resultat>"
 
     Eksempler:

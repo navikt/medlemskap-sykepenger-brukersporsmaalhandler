@@ -13,7 +13,7 @@ Egenskap: Flyt test av arbeid utenfor norge
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | årsak |
-      | UAVKLART | true               | SP6100|
+      | UAVKLART | true               | SP6130|
       | JA       |false               |  NULL |
 
   Scenariomal: Arbeid utenforNorge flyt blir kalt med nye bruker spørsmål

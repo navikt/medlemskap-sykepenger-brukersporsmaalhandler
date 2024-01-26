@@ -24,7 +24,7 @@ class ArbeidUtenforNorgeRegelFlyt(
     override fun hentHovedflyt(): Regelflyt {
 
        val arbeidUtlandOppgittGammelModellRegel = lagRegelflyt(
-           regel = hentRegel(RegelId.SP6100),
+           regel = hentRegel(RegelId.SP6130),
            hvisJa = konklusjonUavklart(ytelse,RegelId.ARBEID_UTLAND_FLYT),
            hvisNei = regelflytJa(ytelse,RegelId.ARBEID_UTLAND_FLYT),
            hvisUavklart = medlemskonklusjonUavklart(ytelse)
