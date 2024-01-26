@@ -2,7 +2,7 @@
 # encoding: UTF-8
 
 
-Egenskap: SP6100 Arbeid utenfor Norge gammel modell
+Egenskap: SP6100 Arbeid utenfor Norge gammel modell (dvs at bruker ikke har fått nye brukerspørmål)
 
   Scenariomal: SP6000 bli kalt med gammel modell for Arbeid utland
     Gitt arbeidUtenforNorgeGammelModell er "<arbeidUtenforNorge>"

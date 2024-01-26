@@ -41,6 +41,9 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
         if (false == brukerInput?.arbeidUtlandTrue()){
             toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeTrue.contains(it.regelId)}
         }
+        if (toBeControlled.isEmpty()){
+            return Resultat.ja(regelId)
+        }
         return Resultat(
             regelId = RegelId.SP6500,
             svar = Svar.NEI,
