@@ -13,7 +13,7 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
     private val brukerInput: Brukerinput?,
     private val årsaker: List<Årsak> = emptyList()
 
-    ) : BasisRegel(RegelId.SP6500, ytelse) {
+    ) : BasisRegel(RegelId.SP6510, ytelse) {
         val reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland =
             listOf(
                 "REGEL_3"
@@ -41,8 +41,11 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
         if (false == brukerInput?.arbeidUtlandTrue()){
             toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeTrue.contains(it.regelId)}
         }
+        if (toBeControlled.isEmpty()){
+            return Resultat.ja(regelId)
+        }
         return Resultat(
-            regelId = RegelId.SP6500,
+            regelId = RegelId.SP6510,
             svar = Svar.NEI,
             utledetInformasjon = listOf(UtledetInformasjon(Informasjon.IKKE_SJEKKET_UT,toBeControlled.map { it.regelId }))
         )

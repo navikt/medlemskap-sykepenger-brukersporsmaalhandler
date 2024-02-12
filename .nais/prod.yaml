@@ -16,6 +16,13 @@ spec:
     port: 8080
     initialDelay: 20
     timeout: 60
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+    requests:
+      cpu: "200m"
+      memory: "256Mi"
   readiness:
     path: "/isReady"
     port: 8080
@@ -30,18 +37,11 @@ spec:
   prometheus:
     enabled: true
     path: "/metrics"
-  limits:
-    cpu: "200m"
-    memory: "256Mi"
-  requests:
-    cpu: "200m"
-    memory: "256Mi"
   secureLogs:
     enabled: true
   kafka:
     streams: true
     pool: nav-prod
-  protected: true
   accessPolicy:
     inbound:
       rules:

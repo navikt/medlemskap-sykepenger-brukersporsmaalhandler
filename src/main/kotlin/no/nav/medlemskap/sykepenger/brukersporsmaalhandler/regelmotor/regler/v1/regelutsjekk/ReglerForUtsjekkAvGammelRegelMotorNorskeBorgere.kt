@@ -22,7 +22,7 @@ class ReglerForUtsjekkAvGammelRegelMotorNorskeBorgere(
 
 
         val kanAlleRegelBruddSjekkesUtNorskeBorgere = lagRegelflyt(
-            regel = hentRegel(RegelId.SP6500),
+            regel = hentRegel(RegelId.SP6510),
             hvisJa = regelflytJa(ytelse, RegelId.REGEL_UTSJEKK),
             hvisNei = regelflytUavklart(ytelse,RegelId.REGEL_UTSJEKK),
         )

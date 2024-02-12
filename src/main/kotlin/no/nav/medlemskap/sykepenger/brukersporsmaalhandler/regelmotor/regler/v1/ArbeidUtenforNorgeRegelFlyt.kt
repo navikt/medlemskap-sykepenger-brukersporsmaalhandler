@@ -10,6 +10,11 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.InputPeriode
 
+/*
+* SP6100 Regel flyt for arbeid utenfor norge.
+* Kjøres for alle borgere uavhengig av regelverk (Norske borgere, EØS borgere og 3 lands borgere)
+* */
+
 class ArbeidUtenforNorgeRegelFlyt(
     val periode: InputPeriode,
     ytelse: Ytelse,
@@ -19,7 +24,7 @@ class ArbeidUtenforNorgeRegelFlyt(
     override fun hentHovedflyt(): Regelflyt {
 
        val arbeidUtlandOppgittGammelModellRegel = lagRegelflyt(
-           regel = hentRegel(RegelId.SP6100),
+           regel = hentRegel(RegelId.SP6130),
            hvisJa = konklusjonUavklart(ytelse,RegelId.ARBEID_UTLAND_FLYT),
            hvisNei = regelflytJa(ytelse,RegelId.ARBEID_UTLAND_FLYT),
            hvisUavklart = medlemskonklusjonUavklart(ytelse)
