@@ -33,6 +33,7 @@ class TailService() {
                         kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }),
                         kv("response",haleRespons.toPrettyString()),
                         kv("callId",key),
+                        kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("analyse","NEI"))
 
@@ -45,6 +46,7 @@ class TailService() {
                         kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }),
                         kv("response",haleRespons.toPrettyString()),
                         kv("callId",key),
+                        kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("analyse","NEI")
                     )
