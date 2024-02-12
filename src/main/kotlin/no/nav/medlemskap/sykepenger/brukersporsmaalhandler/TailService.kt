@@ -63,6 +63,9 @@ class TailService() {
         }
     }
 
+    /*
+    * SP9000 ?
+    * */
     private fun lagKonklusjon(resultatGammelRegelMotor: Kjøring, responsRegelMotorHale: Resultat): Konklusjon {
 
         if (Svar.JA == resultatGammelRegelMotor.resultat.svar){
