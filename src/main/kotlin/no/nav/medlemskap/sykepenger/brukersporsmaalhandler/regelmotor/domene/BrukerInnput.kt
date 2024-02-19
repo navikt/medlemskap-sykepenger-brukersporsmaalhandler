@@ -60,3 +60,10 @@ fun Brukerinput.inneholderNyeBrukerSpørsmål():Boolean{
             this.oppholdUtenforNorge!=null ||
             this.oppholdstilatelse !=null
 }
+
+fun Brukerinput.oppholdUtenforEØSOppgitt():Boolean{
+  return (
+          this.oppholdUtenforEos != null &&
+          this.oppholdUtenforEos.svar
+          )
+}

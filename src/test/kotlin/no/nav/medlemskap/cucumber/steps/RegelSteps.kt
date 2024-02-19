@@ -46,7 +46,7 @@ class RegelSteps  {
                 oppholdUtenforEOS = listOf(
                     Opphold(
                         id = UUID.randomUUID().toString(),
-                        land = "Tyria",
+                        land = "Tyrkia",
                         grunn = "ferie",
                         perioder = listOf(
                             Periode(
@@ -55,7 +55,7 @@ class RegelSteps  {
                         ),
                     Opphold(
                         id = UUID.randomUUID().toString(),
-                        land = "Tyria",
+                        land = "Tyrkia",
                         grunn = "ferie",
                         perioder = listOf(
                             Periode(
