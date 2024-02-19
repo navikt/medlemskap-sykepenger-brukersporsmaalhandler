@@ -9,6 +9,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Gam
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ArbeidUtenforNorgeRegelFlyt
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.SkalHaleFlytUtføresRegel
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.SkalHaleFlytUtføresRegelV2
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforEOS
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforNorge
@@ -24,7 +25,7 @@ class Hovedregler(private val kjøring: Kjøring) {
         val resultater = mutableListOf<Resultat>()
 
         val utledetInformasjon:MutableList<UtledetInformasjon> = utledFaktaFraForrigekjoring(kjøring.resultat)
-        val skalHaleFlytkjøresResultat = SkalHaleFlytUtføresRegel.fraDatagrunnlag(kjøring).utfør()
+        val skalHaleFlytkjøresResultat = SkalHaleFlytUtføresRegelV2.fraDatagrunnlag(kjøring).utfør()
         resultater.add(skalHaleFlytkjøresResultat)
         if (Svar.JA == skalHaleFlytkjøresResultat.svar){
 

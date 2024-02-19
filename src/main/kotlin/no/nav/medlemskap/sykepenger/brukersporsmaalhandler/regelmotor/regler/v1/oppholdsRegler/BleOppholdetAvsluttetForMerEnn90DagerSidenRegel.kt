@@ -11,17 +11,18 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Bru
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import java.time.LocalDate
 
-class HarBrukerSvartNeiPaaOppholdUtenforEØSRegel(
+class BleOppholdetAvsluttetForMerEnn90DagerSidenRegel(
     ytelse: Ytelse,
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
-) : BasisRegel(RegelId.SP6311, ytelse) {
+) : BasisRegel(RegelId.SP6313, ytelse) {
 
     override fun operasjon(): Resultat {
 
-
-        if (brukerInput?.oppholdUtenforEos != null && !brukerInput.oppholdUtenforEos!!.svar){
+        val oppholdUtenforEØS = brukerInput!!.oppholdUtenforEos!!.oppholdUtenforEOS.first()
+        val oppholdSlutt = LocalDate.parse(oppholdUtenforEØS.perioder.first().tom)
+        if (LocalDate.now().minusDays(90).isAfter(oppholdSlutt)){
             return ja(regelId)
         }
         return nei(regelId)
@@ -31,8 +32,8 @@ class HarBrukerSvartNeiPaaOppholdUtenforEØSRegel(
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): HarBrukerSvartNeiPaaOppholdUtenforEØSRegel {
-            return HarBrukerSvartNeiPaaOppholdUtenforEØSRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): BleOppholdetAvsluttetForMerEnn90DagerSidenRegel {
+            return BleOppholdetAvsluttetForMerEnn90DagerSidenRegel(
                 ytelse = datagrunnlag.ytelse,
                 startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput

@@ -23,15 +23,32 @@ class ReglerForOppholdUtenforEOS(
 
     override fun hentHovedflyt(): Regelflyt {
 
+        val ErOppholdetIUtlandetKortereEnn180Dager = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6314),
+            hvisJa = regelflytJa(ytelse),
+            hvisNei =Regelflyt.medlemskonklusjonUavklart(ytelse),
+        )
 
-        val harbrukerOppgittNeiIOppholdUtenforEOS = lagRegelflyt(
+        val bleOppholdetAvsluttetForMerEnn90DagerSiden = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6313),
+            hvisJa = ErOppholdetIUtlandetKortereEnn180Dager,
+            hvisNei =Regelflyt.medlemskonklusjonUavklart(ytelse),
+        )
+
+        val ErDetBareEttUtenlandsOpphold = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6312),
+            hvisJa = bleOppholdetAvsluttetForMerEnn90DagerSiden,
+            hvisNei =Regelflyt.medlemskonklusjonUavklart(ytelse),
+        )
+
+        val harbrukerOppholdtSegUtenForEØS = lagRegelflyt(
             regel = hentRegel(RegelId.SP6311),
-            hvisJa = regelflytJa(ytelse, RegelId.SP6311),
-            hvisNei = Regelflyt.medlemskonklusjonUavklart(ytelse),
+            hvisJa = ErDetBareEttUtenlandsOpphold,
+            hvisNei =regelflytJa(ytelse, RegelId.SP6311),
         )
         val finnesBrukerSvarForOppholdUtenforEØS = lagRegelflyt(
             regel = hentRegel(RegelId.SP6301),
-            hvisJa = harbrukerOppgittNeiIOppholdUtenforEOS,
+            hvisJa = harbrukerOppholdtSegUtenForEØS,
             hvisNei = Regelflyt.medlemskonklusjonUavklart(ytelse),
         )
 

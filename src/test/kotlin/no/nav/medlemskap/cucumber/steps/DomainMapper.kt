@@ -3,6 +3,7 @@ package no.nav.medlemskap.cucumber.steps
 import io.cucumber.datatable.DataTable
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.*
+import java.time.LocalDate
 import java.util.*
 
 class DomainMapper {
@@ -46,8 +47,14 @@ class DomainMapper {
         )
         val haroppholdtsegutenforEØS = rows.first()["Har oppholdt seg utenfor EØS"].toBoolean()
         if (haroppholdtsegutenforEØS){
-            val fom = rows.first()["Fra og med dato"]
-            val tom = rows.first()["Til og med dato"]
+            var fom = rows.first()["Fra og med dato"]
+            if (fom.equals("TODAYS_DATE")){
+              fom = LocalDate.now().toString()
+            }
+            var tom = rows.first()["Til og med dato"]
+            if (tom.equals("TODAYS_DATE")){
+                tom = LocalDate.now().toString()
+            }
             val land = rows.first()["LAND"]
             return OppholdUtenforEos(id =UUID.randomUUID().toString(),
                 sporsmalstekst = "spørsmåltext ",

@@ -13,7 +13,14 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
     SP6001("SkalHalekjøres","Skal regelmotor prosessere gammel kjøring","Årsaker i gammel kjøring tilsier ikke at hale skal utføres","Årsaker i gammel kjøring tilsier at halen skal kjøres"),
     SP6130("ArbeidUtlandGammelModell","Har Bruker svart JA i arbeid utland","Bruker har oppgitt NEI i arbeid utland","Bruker har oppgitt JA i arbeid utland gammel modell"),
     SP6110("ArbeidUtlandNyModell","Er ny modell for ArbeidUtland oppgitt","Ingen brukersvar på ny modell for Arbeid Utland","Brukersvar for arbeid utland på ny modell finnes"),
-    SP6311("Opphold Utenfor EØS","Har Bruker svart Nei i opphold utenfor EØS","Bruker har oppgitt JA i Opphold utenfor EØS","Bruker har oppgitt NEI i Opphold utenfor EØS","Bruker har oppgitt JA i Opphold utenfor EØS"),
+    SP6311("Opphold Utenfor EØS","Har Bruker Oppholdt seg utenfor EØS","Bruker har oppgitt NEI i Opphold utenfor EØS","Bruker har oppgitt JA i Opphold utenfor EØS","Bruker har oppgitt JA i Opphold utenfor EØS"),
+    SP6312("Er det bare 1 utenlandsOpphold","Er det bare ett utenlandsopphold?","Det er flere en ett utenlandsopphold registrert","Det er bare ett utenlandsopphold registrert","Bruker har oppgitt flere utenlandsopphold utenfor EØS"),
+
+    SP6314("Er oppholdet i utlandet kortere enn 180 dager","Er oppholdet i utlandet kortere enn 180 dager?","Oppholdet utenfor EØS er lengere en 180 dager","oppholdet utenfor EØS er kortere en 180 dager","oppholdet utenfor EØS er lengere en 180 dager"),
+
+    SP6313("Ble oppholdet avsluttet for mer enn 90 dager siden","Ble oppholdet avsluttet for mer enn 90 dager siden?","Det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet","det er mer en 90 dager siden oppholdet ble avsluttet","det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet"),
+
+
     SP6702("Opphold Utenfor Norge","Har Bruker svart Nei i opphold utenfor Norge","Bruker har oppgitt JA i Opphold utenfor Norge","Bruker har oppgitt NEI i Opphold utenfor Norge","Bruker har oppgitt JA i Opphold utenfor Norge"),
     SP6703("Finnes brukersvar for OppholdUtenfor Norge","Finnes brukersvar for OppholdUtenfor Norge","Det finnes ikke brukersvar for OppholdUtenfor Norge","Det finnes brukersvar for OppholdUtenfor Norge"),
     SP6301("Finnes brukersvar for OppholdUtenfor EØS","Finnes brukersvar for OppholdUtenfor EØS","Det finnes ikke brukersvar for OppholdUtenforEØS","Det finnes brukersvar for OppholdUtenforEØS"),
