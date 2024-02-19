@@ -18,6 +18,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.
 import org.junit.jupiter.api.Assertions
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.*
 
 
 class RegelSteps  {
@@ -36,10 +37,38 @@ class RegelSteps  {
    }
 
 
+    @Gitt("OppholdUtenforEosMedFlereInnslag")
+    fun OppholdUtenforEos(){
+            this.oppholdUtenforEos = no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.OppholdUtenforEos(
+                id = UUID.randomUUID().toString(),
+                sporsmalstekst = "",
+                svar=true,
+                oppholdUtenforEOS = listOf(
+                    Opphold(
+                        id = UUID.randomUUID().toString(),
+                        land = "Tyria",
+                        grunn = "ferie",
+                        perioder = listOf(
+                            Periode(
+                                LocalDate.now().minusMonths(11).toString(),
+                                LocalDate.now().minusMonths(10).toString())),
+                        ),
+                    Opphold(
+                        id = UUID.randomUUID().toString(),
+                        land = "Tyria",
+                        grunn = "ferie",
+                        perioder = listOf(
+                            Periode(
+                                LocalDate.now().minusMonths(7).toString(),
+                                LocalDate.now().minusMonths(6).toString())),
+                    )
+
+            ))
+    }
     @Gitt("OppholdUtenforEos")
     fun OppholdUtenforEos(datatable: DataTable){
-            this.oppholdUtenforEos = DomainMapper().mapOppholdUtenforEos(datatable)
-            //brukerinput = Brukerinput(false, oppholdUtenforEos = this.oppholdUtenforEos)
+        this.oppholdUtenforEos = DomainMapper().mapOppholdUtenforEos(datatable)
+        //brukerinput = Brukerinput(false, oppholdUtenforEos = this.oppholdUtenforEos)
     }
     @Og("utfoertArbeidUtenforNorge")
     fun arbeidUtenforNorgeNyModell(datatable: DataTable){

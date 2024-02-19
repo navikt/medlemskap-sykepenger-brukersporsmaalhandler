@@ -20,6 +20,9 @@ class BleOppholdetAvsluttetForMerEnn90DagerSidenRegel(
 
     override fun operasjon(): Resultat {
 
+        if (brukerInput!!.oppholdUtenforEos!!.oppholdUtenforEOS.isEmpty()){
+            return nei(regelId)
+        }
         val oppholdUtenforEØS = brukerInput!!.oppholdUtenforEos!!.oppholdUtenforEOS.first()
         val oppholdSlutt = LocalDate.parse(oppholdUtenforEØS.perioder.first().tom)
         if (LocalDate.now().minusDays(90).isAfter(oppholdSlutt)){
