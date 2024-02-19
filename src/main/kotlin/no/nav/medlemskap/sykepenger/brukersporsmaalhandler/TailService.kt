@@ -35,6 +35,7 @@ class TailService() {
                         kv("response",haleRespons.toPrettyString()),
                         kv("callId",key),
                         kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
+                        kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("analyse","NEI"))
 
