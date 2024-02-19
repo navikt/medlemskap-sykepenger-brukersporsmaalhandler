@@ -53,3 +53,17 @@ data class UtfortAarbeidUtenforNorge(
     val svar:Boolean,
     val arbeidUtenforNorge:List<ArbeidUtenforNorge>
 )
+
+fun Brukerinput.inneholderNyeBrukerSpørsmål():Boolean{
+    return  this.utfortAarbeidUtenforNorge!= null ||
+            this.oppholdUtenforEos!=null ||
+            this.oppholdUtenforNorge!=null ||
+            this.oppholdstilatelse !=null
+}
+
+fun Brukerinput.oppholdUtenforEØSOppgitt():Boolean{
+  return (
+          this.oppholdUtenforEos != null &&
+          this.oppholdUtenforEos.svar
+          )
+}

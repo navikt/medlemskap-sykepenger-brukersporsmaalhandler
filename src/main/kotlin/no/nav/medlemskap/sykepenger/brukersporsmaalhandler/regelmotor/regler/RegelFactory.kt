@@ -8,10 +8,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.År
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.HarBrukerOppgittArbeidUtlandGammelModell
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.HarBrukerOppgittArbeidUtenforNorgeNyModell
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.HarBrukerSvartNeiForArbeidUtenforNorgeNyModell
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.FinnesBrukerSvarForOppholdUtenforEØSRegel
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.FinnesBrukerSvarForOppholdUtenforNorgeRegel
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.HarBrukerSvartNeiPaaOppholdUtenforEØSRegel
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.HarBrukerSvartNeiPaaOppholdUtenforNorgeRegel
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.KanAlleRegelBruddSjekkesUtNorskeBorgereRegel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.eosborgere.KanAlleRegelBruddSjekkesUtEOSBorgereRegel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.tredelandsborgere.KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel
@@ -28,7 +25,13 @@ class RegelFactory(private val datagrunnlag: Datagrunnlag,private val årsaker:L
     fun create(regelId: RegelId): Regel {
         return when (regelId) {
             RegelId.SP6130 -> HarBrukerOppgittArbeidUtlandGammelModell.fraDatagrunnlag(datagrunnlag).regel
-            RegelId.SP6311 -> HarBrukerSvartNeiPaaOppholdUtenforEØSRegel.fraDatagrunnlag(datagrunnlag).regel
+
+            RegelId.SP6311 -> HarBrukerOppholdtsegUtenForEØSRegel.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6312 -> ErDetBareEttUtenlandsoppholdRegel.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6313 -> BleOppholdetAvsluttetForMerEnn90DagerSidenRegel.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6314 -> ErOppholdetIUtlandetKortereEnn180DagerRegel.fraDatagrunnlag(datagrunnlag).regel
+
+
             RegelId.SP6301 -> FinnesBrukerSvarForOppholdUtenforEØSRegel.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6110 -> HarBrukerOppgittArbeidUtenforNorgeNyModell.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6120 -> HarBrukerSvartNeiForArbeidUtenforNorgeNyModell.fraDatagrunnlag(datagrunnlag).regel
