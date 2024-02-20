@@ -69,7 +69,7 @@ class TailService() {
     }
 
     /*
-    * SP9000 ?
+    * SP6900
     * */
     private fun lagKonklusjon(resultatGammelRegelMotor: Kjøring, responsRegelMotorHale: Resultat): Konklusjon {
 
@@ -103,7 +103,7 @@ class TailService() {
                 status = Svar.JA,
                 lovvalg = null,
                 dekningForSP = DekningsAltrnativer.JA,
-                medlemskap = Medlemskap("JA","§2-1"),
+                medlemskap = Medlemskap("JA",""),
                 avklaringsListe = emptyList(),
                 reglerKjørt = responsRegelMotorHale.delresultat,
                 utledetInformasjoner = responsRegelMotorHale.utledetInformasjon
@@ -171,7 +171,8 @@ class TailService() {
         regelId: RegelId
     ): List<avklaring> {
 
-        if (Svar.UAVKLART == responsRegelMotorHale.svar){
+        if (Svar.UAVKLART == responsRegelMotorHale.svar
+            || Svar.NEI == responsRegelMotorHale.svar){
             return avklaringerGammelKjøring
         }
 
