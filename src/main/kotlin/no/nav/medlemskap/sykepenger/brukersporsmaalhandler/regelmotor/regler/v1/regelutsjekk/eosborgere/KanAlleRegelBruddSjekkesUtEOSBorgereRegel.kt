@@ -7,7 +7,6 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Dat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Årsak
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.arbeidUtlandTrue
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.bådeArbeidUtlandOgOppholdUtenforEOSFalse
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.tredelandsborgere.KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel
 import java.time.LocalDate
 
 class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
@@ -32,15 +31,19 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
         }
         val toBeControlled:MutableList<Årsak> = mutableListOf()
         toBeControlled.addAll(årsaker)
-        //fjer alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
+        //fjern alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
         if (true == brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSFalse()){
            toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland.contains(it.regelId)}
         }
         if (toBeControlled.isEmpty()){
             return Resultat.ja(regelId)
         }
+
         if (false == brukerInput?.arbeidUtlandTrue()){
             toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeTrue.contains(it.regelId)}
+        }
+        if (toBeControlled.isEmpty()){
+            return Resultat.ja(regelId)
         }
         return Resultat(
             regelId = RegelId.SP6600,

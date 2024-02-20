@@ -170,6 +170,11 @@ class TailService() {
         responsRegelMotorHale: Resultat,
         regelId: RegelId
     ): List<avklaring> {
+
+        if (Svar.UAVKLART == responsRegelMotorHale.svar){
+            return avklaringerGammelKjøring
+        }
+
         val kanAlleRegelBruddSjekkesUtRegelResultat = responsRegelMotorHale.finnRegelResultat(regelId)
         if (kanAlleRegelBruddSjekkesUtRegelResultat == null){
             return avklaringerGammelKjøring
