@@ -12,6 +12,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforEOS
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforNorge
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdstilatelse.ReglerForOppholdstilatelse
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.ReglerForUtsjekkAvGammelRegelMotorNorskeBorgere
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.eosborgere.ReglerForUtsjekkAvGammelRegelMotorEOSBorgere
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.tredelandsborgere.ReglerForUtsjekkAvGammelRegelMotorTredjelandBorgere
@@ -96,6 +97,7 @@ class Hovedregler(private val kjøring: Kjøring) {
 
     private fun kjørReglerForEøsBorgere(): List<Resultat> {
         return listOf(
+            ReglerForOppholdstilatelse.fraDatagrunnlag(kjøring.datagrunnlag,kjøring.resultat),
             ReglerForOppholdUtenforEOS.fraDatagrunnlag(kjøring.datagrunnlag),
             ReglerForUtsjekkAvGammelRegelMotorEOSBorgere.fraDatagrunnlag(kjøring.datagrunnlag,kjøring.resultat.årsaker),
         ).map { it.kjørHovedflyt() }
