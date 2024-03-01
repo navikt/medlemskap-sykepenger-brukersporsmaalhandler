@@ -103,7 +103,7 @@ class TailService() {
                 status = Svar.JA,
                 lovvalg = null,
                 dekningForSP = DekningsAltrnativer.JA,
-                medlemskap = Medlemskap("JA","§2-1"),
+                medlemskap = Medlemskap("JA",""),
                 avklaringsListe = emptyList(),
                 reglerKjørt = responsRegelMotorHale.delresultat,
                 utledetInformasjoner = responsRegelMotorHale.utledetInformasjon

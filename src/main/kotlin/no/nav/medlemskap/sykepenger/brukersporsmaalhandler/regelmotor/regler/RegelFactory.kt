@@ -4,17 +4,20 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.RegelId
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.GammelkjøringResultat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Årsak
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.HarBrukerOppgittArbeidUtlandGammelModell
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.HarBrukerOppgittArbeidUtenforNorgeNyModell
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.HarBrukerSvartNeiForArbeidUtenforNorgeNyModell
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.*
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdstilatelse.ErDetRegelBruddForOppholdTilatelseIGammelFlytRegel
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdstilatelse.FinnesBrukerSvarForOppholdstilatelseRegel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.KanAlleRegelBruddSjekkesUtNorskeBorgereRegel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.eosborgere.KanAlleRegelBruddSjekkesUtEOSBorgereRegel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.tredelandsborgere.KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel
 
 
-class RegelFactory(private val datagrunnlag: Datagrunnlag,private val årsaker:List<Årsak> = emptyList()) {
+class RegelFactory(private val datagrunnlag: Datagrunnlag,private val årsaker:List<Årsak> = emptyList(),private val gameltResultat:GammelkjøringResultat? = null) {
 
     fun create(regelIdentifikator: String): Regel {
         val regelId = RegelId.fraRegelIdString(regelIdentifikator)
@@ -24,6 +27,11 @@ class RegelFactory(private val datagrunnlag: Datagrunnlag,private val årsaker:L
 
     fun create(regelId: RegelId): Regel {
         return when (regelId) {
+
+            RegelId.SP6201 -> ErDetRegelBruddForOppholdTilatelseIGammelFlytRegel.fraDatagrunnlag(datagrunnlag,gameltResultat).regel
+            RegelId.SP6211 -> FinnesBrukerSvarForOppholdstilatelseRegel.fraDatagrunnlag(datagrunnlag).regel
+
+
             RegelId.SP6130 -> HarBrukerOppgittArbeidUtlandGammelModell.fraDatagrunnlag(datagrunnlag).regel
 
             RegelId.SP6311 -> HarBrukerOppholdtsegUtenForEØSRegel.fraDatagrunnlag(datagrunnlag).regel

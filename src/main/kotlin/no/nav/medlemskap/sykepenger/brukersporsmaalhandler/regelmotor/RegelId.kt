@@ -24,6 +24,11 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
     SP6702("Opphold Utenfor Norge","Har Bruker svart Nei i opphold utenfor Norge","Bruker har oppgitt JA i Opphold utenfor Norge","Bruker har oppgitt NEI i Opphold utenfor Norge","Bruker har oppgitt JA i Opphold utenfor Norge"),
     SP6703("Finnes brukersvar for OppholdUtenfor Norge","Finnes brukersvar for OppholdUtenfor Norge","Det finnes ikke brukersvar for OppholdUtenfor Norge","Det finnes brukersvar for OppholdUtenfor Norge"),
     SP6301("Finnes brukersvar for OppholdUtenfor EØS","Finnes brukersvar for OppholdUtenfor EØS","Det finnes ikke brukersvar for OppholdUtenforEØS","Det finnes brukersvar for OppholdUtenforEØS"),
+
+    SP6201("Er det regelbrudd i for oppholdstilatelse i gammel flyt","Er det regelbrudd i for oppholdstilatelse i gammel flyt","Det er ingen regelbrudd for oppholdstilatele i gammel flyt","Det er  regelbrudd for oppholdstilatele i gammel flyt"),
+    SP6211("Finnes brukersvar for oppholdstilatelse","Finnes brukersvar for oppholdstilatelse","Det finnes ikke brukersvar for oppholdstilatelse","Det finnes brukersvar for oppholdstilatelse"),
+
+
     ARBEID_UTLAND_FLYT("ARBEID_UTLAND_FLYT", "Har bruker på noen måte gitt svar på arbeid utland?"),
     REGEL_UTSJEKK("Utsjekk av reger brudd", "Kan alle regelbrudd fra gammel regelmotor sjekkes ut?"),
     SP6120("ArbeidUtlandNyModell","har bruker oppgitt NEI i arbeid utland ny modell","bruker har  oppgitt JA i arbeid utland ny modell","bruker har oppgitt NEI i arbeid utland ny modell"),

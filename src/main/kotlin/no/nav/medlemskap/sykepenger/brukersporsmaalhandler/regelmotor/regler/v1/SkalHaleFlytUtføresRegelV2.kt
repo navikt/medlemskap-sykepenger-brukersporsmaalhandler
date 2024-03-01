@@ -22,7 +22,7 @@ class SkalHaleFlytUtføresRegelV2(
 
     override fun operasjon(): Resultat {
 
-        if (null != brukerinput.inneholderNyeBrukerSpørsmål()){
+        if (brukerinput.inneholderNyeBrukerSpørsmål()){
             return ja(regelId)
         }
 

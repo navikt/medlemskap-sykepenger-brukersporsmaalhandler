@@ -10,13 +10,13 @@ import java.util.*
 
 class UavklartHaleTest {
     @Test
-    fun `Uavklart med Kun en regel (regel 3) uten brukerspørsmål skal behandles i halen og få uavklart`(){
+    fun `Uavklart med Kun en regel (regel 3) uten brukerspørsmål skal ikke behandles i halen og få uavklart`(){
         val fileContent = Datagrunnlag::class.java.classLoader.getResource("UavklartKunRegel3UtenBrukerSvarNorskBorger.json").readText(Charsets.UTF_8)
         val respons = TailService().handleKeyValueMessage(UUID.randomUUID().toString(),fileContent)
         val jsonRespons = JacksonParser().ToJson(respons.value)
         val konklusjon:Konklusjon = JacksonParser().toDomainObject(jsonRespons.get("konklusjon").get(0))
         Assertions.assertNotNull(konklusjon)
-        Assertions.assertEquals(Svar.NEI,konklusjon.reglerKjørt.find { it.regelId == RegelId.ARBEID_UTLAND_FLYT }?.delresultat!!.find { it.regelId == RegelId.SP6110 }!!.svar)
+        Assertions.assertEquals(Svar.NEI,konklusjon.reglerKjørt.find { it.regelId == RegelId.SP6001 }!!.svar)
         Assertions.assertEquals(Svar.UAVKLART ,konklusjon.status)
         Assertions.assertEquals("SP6000" ,konklusjon.hvem)
     }
@@ -33,7 +33,7 @@ class UavklartHaleTest {
     }
 
     @Test
-    fun `IkkeNorskEOSBorgerMedUavklartRegel3OgIngenBrukerSvarSkalSvareUavklart`(){
+    fun `IkkeNorskEOSBorgerMedUavklartRegel3OgIngenBrukerSvarSkalSvareUavklartOgHaleSKalIkkeKjøres`(){
         val fileContent = Datagrunnlag::class.java.classLoader.getResource("IkkeNorskEOSBorgerUavklarRegel3UtenBrukerSporsmaal.json").readText(Charsets.UTF_8)
         val respons = TailService().handleKeyValueMessage(UUID.randomUUID().toString(),fileContent)
         val jsonRespons = JacksonParser().ToJson(respons.value)
@@ -44,8 +44,8 @@ class UavklartHaleTest {
         Assertions.assertEquals("SP6000" ,konklusjon.hvem)
         //Assertions.assertEquals(Svar.UAVKLART,konklusjon.reglerKjørt.find { it.regelId == RegelId.REGEL_UTSJEKK }?.svar)
         //Assertions.assertEquals(Svar.NEI,konklusjon.reglerKjørt.find { it.regelId == RegelId.REGEL_UTSJEKK }?.delresultat!!.find { it.regelId == RegelId.SP6600 }!!.svar)
-        Assertions.assertNotNull(konklusjon.avklaringsListe.find { it.regel_id == "SP6301" })
-
+        Assertions.assertNotNull(konklusjon.avklaringsListe.find { it.regel_id == "REGEL_3" },"forventer å finne kjøring av regel SP6001")
+        Assertions.assertTrue(Svar.NEI == konklusjon.reglerKjørt.find { it.regelId.name == "SP6001" }!!.svar)
     }
     @Test
     fun `IkkeNorskEOSBorgerMedUavklartRegel3OgAlleBrukerSvarFalseSvareJa`(){
