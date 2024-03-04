@@ -1,6 +1,7 @@
 
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain
 
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.RegelId
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.UtledetInformasjon
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
@@ -56,6 +57,10 @@ enum class Trygdeavtale{ //er omfattet av en trygdeavtale
 
 }
 
+fun Konklusjon.finnRegelKjøring(regelID:RegelId):Resultat?{
+
+    return (reglerKjørt + reglerKjørt.flatMap { it.delresultat }).find { it.regelId == regelID }
+}
 //utledet_informasjon
 
 
