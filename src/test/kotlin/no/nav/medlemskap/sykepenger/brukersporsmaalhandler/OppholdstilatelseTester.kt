@@ -54,6 +54,21 @@ class OppholdstilatelseTester {
         Assertions.assertEquals(Svar.UAVKLART ,konklusjon.status)
         Assertions.assertEquals("SP6000" ,konklusjon.hvem)
     }
+    @Test
+    fun `3LandsBruker SomBryterPaa19_3 med brukerspormaa som er minst 1 år tilbake og to mnd frem `(){
+        val fileContent = Datagrunnlag::class.java.classLoader.getResource("BrukerBrudd_REGEL19_MedBrukerSvarOmOppholdsTilatelseSkalGiJA.json").readText(Charsets.UTF_8)
+        val respons = TailService().handleKeyValueMessage(UUID.randomUUID().toString(),fileContent)
+        val jsonRespons = JacksonParser().ToJson(respons.value)
+        val konklusjon:Konklusjon = JacksonParser().toDomainObject(jsonRespons.get("konklusjon").get(0))
+        println(jsonRespons.toPrettyString())
+        Assertions.assertNotNull(konklusjon)
+        Assertions.assertEquals(Svar.JA ,konklusjon.finnRegelKjøring(RegelId.SP6001)!!.svar,"Regelmotor skal kjøres")
+        Assertions.assertEquals(Svar.JA,konklusjon.finnRegelKjøring(RegelId.SP6201)!!.svar,"Det skal være regelbrudd for oppholdstilatelse")
+        Assertions.assertEquals(Svar.JA,konklusjon.finnRegelKjøring(RegelId.SP6211)!!.svar,"Det finnes brukerspørsmål om oppholdstilatelse")
+        Assertions.assertEquals(Svar.NEI,konklusjon.finnRegelKjøring(RegelId.SP6221)!!.svar,"Bruker skal ikke ha permanent oppgholsTilatelse")
+        Assertions.assertEquals(Svar.UAVKLART ,konklusjon.status)
+        Assertions.assertEquals("SP6000" ,konklusjon.hvem)
+    }
 
 
 }

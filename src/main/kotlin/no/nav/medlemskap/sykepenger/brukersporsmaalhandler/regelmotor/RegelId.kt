@@ -25,10 +25,12 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
     SP6703("Finnes brukersvar for OppholdUtenfor Norge","Finnes brukersvar for OppholdUtenfor Norge","Det finnes ikke brukersvar for OppholdUtenfor Norge","Det finnes brukersvar for OppholdUtenfor Norge"),
     SP6301("Finnes brukersvar for OppholdUtenfor EØS","Finnes brukersvar for OppholdUtenfor EØS","Det finnes ikke brukersvar for OppholdUtenforEØS","Det finnes brukersvar for OppholdUtenforEØS"),
 
-    OPHOLDSTILATELSE_FLYT("OPHOLDSTILATELSE_FLYT", "Har bruker oppholdstilatelse....sklriv om denne"),
+    OPHOLDSTILATELSE_FLYT("OPHOLDSTILATELSE_FLYT", "Tilsier ny oppholdstilatelse flyt at bruker har oppholdstilatelse"),
     SP6201("Er det regelbrudd i for oppholdstilatelse i gammel flyt","Er det regelbrudd i for oppholdstilatelse i gammel flyt","Det er ingen regelbrudd for oppholdstilatele i gammel flyt","Det er  regelbrudd for oppholdstilatele i gammel flyt"),
     SP6211("Finnes brukersvar for oppholdstilatelse","Finnes brukersvar for oppholdstilatelse","Det finnes ikke brukersvar for oppholdstilatelse","Det finnes brukersvar for oppholdstilatelse"),
     SP6221("Har bruker selv opplyst om permanent oppholdstilatelse","Har bruker selv opplyst om permanent oppholdstilatelse","Bruker har selv  opplyst at hen ikke har  permanent oppholdstilatelse","Bruker har selv   opplyst at hen  har  permanent oppholdstilatelse"),
+
+    SP6223("Er Vedtaksdato oppgitt av bruker mer en 12 mnd tilbake i tid","Er Vedtaksdato oppgitt av bruker mer en 12 mnd tilbake i tid","Vedtaksdato oppgitt av bruker er ikke mer en 12 mnd tilbake i tid","Vedtaksdato oppgitt av bruker er mer en 12 mnd tilbake i tid"),
 
     SP6232("Er start datoen bruker selv har opplyst mer en 12 mnd tibake i tid","Er start datoen bruker selv har opplyst mer en 12 mnd tilbake i tid","Datoen bruker selv har opplyst er ikke mer en 12 mnd tilbake i tid","Datoen bruker selv har opplyst er mer en 12 mnd tilbake i tid"),
     SP6241("Er slutt  datoen bruker selv har opplyst mer en 2 mnd frem i tid","Er slutt  datoen bruker selv har opplyst mer en 2 mnd frem i tid","slutt Datoen bruker selv har opplyst er ikke mer en 2 mnd frem i tid","slutt Datoen bruker selv har opplyst er mer en 2 mnd frem i tid"),
