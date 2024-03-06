@@ -67,3 +67,9 @@ fun Brukerinput.oppholdUtenforEØSOppgitt():Boolean{
           this.oppholdUtenforEos.svar
           )
 }
+fun Brukerinput.oppholdstillatelseOppgitt():Boolean{
+    return (
+            this.oppholdstilatelse != null &&
+                    this.oppholdstilatelse.svar
+            )
+}
