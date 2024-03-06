@@ -18,6 +18,10 @@ class KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel(
             listOf(
                 "REGEL_3"
             )
+    val reglerSomSjekkesUtOppholdstilatelseOppgitt =
+        listOf(
+            "REGEL_19_3_1"
+        )
     override fun operasjon(): Resultat {
 
         if (årsaker.isEmpty()){
@@ -28,6 +32,13 @@ class KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel(
         //fjer alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
         if (true == brukerInput?.bådeArbeidUtlandOgOppholdUtenforNorgeFalse()){
            toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland.contains(it.regelId)}
+        }
+        //fjer alle regler som kan sjekkes ut med oppholdsTilatelseOppgitt
+        if (toBeControlled.isEmpty()){
+            return Resultat.ja(regelId)
+        }
+        if (brukerInput?.oppholdstilatelse!=null){
+            toBeControlled.removeIf{reglerSomSjekkesUtOppholdstilatelseOppgitt.contains(it.regelId)}
         }
         if (toBeControlled.isEmpty()){
             return Resultat.ja(regelId)

@@ -19,17 +19,7 @@
         "oppholdUtenforEOS": [
         ]
       },
-      "oppholdstilatelse": {
-        "id" : "9406e456-e3cd-4e4e-be60-0e776cc9989c",
-        "sporsmalstekst" : "har du oppholdstilatelse?",
-        "svar" : true,
-        "vedtaksdato" : "2024-02-27",
-        "vedtaksTypePermanent" : false,
-        "perioder" : [ {
-          "fom" : "2022-12-27",
-          "tom" : "2027-04-27"
-        } ]
-      },
+      "oppholdstilatelse": null,
       "arbeidUtenforNorge": true,
       "oppholdUtenforNorge": {
         "id": "1163b83e-a938-315c-bb44-be9d20fe8848",
