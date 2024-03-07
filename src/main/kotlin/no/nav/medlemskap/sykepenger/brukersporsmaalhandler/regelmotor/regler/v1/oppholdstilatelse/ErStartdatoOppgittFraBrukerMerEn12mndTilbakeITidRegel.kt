@@ -11,12 +11,12 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Bru
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import java.time.LocalDate
 
-class ErStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITidRegel(
+class ErStartdatoOppgittFraBrukerMerEn12mndTilbakeITidRegel(
     ytelse: Ytelse,
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
-) : BasisRegel(RegelId.SP6231, ytelse) {
+) : BasisRegel(RegelId.SP6222, ytelse) {
 
     override fun operasjon(): Resultat {
 
@@ -34,8 +34,8 @@ class ErStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITidRegel(
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): ErStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITidRegel {
-            return ErStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITidRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): ErStartdatoOppgittFraBrukerMerEn12mndTilbakeITidRegel {
+            return ErStartdatoOppgittFraBrukerMerEn12mndTilbakeITidRegel(
                 ytelse = datagrunnlag.ytelse,
                 startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput

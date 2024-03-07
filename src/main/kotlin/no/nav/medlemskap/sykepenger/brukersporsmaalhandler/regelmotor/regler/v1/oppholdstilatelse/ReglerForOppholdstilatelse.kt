@@ -23,6 +23,8 @@ class ReglerForOppholdstilatelse(
     override fun hentHovedflyt(): Regelflyt {
 
 
+
+
         val erVedtaksdatoForPermanentOppgittFraBrukerMerEn12mndTilbakeITid =
             lagRegelflyt(
                 regel = hentRegel(RegelId.SP6223),
@@ -30,6 +32,12 @@ class ReglerForOppholdstilatelse(
                 hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT)
             )
 
+        val erStartdatoPermanentOppgittFraBrukerMerEn12mndTilbakeITid =
+            lagRegelflyt(
+                regel = hentRegel(RegelId.SP6222),
+                hvisJa = erVedtaksdatoForPermanentOppgittFraBrukerMerEn12mndTilbakeITid,
+                hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT)
+            )
         val erSluttDatoForMidlertidigOppholdstilatelse2mndFremTidRegel =
             lagRegelflyt(
                 regel = hentRegel(RegelId.SP6241),
@@ -39,14 +47,14 @@ class ReglerForOppholdstilatelse(
 
         val erStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITid =
             lagRegelflyt(
-                regel = hentRegel(RegelId.SP6232),
+                regel = hentRegel(RegelId.SP6231),
                 hvisJa = erSluttDatoForMidlertidigOppholdstilatelse2mndFremTidRegel,
                 hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT)
             )
 
         val harBrukerOpplystOmPermanentOppholdsTilatelseRegel = lagRegelflyt(
             regel = hentRegel(RegelId.SP6221),
-            hvisJa = erVedtaksdatoForPermanentOppgittFraBrukerMerEn12mndTilbakeITid,
+            hvisJa = erStartdatoPermanentOppgittFraBrukerMerEn12mndTilbakeITid,
             hvisNei = erStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITid,
         )
 
