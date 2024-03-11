@@ -23,15 +23,52 @@ class ReglerForOppholdstilatelse(
     override fun hentHovedflyt(): Regelflyt {
 
 
-        val erDetOppgittBrukerspørsmålOmOppholdsTilatelse = lagRegelflyt(
-            regel = hentRegel(RegelId.SP6211),
-            hvisJa = Regelflyt.regelflytJa(ytelse),
-            hvisNei = Regelflyt.regelflytJa(ytelse),
+
+
+        val erVedtaksdatoForPermanentOppgittFraBrukerMerEn12mndTilbakeITid =
+            lagRegelflyt(
+                regel = hentRegel(RegelId.SP6223),
+                hvisJa = Regelflyt.regelflytJa(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
+                hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT)
+            )
+
+        val erStartdatoPermanentOppgittFraBrukerMerEn12mndTilbakeITid =
+            lagRegelflyt(
+                regel = hentRegel(RegelId.SP6222),
+                hvisJa = erVedtaksdatoForPermanentOppgittFraBrukerMerEn12mndTilbakeITid,
+                hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT)
+            )
+        val erSluttDatoForMidlertidigOppholdstilatelse2mndFremTidRegel =
+            lagRegelflyt(
+                regel = hentRegel(RegelId.SP6241),
+                hvisJa = Regelflyt.regelflytJa(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
+                hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT)
+            )
+
+        val erStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITid =
+            lagRegelflyt(
+                regel = hentRegel(RegelId.SP6231),
+                hvisJa = erSluttDatoForMidlertidigOppholdstilatelse2mndFremTidRegel,
+                hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT)
+            )
+
+        val harBrukerOpplystOmPermanentOppholdsTilatelseRegel = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6221),
+            hvisJa = erStartdatoPermanentOppgittFraBrukerMerEn12mndTilbakeITid,
+            hvisNei = erStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITid,
         )
 
-        val erDetRegelBruddForOppholdTilatelseIGammelFlyt = lagRegelflyt(regel = hentRegel(RegelId.SP6201),
+
+        val erDetOppgittBrukerspørsmålOmOppholdsTilatelse = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6211),
+            hvisJa = harBrukerOpplystOmPermanentOppholdsTilatelseRegel,
+            hvisNei = Regelflyt.regelflytJa(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
+        )
+
+        val erDetRegelBruddForOppholdTilatelseIGammelFlyt = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6201),
             hvisJa = erDetOppgittBrukerspørsmålOmOppholdsTilatelse,
-            hvisNei = Regelflyt.regelflytJa(ytelse),
+            hvisNei = Regelflyt.regelflytJa(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
         )
 
 

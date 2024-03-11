@@ -83,6 +83,7 @@ class Hovedregler(private val kjøring: Kjøring) {
 
     private fun kjørReglerForTredjelandsborgere(): List<Resultat> {
         return listOf(
+            ReglerForOppholdstilatelse.fraDatagrunnlag(kjøring.datagrunnlag,kjøring.resultat),
             ReglerForOppholdUtenforNorge.fraDatagrunnlag(kjøring.datagrunnlag),
             ReglerForUtsjekkAvGammelRegelMotorTredjelandBorgere.fraDatagrunnlag(kjøring.datagrunnlag,kjøring.resultat.årsaker),
         ).map { it.kjørHovedflyt() }

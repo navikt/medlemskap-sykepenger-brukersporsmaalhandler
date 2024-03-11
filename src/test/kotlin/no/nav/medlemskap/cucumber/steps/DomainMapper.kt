@@ -40,6 +40,52 @@ class DomainMapper {
 
     }
 
+    fun mapOppholdsTilatelse(datatable: DataTable): Oppholdstilatelse? {
+        val rows: List<Map<String, String>> = datatable.asMaps(
+            String::class.java,
+            String::class.java
+        )
+        val permanent = rows.first()["Permanent"].toBoolean()
+        if (permanent){
+            var fom = rows.first()["FOM"]
+            if (fom.equals("TODAYS_DATE")){
+                fom = LocalDate.now().toString()
+            }
+
+            var vdate = rows.first()["VDATO"]
+            if (vdate.equals("TODAYS_DATE")){
+                vdate = LocalDate.now().toString()
+            }
+            return Oppholdstilatelse(
+                id = UUID.randomUUID().toString(),
+                sporsmalstekst = "",
+                svar = true,
+                vedtaksdato = LocalDate.parse(vdate),
+                vedtaksTypePermanent = true,
+                perioder = listOf(Periode(fom!!,LocalDate.MAX.toString()))
+            )
+        }
+        else{
+            var fom = rows.first()["FOM"]
+            if (fom.equals("TODAYS_DATE")){
+                fom = LocalDate.now().toString()
+            }
+            var tom = rows.first()["TOM"]
+            if (tom.equals("TODAYS_DATE")){
+                tom = LocalDate.now().toString()
+            }
+            val vdate = rows.first()["VDATO"]
+            return Oppholdstilatelse(
+                id = UUID.randomUUID().toString(),
+                sporsmalstekst = "",
+                svar = true,
+                vedtaksdato = LocalDate.parse(vdate),
+                vedtaksTypePermanent = false,
+                perioder = listOf(Periode(fom!!,tom!!))
+            )
+        }
+        return null
+    }
     fun mapOppholdUtenforEos(datatable: DataTable): OppholdUtenforEos? {
         val rows: List<Map<String, String>> = datatable.asMaps(
             String::class.java,

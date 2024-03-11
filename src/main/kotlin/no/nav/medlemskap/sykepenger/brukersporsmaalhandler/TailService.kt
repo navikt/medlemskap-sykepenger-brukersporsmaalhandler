@@ -9,6 +9,7 @@ import java.time.LocalDate
 import net.logstash.logback.argument.StructuredArguments.kv
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdUtenforEØSOppgitt
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdstillatelseOppgitt
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.arbeiderItoLand
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.oppholderSegIEØS
 
@@ -36,6 +37,7 @@ class TailService() {
                         kv("callId",key),
                         kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
                         kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
+                        kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("analyse","NEI"))
 
@@ -51,6 +53,7 @@ class TailService() {
                         kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
+                        kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("analyse","NEI")
                     )
                 }
