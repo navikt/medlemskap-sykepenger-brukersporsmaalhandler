@@ -22,7 +22,7 @@ class ErStartdatoOppgittFraBrukerMerEn12mndTilbakeITidRegel(
 
 
         if (brukerInput!=null && brukerInput.oppholdstilatelse!=null
-            && !brukerInput.oppholdstilatelse.vedtaksTypePermanent
+            && brukerInput.oppholdstilatelse.vedtaksTypePermanent
             && LocalDate.parse(brukerInput.oppholdstilatelse.perioder.first().fom).isBefore(LocalDate.now().minusMonths(12))
             ){
             return ja(regelId)

@@ -1,12 +1,15 @@
 package no.nav.medlemskap.cucumber.steps
 
 
+import com.fasterxml.jackson.databind.JsonNode
 import io.cucumber.datatable.DataTable
 
 import io.cucumber.java.no.Gitt
 import io.cucumber.java.no.Når
 import io.cucumber.java.no.Og
 import io.cucumber.java.no.Så
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.JacksonParser
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.TailService
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Ytelse
@@ -15,6 +18,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.Reg
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ArbeidUtenforNorgeRegelFlyt
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.SkalHaleFlytUtføresRegel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforEOS
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdstilatelse.ReglerForOppholdstilatelse
 import org.junit.jupiter.api.Assertions
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -26,15 +30,31 @@ class RegelSteps  {
     var resultat_gammel_kjoring :String? = null
     var utfortAarbeidUtenforNorge:UtfortAarbeidUtenforNorge? = null
     var oppholdUtenforEos:OppholdUtenforEos? = null
+    var oppholdstilatelse:Oppholdstilatelse? = null
     var arbeidUtenforNorgeGammelModell = false
     var svar:String? = null
     var årsaker = mutableListOf<Årsak>()
     var regelkjoringResultat:Resultat? = null
     var inputPeriode:InputPeriode = InputPeriode(LocalDate.now(), LocalDate.now())
-   @Gitt("arbeidUtenforNorgeGammelModell er {string}")
-   fun function(arbeidutenfornorge:String){
-       this.arbeidUtenforNorgeGammelModell = arbeidutenfornorge.toBoolean()
+    var gammelkjøringResultat:Kjøring? = null
+   @Gitt("gammelt resultat for gammel kjøring er {string}")
+   fun stiTilGammelKjoringFil(filSti:String){
+
+       val fileContent = Datagrunnlag::class.java.classLoader.getResource(filSti).readText(Charsets.UTF_8)
+       this.gammelkjøringResultat = JacksonParser().toDomainObject(fileContent)
+        println("lest gammel kjøring fra fil")
    }
+
+    @Gitt("brukersvar om oppholdstitatelse")
+    fun brukersporsmaalOppholdsTilatelse(datatable: DataTable){
+        this.oppholdstilatelse = DomainMapper().mapOppholdsTilatelse(datatable)
+        println("lest gammel kjøring fra fil")
+    }
+
+    @Gitt("arbeidUtenforNorgeGammelModell er {string}")
+    fun function(arbeidutenfornorge:String){
+        this.arbeidUtenforNorgeGammelModell = arbeidutenfornorge.toBoolean()
+    }
 
 
     @Gitt("OppholdUtenforEosMedFlereInnslag")
@@ -110,6 +130,12 @@ class RegelSteps  {
         print("oppholdUtenforEØSRegler kjøres")
     }
 
+    @Når("oppholdstilatelseRegler kjøres")
+    fun oppholdtilatelseReglerKjøres(){
+        regelkjoringResultat = ReglerForOppholdstilatelse.fraDatagrunnlag(hentDatagrunnlag(),this.gammelkjøringResultat!!.resultat).kjørHovedflyt()
+        print("oppholdstilatelseRegler kjøres")
+    }
+
     @Når("arbeidutenforNorgeFlyt kjøres")
     fun arbeidutenforNorgeFlytkjøres(){
         regelkjoringResultat = ArbeidUtenforNorgeRegelFlyt.fraDatagrunnlag(hentDatagrunnlag()).kjørHovedflyt()
@@ -135,7 +161,7 @@ class RegelSteps  {
             oppholdUtenforEos = this.oppholdUtenforEos,
             utfortAarbeidUtenforNorge = this.utfortAarbeidUtenforNorge,
             oppholdUtenforNorge = null,
-            oppholdstilatelse = null
+            oppholdstilatelse = this.oppholdstilatelse
         )
     )
     }
