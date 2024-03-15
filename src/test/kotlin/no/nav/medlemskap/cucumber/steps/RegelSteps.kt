@@ -37,6 +37,8 @@ class RegelSteps  {
     var regelkjoringResultat:Resultat? = null
     var inputPeriode:InputPeriode = InputPeriode(LocalDate.now(), LocalDate.now())
     var gammelkjøringResultat:Kjøring? = null
+
+    //@Gitt("resultat av medlemskap-oppslag er {string}")
    @Gitt("gammelt resultat for gammel kjøring er {string}")
    fun stiTilGammelKjoringFil(filSti:String){
 
