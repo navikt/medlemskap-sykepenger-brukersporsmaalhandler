@@ -13,7 +13,7 @@ val httpClientVersion = "4.5.13"
 val mainClass = "no.nav.medlemskap.sykepenger.brukersporsmaalhandler.ApplicationKt"
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.20"
     application
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
@@ -85,11 +85,11 @@ tasks {
 
     compileTestKotlin{
         kotlinOptions {
-            jvmTarget = "15"
+            jvmTarget = "20"
         }
     }
     compileKotlin {
-        kotlinOptions.jvmTarget = "15"
+        kotlinOptions.jvmTarget = "20"
         kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
@@ -105,11 +105,18 @@ tasks {
             )
         }
     }
+    java{
+        sourceCompatibility = JavaVersion.VERSION_20
+        targetCompatibility = JavaVersion.VERSION_20
+
+    }
 
     test {
         useJUnitPlatform()
         //Trengs inntil videre for bytebuddy med java 16, som brukes av mockk.
         jvmArgs = listOf("-Dnet.bytebuddy.experimental=true")
+        java.targetCompatibility = JavaVersion.VERSION_20
+        java.sourceCompatibility = JavaVersion.VERSION_20
         systemProperty("cucumber.junit-platform.naming-strategy", "long")
     }
 }
