@@ -30,15 +30,16 @@ class ArbeidUtenforNorgeRegelFlyt(
            hvisUavklart = medlemskonklusjonUavklart(ytelse)
        )
 
-        val harBrukerSvartNeiIArbeidUtlandNyModell = lagRegelflyt(
+        val harBrukerSvartJAIArbeidUtlandNyModell = lagRegelflyt(
             regel = hentRegel(RegelId.SP6120),
-            hvisJa = regelflytJa(ytelse,RegelId.ARBEID_UTLAND_FLYT),
-            hvisNei = konklusjonUavklart(ytelse,RegelId.ARBEID_UTLAND_FLYT),
+            hvisJa = konklusjonUavklart(ytelse,RegelId.ARBEID_UTLAND_FLYT),
+            hvisNei = regelflytJa(ytelse,RegelId.ARBEID_UTLAND_FLYT),
+
         )
 
         val harBrukerOppgittArbeidUtenforNorgeNyModell = lagRegelflyt(
             regel = hentRegel(RegelId.SP6110),
-            hvisJa = harBrukerSvartNeiIArbeidUtlandNyModell,
+            hvisJa = harBrukerSvartJAIArbeidUtlandNyModell,
             hvisNei = arbeidUtlandOppgittGammelModellRegel
         )
 

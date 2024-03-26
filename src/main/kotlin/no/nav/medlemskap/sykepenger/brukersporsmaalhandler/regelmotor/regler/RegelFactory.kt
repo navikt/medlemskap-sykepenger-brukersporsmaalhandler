@@ -8,7 +8,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Gam
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Årsak
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.HarBrukerOppgittArbeidUtlandGammelModell
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.HarBrukerOppgittArbeidUtenforNorgeNyModell
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.HarBrukerSvartNeiForArbeidUtenforNorgeNyModell
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.HarBrukerSvartJAForArbeidUtenforNorgeNyModell
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdstilatelse.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.KanAlleRegelBruddSjekkesUtNorskeBorgereRegel
@@ -49,7 +49,7 @@ class RegelFactory(private val datagrunnlag: Datagrunnlag,private val årsaker:L
             //SP6100 - Arbeid utenfor norge regler
             RegelId.SP6130 -> HarBrukerOppgittArbeidUtlandGammelModell.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6110 -> HarBrukerOppgittArbeidUtenforNorgeNyModell.fraDatagrunnlag(datagrunnlag).regel
-            RegelId.SP6120 -> HarBrukerSvartNeiForArbeidUtenforNorgeNyModell.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6120 -> HarBrukerSvartJAForArbeidUtenforNorgeNyModell.fraDatagrunnlag(datagrunnlag).regel
 
             // Regel utsjekk regler
             RegelId.SP6510 -> KanAlleRegelBruddSjekkesUtNorskeBorgereRegel.fraDatagrunnlag(datagrunnlag,årsaker).regel
