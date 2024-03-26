@@ -9,11 +9,15 @@ import org.apache.kafka.common.serialization.Serdes
 import org.apache.kafka.streams.KafkaStreams
 import org.apache.kafka.streams.StreamsBuilder
 import org.apache.kafka.streams.StreamsConfig
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.*
 
 class StreamsConsumer(environment: Environment) {
-
+    val log: Logger = LoggerFactory.getLogger(StreamsConsumer::class.java)
     fun stream(): KafkaStreams {
+        val start = System.currentTimeMillis()
+        log.info("Starter streaming oppsett")
         val props = Properties()
 
         props[StreamsConfig.APPLICATION_ID_CONFIG] = Configuration.KafkaConfig().applicationID
@@ -37,6 +41,7 @@ class StreamsConsumer(environment: Environment) {
         val topology = builder.build()
         val kafkaStreams = KafkaStreams(topology, props)
         kafkaStreams.start()
+        log.info("Streaming oppsett ferdig. Tidsbruk : ${System.currentTimeMillis()-start}ms ")
         return kafkaStreams
 
     }
