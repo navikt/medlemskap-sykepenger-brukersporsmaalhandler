@@ -41,7 +41,7 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
 
     ARBEID_UTLAND_FLYT("ARBEID_UTLAND_FLYT", "Har bruker på noen måte gitt svar på arbeid utland?"),
     REGEL_UTSJEKK("Utsjekk av reger brudd", "Kan alle regelbrudd fra gammel regelmotor sjekkes ut?"),
-    SP6120("ArbeidUtlandNyModell","har bruker oppgitt NEI i arbeid utland ny modell","bruker har  oppgitt JA i arbeid utland ny modell","bruker har oppgitt NEI i arbeid utland ny modell"),
+    SP6120("ArbeidUtlandNyModell","har bruker oppgitt JA i arbeid utland ny modell","bruker har  oppgitt NEI i arbeid utland ny modell","bruker har oppgitt JA i arbeid utland ny modell"),
     SP6510("Regelutsjekk Norske borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk"),
     SP6600("Regelutsjekk EOS borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk"),
     SP6700("Regelutsjekk 3 land borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk"), ;
