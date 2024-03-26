@@ -19,8 +19,8 @@ fun Routing.naisRoutes(
         if (consumeJob.state().isRunning) {
             call.respondText("Alive!", ContentType.Text.Plain, HttpStatusCode.OK)
         } else {
-            logger.warn("isAlive returnerer HTTP 500. Consumejob sin status er  ${consumeJob.state().name} ")
-            call.respondText("Not alive :(", ContentType.Text.Plain, HttpStatusCode.InternalServerError)
+            logger.warn("Consumejob sin status er  ${consumeJob.state().name} ")
+            call.respondText("Alive!", ContentType.Text.Plain, HttpStatusCode.OK)
         }
     }
     get("/isReady") {
