@@ -14,8 +14,8 @@ spec:
   liveness:
     path: "/isAlive"
     port: 8080
-    initialDelay: 20
-    timeout: 60
+    initialDelay: 60
+    timeout: 90
   resources:
     limits:
       cpu: "200m"
@@ -26,8 +26,8 @@ spec:
   readiness:
     path: "/isReady"
     port: 8080
-    initialDelay: 20
-    timeout: 60
+    initialDelay: 60
+    timeout: 90
   ingresses:
     - https://medlemskap-sykepenger-brukersporsmaalhandler.intern.nav.no
   replicas:
