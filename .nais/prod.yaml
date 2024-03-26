@@ -37,6 +37,8 @@ spec:
   prometheus:
     enabled: true
     path: "/metrics"
+  strategy:
+    type: Recreate
   secureLogs:
     enabled: true
   kafka:
