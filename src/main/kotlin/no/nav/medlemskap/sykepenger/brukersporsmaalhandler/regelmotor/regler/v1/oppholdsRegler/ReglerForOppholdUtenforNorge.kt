@@ -19,14 +19,15 @@ class ReglerForOppholdUtenforNorge(
     override fun hentHovedflyt(): Regelflyt {
 
 
-        val harbrukerOppgittNeiIOppholdUtenforNorge = lagRegelflyt(
-            regel = hentRegel(RegelId.SP6702),
-            hvisJa = regelflytJa(ytelse, RegelId.SP6311),
-            hvisNei = Regelflyt.medlemskonklusjonUavklart(ytelse),
+        val harBrukerOppholdtSegUtenforNorge = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6411),
+            hvisJa =Regelflyt.medlemskonklusjonUavklart(ytelse),
+            hvisNei = regelflytJa(ytelse, RegelId.SP6311),
         )
+
         val finnesBrukerSvarForOppholdUtenforNorge = lagRegelflyt(
-            regel = hentRegel(RegelId.SP6703),
-            hvisJa = harbrukerOppgittNeiIOppholdUtenforNorge,
+            regel = hentRegel(RegelId.SP6401),
+            hvisJa = harBrukerOppholdtSegUtenforNorge,
             hvisNei = Regelflyt.medlemskonklusjonUavklart(ytelse),
         )
 

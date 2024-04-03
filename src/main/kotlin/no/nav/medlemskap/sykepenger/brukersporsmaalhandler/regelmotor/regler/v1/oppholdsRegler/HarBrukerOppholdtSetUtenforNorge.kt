@@ -11,17 +11,17 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Bru
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import java.time.LocalDate
 
-class HarBrukerSvartNeiPaaOppholdUtenforNorgeRegel(
+class HarBrukerOppholdtSetUtenforNorge(
     ytelse: Ytelse,
     startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
-) : BasisRegel(RegelId.SP6702, ytelse) {
+) : BasisRegel(RegelId.SP6411, ytelse) {
 
     override fun operasjon(): Resultat {
 
 
-        if (brukerInput?.oppholdUtenforNorge != null && !brukerInput.oppholdUtenforNorge!!.svar){
+        if (brukerInput?.oppholdUtenforNorge != null && brukerInput.oppholdUtenforNorge!!.svar){
             return ja(regelId)
         }
         return nei(regelId)
@@ -31,8 +31,8 @@ class HarBrukerSvartNeiPaaOppholdUtenforNorgeRegel(
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): HarBrukerSvartNeiPaaOppholdUtenforNorgeRegel {
-            return HarBrukerSvartNeiPaaOppholdUtenforNorgeRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): HarBrukerOppholdtSetUtenforNorge {
+            return HarBrukerOppholdtSetUtenforNorge(
                 ytelse = datagrunnlag.ytelse,
                 startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput

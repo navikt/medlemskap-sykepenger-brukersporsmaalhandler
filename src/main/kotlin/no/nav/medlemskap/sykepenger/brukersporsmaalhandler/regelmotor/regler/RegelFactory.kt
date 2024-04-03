@@ -57,8 +57,8 @@ class RegelFactory(private val datagrunnlag: Datagrunnlag,private val årsaker:L
             RegelId.SP6700 -> KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel.fraDatagrunnlag(datagrunnlag,årsaker).regel
 
             //SP6700 - Opphold utenfor utenfor Norge regler
-            RegelId.SP6702 -> HarBrukerSvartNeiPaaOppholdUtenforNorgeRegel.fraDatagrunnlag(datagrunnlag).regel
-            RegelId.SP6703 -> FinnesBrukerSvarForOppholdUtenforNorgeRegel.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6411 -> HarBrukerOppholdtSetUtenforNorge.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6401 -> FinnesBrukerSvarForOppholdUtenforNorgeRegel.fraDatagrunnlag(datagrunnlag).regel
             else -> throw java.lang.RuntimeException("Ukjent regel: $regelId")
         }
     }
