@@ -21,8 +21,9 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
     SP6313("Ble oppholdet avsluttet for mer enn 90 dager siden","Ble oppholdet avsluttet for mer enn 90 dager siden?","Det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet","det er mer en 90 dager siden oppholdet ble avsluttet","det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet"),
 
 
-    SP6702("Opphold Utenfor Norge","Har Bruker svart Nei i opphold utenfor Norge","Bruker har oppgitt JA i Opphold utenfor Norge","Bruker har oppgitt NEI i Opphold utenfor Norge","Bruker har oppgitt JA i Opphold utenfor Norge"),
-    SP6703("Finnes brukersvar for OppholdUtenfor Norge","Finnes brukersvar for OppholdUtenfor Norge","Det finnes ikke brukersvar for OppholdUtenfor Norge","Det finnes brukersvar for OppholdUtenfor Norge"),
+    SP6411("Opphold Utenfor Norge","Har Bruker oppholdt seg utenfor Norge Norge","Bruker har oppgitt JA i Opphold utenfor Norge","Bruker har oppgitt NEI i Opphold utenfor Norge","Bruker har oppgitt JA i Opphold utenfor Norge"),
+    SP6401("Finnes brukersvar for OppholdUtenfor Norge","Finnes brukersvar for OppholdUtenfor Norge","Det finnes ikke brukersvar for OppholdUtenfor Norge","Det finnes brukersvar for OppholdUtenfor Norge"),
+
     SP6301("Finnes brukersvar for OppholdUtenfor EØS","Finnes brukersvar for OppholdUtenfor EØS","Det finnes ikke brukersvar for OppholdUtenforEØS","Det finnes brukersvar for OppholdUtenforEØS"),
 
     OPHOLDSTILATELSE_FLYT("OPHOLDSTILATELSE_FLYT", "Tilsier ny oppholdstilatelse flyt at bruker har oppholdstilatelse"),
