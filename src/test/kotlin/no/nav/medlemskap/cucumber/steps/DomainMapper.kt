@@ -86,6 +86,55 @@ class DomainMapper {
         }
         return null
     }
+
+
+    fun mapPdlOppholdsTilatelse(datatable: DataTable):List<PdlOppholdsTilatelse> {
+        val rows: List<Map<String, String>> = datatable.asMaps(
+            String::class.java,
+            String::class.java
+        )
+        val fom = rows.first()["PDL_FOM"]
+        val tom = rows.first()["PDL_TOM"]
+        val type = rows.first()["TYPE"]
+
+        return listOf(PdlOppholdsTilatelse(type!!,LocalDate.parse(fom),LocalDate.parse(tom)))
+    }
+    fun mapUdiOppholdsTilatelse(datatable: DataTable):UdiOppholdsTilatelse {
+        val rows: List<Map<String, String>> = datatable.asMaps(
+            String::class.java,
+            String::class.java
+        )
+        val fom = rows.first()["UDI_FOM"]
+        val tom = rows.first()["UDI_TOM"]
+        val type = rows.first()["TYPE"]
+        val udiFrom = LocalDate.parse(fom)
+        var udiTom : LocalDate? = null
+        try{
+             udiTom = LocalDate.parse(tom)
+        }
+        catch (e:Exception){
+            //null er default verdi
+        }
+        return UdiOppholdsTilatelse(
+            gjeldendeOppholdsstatus = GjeldendeOppholdsstatus(
+                oppholdstillatelsePaSammeVilkar = OppholdstillatelsePaSammeVilkar(
+                    periode = UdiPeriode(udiFrom,udiTom)
+                )
+            )
+        )
+    }
+    fun mapPdlOppholdsTilatelseMedFlereRader(datatable: DataTable):List<PdlOppholdsTilatelse> {
+        val pdlOppholdsTilatelseList = mutableListOf<PdlOppholdsTilatelse>()
+        val rows: List<Map<String, String>> = datatable.asMaps(
+            String::class.java,
+            String::class.java
+        )
+        rows.forEach {
+            pdlOppholdsTilatelseList.add(PdlOppholdsTilatelse(it.get("TYPE")!!,LocalDate.parse(it.get("PDL_FOM")),LocalDate.parse(it.get("PDL_TOM"))))
+        }
+
+        return pdlOppholdsTilatelseList
+    }
     fun mapOppholdUtenforEos(datatable: DataTable): OppholdUtenforEos? {
         val rows: List<Map<String, String>> = datatable.asMaps(
             String::class.java,

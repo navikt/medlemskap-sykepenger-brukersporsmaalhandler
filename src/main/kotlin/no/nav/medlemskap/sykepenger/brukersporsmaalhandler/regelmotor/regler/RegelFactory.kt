@@ -34,6 +34,10 @@ class RegelFactory(private val datagrunnlag: Datagrunnlag,private val årsaker:L
             RegelId.SP6222 -> ErStartdatoOppgittFraBrukerMerEn12mndTilbakeITidRegel.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6223 -> ErVedtaksdatoOppgittFraBrukerMerEn12mndTilbakeITidRegel.fraDatagrunnlag(datagrunnlag).regel
 
+            RegelId.SP6225 -> KanOppgttPeriodeSlaasSammenMedUDIPeriodeTilEnSammenhengedePeriodeRegel.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6226 -> ErSammenSlåttPeriodeMinst1ÅrTilbakeOg2MndFremRegel.fraDatagrunnlag(datagrunnlag).regel
+
+            RegelId.SP6229 -> ErOppgittOppholdstilatelseFunksjoneltLiktPDLInnslagRegel.fraDatagrunnlag(datagrunnlag).regel
 
             RegelId.SP6231 -> ErStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITidRegel.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6241 -> ErSluttDatoForMidlertidigOppholdstilatelse2mndFremTidRegel.fraDatagrunnlag(datagrunnlag).regel

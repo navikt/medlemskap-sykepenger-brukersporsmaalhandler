@@ -37,6 +37,9 @@ class RegelSteps  {
     var regelkjoringResultat:Resultat? = null
     var inputPeriode:InputPeriode = InputPeriode(LocalDate.now(), LocalDate.now())
     var gammelkjøringResultat:Kjøring? = null
+    var pdl_oppholdsilatelkser:List<PdlOppholdsTilatelse> = emptyList()
+    var udi_oppholdsilatelse:UdiOppholdsTilatelse? = null
+
 
     //@Gitt("resultat av medlemskap-oppslag er {string}")
    @Gitt("gammelt resultat for gammel kjøring er {string}")
@@ -52,6 +55,22 @@ class RegelSteps  {
         this.oppholdstilatelse = DomainMapper().mapOppholdsTilatelse(datatable)
         println("lest gammel kjøring fra fil")
     }
+    @Og("pdlOpplysninger om oppholdstilatelse")
+    fun pdl_oppholdstilatelkse(datatable: DataTable){
+        this.pdl_oppholdsilatelkser = DomainMapper().mapPdlOppholdsTilatelse(datatable)
+        println("lest gammel kjøring fra fil")
+    }
+    @Og("UDIOpplysninger om oppholdstilatelse")
+    fun udi_oppholdstilatelkse(datatable: DataTable){
+        this.udi_oppholdsilatelse = DomainMapper().mapUdiOppholdsTilatelse(datatable)
+        println("lest gammel kjøring fra fil")
+    }
+    @Og("pdlOpplysninger om oppholdstilatelse med flere innslag")
+    fun pdl_oppholdstilatelkseMedFlereInnslag(datatable: DataTable){
+        this.pdl_oppholdsilatelkser = DomainMapper().mapPdlOppholdsTilatelseMedFlereRader(datatable)
+        println("lest gammel kjøring fra fil")
+    }
+
 
     @Gitt("arbeidUtenforNorgeGammelModell er {string}")
     fun function(arbeidutenfornorge:String){
@@ -163,8 +182,11 @@ class RegelSteps  {
             oppholdUtenforEos = this.oppholdUtenforEos,
             utfortAarbeidUtenforNorge = this.utfortAarbeidUtenforNorge,
             oppholdUtenforNorge = null,
-            oppholdstilatelse = this.oppholdstilatelse
-        )
+            oppholdstilatelse = this.oppholdstilatelse,
+        ),
+        pdlpersonhistorikk = PdlPersonHistorikk(pdl_oppholdsilatelkser),
+        oppholdstillatelse = udi_oppholdsilatelse
+
     )
     }
 
@@ -181,6 +203,8 @@ class RegelSteps  {
                     fom=LocalDate.now(),
                     tom = LocalDate.now()),
                 fnr = "",
+                pdlpersonhistorikk = PdlPersonHistorikk(emptyList()),
+                oppholdstillatelse = null,
                 brukerinput= Brukerinput(
                     arbeidUtenforNorge = false,
                     oppholdstilatelse = null,
