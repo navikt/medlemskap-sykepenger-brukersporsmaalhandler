@@ -20,7 +20,7 @@ class KanOppgttPeriodeSlaasSammenMedUDIPeriodeTilEnSammenhengedePeriodeRegel(
 
 ) : BasisRegel(RegelId.SP6225, ytelse) {
 
-    final val numberofDaysSlack = 5L
+    final val numberofDaysSlack = 1L
 
     fun isDateWithinRange(dateToCheck: LocalDate, referenceDate: LocalDate, daysRange: Long = 5): Boolean {
         val daysBetween = ChronoUnit.DAYS.between(referenceDate, dateToCheck)

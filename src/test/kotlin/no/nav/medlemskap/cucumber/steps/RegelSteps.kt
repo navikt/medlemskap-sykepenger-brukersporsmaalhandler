@@ -1,7 +1,6 @@
 package no.nav.medlemskap.cucumber.steps
 
 
-import com.fasterxml.jackson.databind.JsonNode
 import io.cucumber.datatable.DataTable
 
 import io.cucumber.java.no.Gitt
@@ -9,7 +8,6 @@ import io.cucumber.java.no.Når
 import io.cucumber.java.no.Og
 import io.cucumber.java.no.Så
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.JacksonParser
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.TailService
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Ytelse
@@ -37,7 +35,7 @@ class RegelSteps  {
     var regelkjoringResultat:Resultat? = null
     var inputPeriode:InputPeriode = InputPeriode(LocalDate.now(), LocalDate.now())
     var gammelkjøringResultat:Kjøring? = null
-    var pdl_oppholdsilatelkser:List<PdlOppholdsTilatelse> = emptyList()
+    var pdl_oppholdsilatelser:List<PdlOppholdsTilatelse> = emptyList()
     var udi_oppholdsilatelse:UdiOppholdsTilatelse? = null
 
 
@@ -47,6 +45,8 @@ class RegelSteps  {
 
        val fileContent = Datagrunnlag::class.java.classLoader.getResource(filSti).readText(Charsets.UTF_8)
        this.gammelkjøringResultat = JacksonParser().toDomainObject(fileContent)
+       this.udi_oppholdsilatelse = gammelkjøringResultat!!.datagrunnlag.oppholdstillatelse
+       this.pdl_oppholdsilatelser = gammelkjøringResultat!!.datagrunnlag.pdlpersonhistorikk.oppholdstilatelser
         println("lest gammel kjøring fra fil")
    }
 
@@ -57,7 +57,7 @@ class RegelSteps  {
     }
     @Og("pdlOpplysninger om oppholdstilatelse")
     fun pdl_oppholdstilatelkse(datatable: DataTable){
-        this.pdl_oppholdsilatelkser = DomainMapper().mapPdlOppholdsTilatelse(datatable)
+        this.pdl_oppholdsilatelser = DomainMapper().mapPdlOppholdsTilatelse(datatable)
         println("lest gammel kjøring fra fil")
     }
     @Og("UDIOpplysninger om oppholdstilatelse")
@@ -67,7 +67,7 @@ class RegelSteps  {
     }
     @Og("pdlOpplysninger om oppholdstilatelse med flere innslag")
     fun pdl_oppholdstilatelkseMedFlereInnslag(datatable: DataTable){
-        this.pdl_oppholdsilatelkser = DomainMapper().mapPdlOppholdsTilatelseMedFlereRader(datatable)
+        this.pdl_oppholdsilatelser = DomainMapper().mapPdlOppholdsTilatelseMedFlereRader(datatable)
         println("lest gammel kjøring fra fil")
     }
 
@@ -154,6 +154,7 @@ class RegelSteps  {
     @Når("oppholdstilatelseRegler kjøres")
     fun oppholdtilatelseReglerKjøres(){
         regelkjoringResultat = ReglerForOppholdstilatelse.fraDatagrunnlag(hentDatagrunnlag(),this.gammelkjøringResultat!!.resultat).kjørHovedflyt()
+        udi_oppholdsilatelse = gammelkjøringResultat!!.datagrunnlag.oppholdstillatelse
         print("oppholdstilatelseRegler kjøres")
     }
 
@@ -184,7 +185,7 @@ class RegelSteps  {
             oppholdUtenforNorge = null,
             oppholdstilatelse = this.oppholdstilatelse,
         ),
-        pdlpersonhistorikk = PdlPersonHistorikk(pdl_oppholdsilatelkser),
+        pdlpersonhistorikk = PdlPersonHistorikk(pdl_oppholdsilatelser),
         oppholdstillatelse = udi_oppholdsilatelse
 
     )

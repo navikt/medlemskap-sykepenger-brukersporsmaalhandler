@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit
 
 class ErSammenSlåttPeriodeMinst1ÅrTilbakeOg2MndFremRegel(
     ytelse: Ytelse,
-    startDatoForYtelse: LocalDate,
+    private val startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
     private val udiOpphold: UdiOppholdsTilatelse?
 
@@ -34,10 +34,10 @@ class ErSammenSlåttPeriodeMinst1ÅrTilbakeOg2MndFremRegel(
             //brukerinputFom LocalDate.max default valure
         }
         if (
-            brukerinputFom.isBefore(LocalDate.now().minusYears(1)) &&
+            brukerinputFom.isBefore(startDatoForYtelse.minusYears(1)) &&
             (
                     udiOpphold.gjeldendeOppholdsstatus?.oppholdstillatelsePaSammeVilkar?.periode!!.tom == null ||
-                    udiOpphold.gjeldendeOppholdsstatus?.oppholdstillatelsePaSammeVilkar?.periode.tom!!.isAfter(LocalDate.now().minusMonths(2)))
+                    udiOpphold.gjeldendeOppholdsstatus?.oppholdstillatelsePaSammeVilkar?.periode.tom!!.isAfter(startDatoForYtelse.plusMonths(2)))
             ) {
             return ja(regelId)
         }
