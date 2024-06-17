@@ -15,7 +15,7 @@ class OppholdstilatelseTester {
 
 
     @Test
-    fun `Bruker bryter på kun regel 3 med mange brukerspørsmål, oppholdstilatelse ok skal føre til at regler om opphold ikke kjøres `(){
+    fun `Bruker bryter på kun regel 3 med mange brukerspørsmål om oppholdstilatekse,skal føre til regelBrudd SP6212 `(){
         val fileContent = Datagrunnlag::class.java.classLoader.getResource("IkkeNorskEOSBorgerUavklarRegel3MedBrukeSvarFalseIArbeidUtlandOgOppholdOgOppholdsTilatelse.json").readText(Charsets.UTF_8)
         val respons = TailService().handleKeyValueMessage(UUID.randomUUID().toString(),fileContent)
         val jsonRespons = JacksonParser().ToJson(respons.value)
@@ -23,8 +23,10 @@ class OppholdstilatelseTester {
         Assertions.assertNotNull(konklusjon)
         Assertions.assertTrue(konklusjon.finnRegelKjøring(RegelId.SP6201)!!.svar == Svar.NEI,"Scenario skal  inneholde brukerspørsmål og resultattet skal være likt som før")
         Assertions.assertTrue(konklusjon.finnRegelKjøring(RegelId.SP6001)!!.svar == Svar.JA,"hale skal utføres")
-        Assertions.assertEquals(Svar.JA ,konklusjon.status)
+        Assertions.assertEquals(Svar.UAVKLART ,konklusjon.status)
         Assertions.assertEquals("SP6000" ,konklusjon.hvem)
+        Assertions.assertNotNull(konklusjon.avklaringsListe.find { it.regel_id == "SP6212" })
+
     }
 
     @Test

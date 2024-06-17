@@ -96,11 +96,17 @@ class ReglerForOppholdstilatelse(
             hvisJa = kanOppgittPeriodeSlaasSammenMedUDIPeriodeTilEnSammenhengedePeriode,
             hvisNei = Regelflyt.regelflytJa(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
         )
+        val erDetOppgittBrukerspørsmålOmOppholdsTilatelseSelvOmIkkeRegelBrudd = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6212),
+            hvisJa = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
+            hvisNei = Regelflyt.regelflytJa(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
+        )
+
 
         val erDetRegelBruddForOppholdTilatelseIGammelFlyt = lagRegelflyt(
             regel = hentRegel(RegelId.SP6201),
             hvisJa = erDetOppgittBrukerspørsmålOmOppholdsTilatelse,
-            hvisNei = Regelflyt.regelflytJa(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
+            hvisNei = erDetOppgittBrukerspørsmålOmOppholdsTilatelseSelvOmIkkeRegelBrudd,
         )
 
 

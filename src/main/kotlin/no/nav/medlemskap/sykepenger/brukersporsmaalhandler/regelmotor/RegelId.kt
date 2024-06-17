@@ -29,6 +29,7 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
     OPHOLDSTILATELSE_FLYT("OPHOLDSTILATELSE_FLYT", "Tilsier ny oppholdstilatelse flyt at bruker har oppholdstilatelse"),
     SP6201("Er det regelbrudd i for oppholdstilatelse i gammel flyt","Er det regelbrudd i for oppholdstilatelse i gammel flyt","Det er ingen regelbrudd for oppholdstilatele i gammel flyt","Det er  regelbrudd for oppholdstilatele i gammel flyt"),
     SP6211("Finnes brukersvar for oppholdstilatelse","Finnes brukersvar for oppholdstilatelse","Det finnes ikke brukersvar for oppholdstilatelse","Det finnes brukersvar for oppholdstilatelse"),
+    SP6212("Finnes brukersvar for oppholdstilatelse","Finnes brukersvar for oppholdstilatelse","Det finnes ikke brukersvar for oppholdstilatelse","Det finnes brukersvar for oppholdstilatelse"),
     SP6221("Har bruker selv opplyst om permanent oppholdstilatelse","Har bruker selv opplyst om permanent oppholdstilatelse","Bruker har selv  opplyst at hen ikke har  permanent oppholdstilatelse","Bruker har selv   opplyst at hen  har  permanent oppholdstilatelse"),
 
     SP6222("Er start dato oppgitt av bruker mer en 12 mnd tilbake i tid","Er start dato  oppgitt av bruker mer en 12 mnd tilbake i tid","Start dato oppgitt av bruker er ikke mer en 12 mnd tilbake i tid","Start dato oppgitt av bruker er mer en 12 mnd tilbake i tid"),

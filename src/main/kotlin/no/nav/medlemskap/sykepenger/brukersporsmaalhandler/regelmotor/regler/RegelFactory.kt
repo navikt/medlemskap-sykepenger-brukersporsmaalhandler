@@ -30,6 +30,7 @@ class RegelFactory(private val datagrunnlag: Datagrunnlag,private val årsaker:L
             //SP6200 - Oppholdstilatelsses regeler
             RegelId.SP6201 -> ErDetRegelBruddForOppholdTilatelseIGammelFlytRegel.fraDatagrunnlag(datagrunnlag,gameltResultat).regel
             RegelId.SP6211 -> FinnesBrukerSvarForOppholdstilatelseRegel.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6212 -> FinnesDetBrukerSvarForOppholdstilatelseRegel.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6221 -> HarBrukerOpplystOmPermanentOppholdsTilatelseRegel.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6222 -> ErStartdatoOppgittFraBrukerMerEn12mndTilbakeITidRegel.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6223 -> ErVedtaksdatoOppgittFraBrukerMerEn12mndTilbakeITidRegel.fraDatagrunnlag(datagrunnlag).regel
