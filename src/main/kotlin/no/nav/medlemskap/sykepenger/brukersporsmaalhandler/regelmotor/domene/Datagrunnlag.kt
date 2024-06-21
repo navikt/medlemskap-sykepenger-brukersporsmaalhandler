@@ -3,6 +3,7 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Ytelse
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 data class Datagrunnlag(
     val ytelse: Ytelse,
@@ -47,4 +48,10 @@ fun UdiOppholdsTilatelse.periode():UdiPeriode?{
 
     }
     return udiPeriode
+}
+fun InputPeriode.antallDager():Long{
+    if (tom!=null){
+            return ChronoUnit.DAYS.between(this.fom,tom)
+        }
+    return -1
 }
