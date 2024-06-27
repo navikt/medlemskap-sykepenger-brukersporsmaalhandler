@@ -25,10 +25,7 @@ Egenskap: Flyt test av Oppholdstilatelse
     Og årsak etter regelkjøring er "<ÅRSAK>"
 
     Eksempler:
-      | Permanent | FOM         | TOM         | VDATO       | Resultat | ÅRSAK  | FIL                                                                                |
-      | true      | 2023-02-26  | null        | TODAYS_DATE | UAVKLART | SP6223 | BrukerBrudd_REGEL19_3_1_MedBrukerSvarMenIkkeOmOppholdsTilatelseSkalGiUAVKLART.json |
-      | true      | TODAYS_DATE | null        | 2024-02-26  | UAVKLART | SP6222 | BrukerBrudd_REGEL19_3_1_MedBrukerSvarMenIkkeOmOppholdsTilatelseSkalGiUAVKLART.json |
-      | true      | 2023-02-26  | null        | 2023-02-26  | JA       | null   | BrukerBrudd_REGEL19_3_1_MedBrukerSvarMenIkkeOmOppholdsTilatelseSkalGiUAVKLART.json |
-      | false     | 2023-02-26  | 2026-02-26  | 2023-02-26  | JA       | null   | BrukerBrudd_REGEL19_3_1_MedBrukerSvarMenIkkeOmOppholdsTilatelseSkalGiUAVKLART.json |
-      | false     | TODAYS_DATE | 2026-02-26  | 2023-02-26  | UAVKLART | SP6231 | BrukerBrudd_REGEL19_3_1_MedBrukerSvarMenIkkeOmOppholdsTilatelseSkalGiUAVKLART.json |
-      | false     | 2023-02-26  | TODAYS_DATE | 2023-02-26  | UAVKLART | SP6241 | BrukerBrudd_REGEL19_3_1_MedBrukerSvarMenIkkeOmOppholdsTilatelseSkalGiUAVKLART.json |
+      | Permanent | FOM         | TOM         | VDATO       | Resultat | ÅRSAK  | FIL                                                          |
+      | false     | 2023-05-14  | 2024-05-14  | 2023-05-14  | JA       | null   | Regel19_3_1_Brudd_med_PDL_OppholdsDataOgBrukerSporsmaal.json |
+      | false     | 2023-05-14  | 2024-05-10  | 2023-05-14  | UAVKLART | SP6225   | Regel19_3_1_Brudd_med_PDL_OppholdsDataOgBrukerSporsmaal.json |
+      | false     | 2024-01-14  | 2024-05-14  | 2023-05-14  | UAVKLART | SP6229   | Regel19_3_1_Brudd_med_PDL_OppholdsDataOgBrukerSporsmaal.json |
