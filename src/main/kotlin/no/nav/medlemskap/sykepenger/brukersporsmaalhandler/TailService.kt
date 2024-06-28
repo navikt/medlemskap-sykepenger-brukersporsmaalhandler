@@ -24,11 +24,18 @@ class TailService() {
                 val resultatGammelRegelMotorJson = JacksonParser().ToJson(json)
                 val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
                 val responsRegelMotorHale = ReglerService.kjørRegler(resultatGammelRegelMotor)
+
                 val konklusjon:Konklusjon = lagKonklusjon(resultatGammelRegelMotor,responsRegelMotorHale)
                 val konklusjoner: List<Konklusjon> = listOf(konklusjon)
                 val konklusjonerJson = JacksonParser().ToJson(konklusjoner)
                 val haleRespons: ObjectNode = resultatGammelRegelMotorJson.deepCopy()
                 val t:ObjectNode = haleRespons.set("konklusjon", konklusjonerJson)
+                var pdl_samsvar = "NA"
+                val SP6229Svar = responsRegelMotorHale.finnRegelResultat(RegelId.SP6229)
+                if (SP6229Svar!=null){
+                    pdl_samsvar = SP6229Svar.svar.name
+                }
+
                 if (resultatGammelRegelMotor.resultat.svar.name != konklusjon.status.name){
                     secureLogger.info("post prosessering ferdig. Differanse i svar!",
                         kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
@@ -41,6 +48,7 @@ class TailService() {
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
+                        kv("PDL_SAMSVAR",pdl_samsvar),
                         kv("analyse","NEI"))
 
                 }
@@ -57,6 +65,7 @@ class TailService() {
                         kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
+                        kv("PDL_SAMSVAR",pdl_samsvar),
                         kv("analyse","NEI")
                     )
                 }

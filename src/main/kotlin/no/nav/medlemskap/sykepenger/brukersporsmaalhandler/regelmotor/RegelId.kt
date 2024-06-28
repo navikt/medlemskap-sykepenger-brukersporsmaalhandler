@@ -41,7 +41,7 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
     SP6226("Er Sammenslått Periode for Oppholdstilatelser og UDI informasjon 1 år tilbake og 2 mnd frem?","Er Sammenslått Periode for Oppholdstilatelser og UDI informasjon 1 år tilbake og 2 mnd frem?","Sammenlagt periode av bruker spørsmål og UDI er ikke lang nok","Sammenlagt periode av bruker spørsmål og UDI er lang nok"),
 
     SP6229("Er oppgitt oppholdstilatelse likt som PDL innslag","Er oppgitt oppholdstilatelse likt som PDL innslag","oppholdstilatelse  oppgitt av bruker er ikke likt som PDL innslag","oppholdstilatelse  oppgitt av bruker er likt som PDL innslag"),
-
+    SP6229_1("Det er logget avvik i brukeropplysninger","Det er logget avvik i brukeropplysninger","Det er logget avvik i brukeropplysninger","Det er logget avvik i brukeropplysninger"),
     SP6231("Er start datoen bruker selv har opplyst mer en 12 mnd tibake i tid","Er start datoen bruker selv har opplyst mer en 12 mnd tilbake i tid","Datoen bruker selv har opplyst er ikke mer en 12 mnd tilbake i tid","Datoen bruker selv har opplyst er mer en 12 mnd tilbake i tid"),
     SP6241("Er slutt  datoen bruker selv har opplyst mer en 2 mnd frem i tid","Er slutt  datoen bruker selv har opplyst mer en 2 mnd frem i tid","slutt Datoen bruker selv har opplyst er ikke mer en 2 mnd frem i tid","slutt Datoen bruker selv har opplyst er mer en 2 mnd frem i tid"),
 
