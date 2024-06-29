@@ -79,10 +79,11 @@ class ReglerForOppholdstilatelse(
             hvisJa = Regelflyt.regelflytJa(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
             hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
         )
+        //vi skal ikke slå ut på denne regelen lenger, men vil ha sporing at regelen har svart NEI
         val erOppgittOppholdstilatelseFunksjoneltLiktPDLInnslag = lagRegelflyt(
             regel = hentRegel(RegelId.SP6229),
             hvisJa = erSammenSlåttPeriodeMinst1ÅrTilbakeOg2MndFrem,
-            hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
+            hvisNei = erSammenSlåttPeriodeMinst1ÅrTilbakeOg2MndFrem,
         )
 
         val kanOppgittPeriodeSlaasSammenMedUDIPeriodeTilEnSammenhengedePeriode = lagRegelflyt(
