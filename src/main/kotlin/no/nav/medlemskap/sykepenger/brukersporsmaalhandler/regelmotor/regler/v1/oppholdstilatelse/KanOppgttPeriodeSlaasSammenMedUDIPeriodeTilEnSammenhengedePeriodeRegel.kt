@@ -29,7 +29,10 @@ class KanOppgttPeriodeSlaasSammenMedUDIPeriodeTilEnSammenhengedePeriodeRegel(
 
     override fun operasjon(): Resultat {
 
-        if (udiOpphold == null ||  udiOpphold.periode() == null) {
+        if (udiOpphold == null ||
+            udiOpphold.periode() == null  ||
+            brukerInput!!.oppholdstilatelse!!.svar == false
+        ){
             return nei(regelId)
         }
         var brukerInputTomDato:LocalDate = LocalDate.MIN
