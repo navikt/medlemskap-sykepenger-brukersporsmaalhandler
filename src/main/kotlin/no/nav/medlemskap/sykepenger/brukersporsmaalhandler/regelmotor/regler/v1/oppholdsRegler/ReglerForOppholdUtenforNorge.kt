@@ -19,9 +19,26 @@ class ReglerForOppholdUtenforNorge(
     override fun hentHovedflyt(): Regelflyt {
 
 
+        val ErOppholdetIUtlandetKortereEnn180Dager = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6414),
+            hvisJa = regelflytJa(ytelse),
+            hvisNei =Regelflyt.medlemskonklusjonUavklart(ytelse),
+        )
+
+        val bleOppholdetAvsluttetForMerEnn90DagerSiden = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6413),
+            hvisJa = ErOppholdetIUtlandetKortereEnn180Dager,
+            hvisNei =Regelflyt.medlemskonklusjonUavklart(ytelse),
+        )
+
+        val ErDetBareEttUtenlandsOpphold = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6412),
+            hvisJa = bleOppholdetAvsluttetForMerEnn90DagerSiden,
+            hvisNei =Regelflyt.medlemskonklusjonUavklart(ytelse),
+        )
         val harBrukerOppholdtSegUtenforNorge = lagRegelflyt(
             regel = hentRegel(RegelId.SP6411),
-            hvisJa =Regelflyt.medlemskonklusjonUavklart(ytelse),
+            hvisJa =ErDetBareEttUtenlandsOpphold,
             hvisNei = regelflytJa(ytelse, RegelId.SP6311),
         )
 

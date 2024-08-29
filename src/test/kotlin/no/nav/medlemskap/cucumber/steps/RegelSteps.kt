@@ -16,6 +16,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.Reg
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ArbeidUtenforNorgeRegelFlyt
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.SkalHaleFlytUtføresRegel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforEOS
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforNorge
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdstilatelse.ReglerForOppholdstilatelse
 import org.junit.jupiter.api.Assertions
 import java.time.LocalDate
@@ -27,6 +28,7 @@ class RegelSteps  {
     var brukerinput :Brukerinput? = null
     var resultat_gammel_kjoring :String? = null
     var utfortAarbeidUtenforNorge:UtfortAarbeidUtenforNorge? = null
+    var oppholdUtenforNorge:OppholdUtenforNorge? = null
     var oppholdUtenforEos:OppholdUtenforEos? = null
     var oppholdstilatelse:Oppholdstilatelse? = null
     var arbeidUtenforNorgeGammelModell = false
@@ -106,10 +108,42 @@ class RegelSteps  {
 
             ))
     }
+    @Gitt("OppholdUtenforNorgeMedFlereInnslag")
+    fun OppholdUtenforNorge(){
+        this.oppholdUtenforNorge = no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.OppholdUtenforNorge(
+            id = UUID.randomUUID().toString(),
+            sporsmalstekst = "",
+            svar=true,
+            oppholdUtenforNorge = listOf(
+                Opphold(
+                    id = UUID.randomUUID().toString(),
+                    land = "Tyrkia",
+                    grunn = "ferie",
+                    perioder = listOf(
+                        Periode(
+                            LocalDate.now().minusMonths(11).toString(),
+                            LocalDate.now().minusMonths(10).toString())),
+                ),
+                Opphold(
+                    id = UUID.randomUUID().toString(),
+                    land = "Tyrkia",
+                    grunn = "ferie",
+                    perioder = listOf(
+                        Periode(
+                            LocalDate.now().minusMonths(7).toString(),
+                            LocalDate.now().minusMonths(6).toString())),
+                )
+
+            ))
+    }
     @Gitt("OppholdUtenforEos")
     fun OppholdUtenforEos(datatable: DataTable){
         this.oppholdUtenforEos = DomainMapper().mapOppholdUtenforEos(datatable)
         //brukerinput = Brukerinput(false, oppholdUtenforEos = this.oppholdUtenforEos)
+    }
+    @Gitt("OppholdUtenforNorge")
+    fun OppholdUtenforNorge(datatable: DataTable){
+        this.oppholdUtenforNorge = DomainMapper().mapOppholdUtenforNorge(datatable)
     }
     @Og("utfoertArbeidUtenforNorge")
     fun arbeidUtenforNorgeNyModell(datatable: DataTable){
@@ -150,6 +184,11 @@ class RegelSteps  {
         regelkjoringResultat = ReglerForOppholdUtenforEOS.fraDatagrunnlag(hentDatagrunnlag()).kjørHovedflyt()
         print("oppholdUtenforEØSRegler kjøres")
     }
+    @Når("oppholdUtenforNorgeRegler kjøres")
+    fun oppholdUtenforNorgeReglerKjøres(){
+        regelkjoringResultat = ReglerForOppholdUtenforNorge.fraDatagrunnlag(hentDatagrunnlag()).kjørHovedflyt()
+        print("oppholdUtenforEØSRegler kjøres")
+    }
 
     @Når("oppholdstilatelseRegler kjøres")
     fun oppholdtilatelseReglerKjøres(){
@@ -182,7 +221,7 @@ class RegelSteps  {
             arbeidUtenforNorge = this.arbeidUtenforNorgeGammelModell,
             oppholdUtenforEos = this.oppholdUtenforEos,
             utfortAarbeidUtenforNorge = this.utfortAarbeidUtenforNorge,
-            oppholdUtenforNorge = null,
+            oppholdUtenforNorge = this.oppholdUtenforNorge,
             oppholdstilatelse = this.oppholdstilatelse,
         ),
         pdlpersonhistorikk = PdlPersonHistorikk(pdl_oppholdsilatelser),

@@ -135,6 +135,44 @@ class DomainMapper {
 
         return pdlOppholdsTilatelseList
     }
+    fun mapOppholdUtenforNorge(datatable: DataTable): OppholdUtenforNorge? {
+        val rows: List<Map<String, String>> = datatable.asMaps(
+            String::class.java,
+            String::class.java
+        )
+        val haroppholdtsegutenforEØS = rows.first()["Har oppholdt seg utenfor Norge"].toBoolean()
+        if (haroppholdtsegutenforEØS){
+            var fom = rows.first()["Fra og med dato"]
+            if (fom.equals("TODAYS_DATE")){
+                fom = LocalDate.now().toString()
+            }
+            var tom = rows.first()["Til og med dato"]
+            if (tom.equals("TODAYS_DATE")){
+                tom = LocalDate.now().toString()
+            }
+            val land = rows.first()["LAND"]
+            return OppholdUtenforNorge(id =UUID.randomUUID().toString(),
+                sporsmalstekst = "spørsmåltext ",
+                svar= true,
+                oppholdUtenforNorge = listOf(
+                    Opphold(
+                        id = "",
+                        land=land!!,
+                        grunn = "",
+                        perioder = listOf(Periode(fom!!,tom!!))
+                    )
+                )
+            )
+        }
+        else{
+            return OppholdUtenforNorge(id =UUID.randomUUID().toString(),
+                sporsmalstekst = "spørsmåltext ",
+                svar= false,
+                oppholdUtenforNorge = emptyList()
+            )
+        }
+        return null
+    }
     fun mapOppholdUtenforEos(datatable: DataTable): OppholdUtenforEos? {
         val rows: List<Map<String, String>> = datatable.asMaps(
             String::class.java,
