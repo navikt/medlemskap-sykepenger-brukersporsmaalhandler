@@ -24,6 +24,10 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
             listOf(
                 "REGEL_3","REGEL_9"
             )
+    val reglerSomSjekkesUtOppholdstilatelseOppgitt =
+        listOf(
+            "REGEL_19_3_1"
+        )
     override fun operasjon(): Resultat {
 
         if (årsaker.isEmpty()){
@@ -41,6 +45,12 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
 
         if (false == brukerInput?.arbeidUtlandTrue()){
             toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeTrue.contains(it.regelId)}
+        }
+        if (toBeControlled.isEmpty()){
+            return Resultat.ja(regelId)
+        }
+        if (brukerInput?.oppholdstilatelse!=null){
+            toBeControlled.removeIf{reglerSomSjekkesUtOppholdstilatelseOppgitt.contains(it.regelId)}
         }
         if (toBeControlled.isEmpty()){
             return Resultat.ja(regelId)
