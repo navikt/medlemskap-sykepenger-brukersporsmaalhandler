@@ -21,6 +21,7 @@ Egenskap: SP6225 sammenslåing av bruker data og data fra UDI
       | Permanent | FOM         | TOM         | VDATO       | Resultat |  UDI_FOM          |   UDI_TOM          |
       | false     | 2023-02-26  | 2026-02-26  | 2023-02-26  | NEI      |   2023-02-26      | 2026-02-26         |
       | false     | 2022-02-26  | 2023-02-26  | 2023-02-26  | JA       |   2023-02-26      | 2026-02-26         |
+      | false     | 2023-01-01  | 2023-12-30  | 2023-01-01  | NEI      |   2024-01-01      | 2026-01-01               |
 
 
 
