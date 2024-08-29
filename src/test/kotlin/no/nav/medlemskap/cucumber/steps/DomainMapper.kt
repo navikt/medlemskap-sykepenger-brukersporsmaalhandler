@@ -118,6 +118,30 @@ class DomainMapper {
         return UdiOppholdsTilatelse(
             gjeldendeOppholdsstatus = GjeldendeOppholdsstatus(
                 oppholdstillatelsePaSammeVilkar = OppholdstillatelsePaSammeVilkar(
+                    periode = UdiPeriode(udiFrom,udiTom),type=type
+                )
+            )
+        )
+    }
+    fun mapPermanentUdiOppholdsTilatelse(datatable: DataTable):UdiOppholdsTilatelse {
+        val rows: List<Map<String, String>> = datatable.asMaps(
+            String::class.java,
+            String::class.java
+        )
+        val fom = rows.first()["UDI_FOM"]
+        val tom = rows.first()["UDI_TOM"]
+        val type = rows.first()["TYPE"]
+        val udiFrom = LocalDate.parse(fom)
+        var udiTom : LocalDate? = null
+        try{
+            udiTom = LocalDate.parse(tom)
+        }
+        catch (e:Exception){
+            //null er default verdi
+        }
+        return UdiOppholdsTilatelse(
+            gjeldendeOppholdsstatus = GjeldendeOppholdsstatus(
+                oppholdstillatelsePaSammeVilkar = OppholdstillatelsePaSammeVilkar(
                     periode = UdiPeriode(udiFrom,udiTom)
                 )
             )

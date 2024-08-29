@@ -32,7 +32,8 @@ data class GjeldendeOppholdsstatus(
     val oppholdstillatelsePaSammeVilkar:OppholdstillatelsePaSammeVilkar?
 )
 data class OppholdstillatelsePaSammeVilkar(
-    val periode:UdiPeriode
+    val periode:UdiPeriode,
+    val type: String? = null
 )
 data class UdiPeriode(
     val fom:LocalDate,
