@@ -13,7 +13,7 @@ import java.time.LocalDate
 
 class BleOppholdetAvsluttetForMerEnn90DagerSiden3LandsBorgerRegel(
     ytelse: Ytelse,
-    startDatoForYtelse: LocalDate,
+    private val startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
 ) : BasisRegel(RegelId.SP6413, ytelse) {
@@ -25,7 +25,7 @@ class BleOppholdetAvsluttetForMerEnn90DagerSiden3LandsBorgerRegel(
         }
         val oppholdUtenforEØS = brukerInput!!.oppholdUtenforNorge!!.oppholdUtenforNorge.first()
         val oppholdSlutt = LocalDate.parse(oppholdUtenforEØS.perioder.first().tom)
-        if (LocalDate.now().minusDays(90).isAfter(oppholdSlutt)){
+        if (startDatoForYtelse.minusDays(90).isAfter(oppholdSlutt)){
             return ja(regelId)
         }
         return nei(regelId)
@@ -38,7 +38,7 @@ class BleOppholdetAvsluttetForMerEnn90DagerSiden3LandsBorgerRegel(
         fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): BleOppholdetAvsluttetForMerEnn90DagerSiden3LandsBorgerRegel {
             return BleOppholdetAvsluttetForMerEnn90DagerSiden3LandsBorgerRegel(
                 ytelse = datagrunnlag.ytelse,
-                startDatoForYtelse = datagrunnlag.periode.fom,
+                startDatoForYtelse = datagrunnlag.periode.fom.minusDays(1),
                 brukerInput = datagrunnlag.brukerinput
             )
         }
