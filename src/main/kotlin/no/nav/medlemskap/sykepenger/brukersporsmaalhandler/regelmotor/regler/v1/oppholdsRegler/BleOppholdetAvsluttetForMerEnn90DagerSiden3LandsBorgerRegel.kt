@@ -23,8 +23,8 @@ class BleOppholdetAvsluttetForMerEnn90DagerSiden3LandsBorgerRegel(
         if (brukerInput!!.oppholdUtenforNorge!!.oppholdUtenforNorge.isEmpty()){
             return nei(regelId)
         }
-        val oppholdUtenforEØS = brukerInput!!.oppholdUtenforNorge!!.oppholdUtenforNorge.first()
-        val oppholdSlutt = LocalDate.parse(oppholdUtenforEØS.perioder.first().tom)
+        val oppholdUtenforNorge = brukerInput!!.oppholdUtenforNorge!!.oppholdUtenforNorge.first()
+        val oppholdSlutt = LocalDate.parse(oppholdUtenforNorge.perioder.first().tom)
         if (startDatoForYtelse.minusDays(90).isAfter(oppholdSlutt)){
             return ja(regelId)
         }
