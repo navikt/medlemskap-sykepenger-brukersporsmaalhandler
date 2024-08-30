@@ -11,21 +11,17 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Bru
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import java.time.LocalDate
 
-class BleOppholdetAvsluttetForMerEnn90DagerSidenRegel(
+class ErDetBareEttUtenlandsopphold3LandBorgerRegel(
     ytelse: Ytelse,
-    private val startDatoForYtelse: LocalDate,
+    startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
-) : BasisRegel(RegelId.SP6313, ytelse) {
+) : BasisRegel(RegelId.SP6412, ytelse) {
 
     override fun operasjon(): Resultat {
 
-        if (brukerInput!!.oppholdUtenforEos!!.oppholdUtenforEOS.isEmpty()){
-            return nei(regelId)
-        }
-        val oppholdUtenforEØS = brukerInput!!.oppholdUtenforEos!!.oppholdUtenforEOS.first()
-        val oppholdSlutt = LocalDate.parse(oppholdUtenforEØS.perioder.first().tom)
-        if (startDatoForYtelse.minusDays(90).isAfter(oppholdSlutt)){
+
+        if (brukerInput?.oppholdUtenforNorge != null && brukerInput.oppholdUtenforNorge.oppholdUtenforNorge.size<2){
             return ja(regelId)
         }
         return nei(regelId)
@@ -35,10 +31,10 @@ class BleOppholdetAvsluttetForMerEnn90DagerSidenRegel(
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): BleOppholdetAvsluttetForMerEnn90DagerSidenRegel {
-            return BleOppholdetAvsluttetForMerEnn90DagerSidenRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): ErDetBareEttUtenlandsopphold3LandBorgerRegel {
+            return ErDetBareEttUtenlandsopphold3LandBorgerRegel(
                 ytelse = datagrunnlag.ytelse,
-                startDatoForYtelse = datagrunnlag.periode.fom.minusDays(1),
+                startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput
             )
         }

@@ -36,6 +36,8 @@ class KanOppgttPeriodeSlaasSammenMedUDIPeriodeTilEnSammenhengedePeriodeRegel(
             return nei(regelId)
         }
         var brukerInputTomDato:LocalDate = LocalDate.MIN
+
+
         try {
              brukerInputTomDato = LocalDate.parse(brukerInput!!.oppholdstilatelse!!.perioder.first().tom)
         }
@@ -43,6 +45,18 @@ class KanOppgttPeriodeSlaasSammenMedUDIPeriodeTilEnSammenhengedePeriodeRegel(
         //vi bruker LocalDate.MIN som default value..
         }
 
+        /*
+       * håndter PERMANENT oppholdstilatelse
+       * */
+        if (udiOpphold.gjeldendeOppholdsstatus?.oppholdstillatelsePaSammeVilkar?.type == "PERMANENT"){
+            if (brukerInputTomDato.isAfter(udiOpphold.periode()!!.fom) || brukerInputTomDato.isEqual(udiOpphold.periode()!!.fom)){
+                return ja(regelId)
+            }
+            return nei(regelId)
+        }
+        /*
+        * Håndter midlertidige oppholdstilatelser fra UDI
+        * */
         if (isDateWithinRange(brukerInputTomDato,udiOpphold.gjeldendeOppholdsstatus!!.oppholdstillatelsePaSammeVilkar!!.periode.fom,numberofDaysSlack)){
             return ja(regelId)
         }

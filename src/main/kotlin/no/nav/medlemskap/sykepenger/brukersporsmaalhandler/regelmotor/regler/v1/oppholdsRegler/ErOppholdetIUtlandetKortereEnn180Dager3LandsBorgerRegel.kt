@@ -9,36 +9,40 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat.C
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Ytelse
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Brukerinput
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
+import java.time.Duration
 import java.time.LocalDate
+import java.time.Period
+import java.time.temporal.ChronoUnit
 
-class BleOppholdetAvsluttetForMerEnn90DagerSidenRegel(
+class ErOppholdetIUtlandetKortereEnn180Dager3LandsBorgerRegel(
     ytelse: Ytelse,
-    private val startDatoForYtelse: LocalDate,
+    startDatoForYtelse: LocalDate,
     private val brukerInput: Brukerinput?,
 
-) : BasisRegel(RegelId.SP6313, ytelse) {
+) : BasisRegel(RegelId.SP6414, ytelse) {
 
     override fun operasjon(): Resultat {
 
-        if (brukerInput!!.oppholdUtenforEos!!.oppholdUtenforEOS.isEmpty()){
+        val oppholdUtenforNorge = brukerInput!!.oppholdUtenforNorge!!.oppholdUtenforNorge.first()
+
+        val oppholdStart = LocalDate.parse(oppholdUtenforNorge.perioder.first().fom)
+        val oppholdSlutt = LocalDate.parse(oppholdUtenforNorge.perioder.first().tom)
+        val daysBetween = oppholdStart.until(oppholdSlutt,ChronoUnit.DAYS)
+        //val duration = Duration.between(oppholdStart,oppholdSlutt).toDays()
+        if (daysBetween>180){
             return nei(regelId)
         }
-        val oppholdUtenforEØS = brukerInput!!.oppholdUtenforEos!!.oppholdUtenforEOS.first()
-        val oppholdSlutt = LocalDate.parse(oppholdUtenforEØS.perioder.first().tom)
-        if (startDatoForYtelse.minusDays(90).isAfter(oppholdSlutt)){
-            return ja(regelId)
-        }
-        return nei(regelId)
+        return ja(regelId)
 
     }
 
 
 
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): BleOppholdetAvsluttetForMerEnn90DagerSidenRegel {
-            return BleOppholdetAvsluttetForMerEnn90DagerSidenRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag): ErOppholdetIUtlandetKortereEnn180Dager3LandsBorgerRegel {
+            return ErOppholdetIUtlandetKortereEnn180Dager3LandsBorgerRegel(
                 ytelse = datagrunnlag.ytelse,
-                startDatoForYtelse = datagrunnlag.periode.fom.minusDays(1),
+                startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput
             )
         }

@@ -22,6 +22,9 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
 
 
     SP6411("Opphold Utenfor Norge","Har Bruker oppholdt seg utenfor Norge Norge","Bruker har oppgitt JA i Opphold utenfor Norge","Bruker har oppgitt NEI i Opphold utenfor Norge","Bruker har oppgitt JA i Opphold utenfor Norge"),
+    SP6412("Er det bare 1 utenlandsOpphold","Er det bare ett utenlandsopphold?","Det er flere en ett utenlandsopphold registrert","Det er bare ett utenlandsopphold registrert","Bruker har oppgitt flere utenlandsopphold utenfor EØS"),
+    SP6413("Ble oppholdet avsluttet for mer enn 90 dager siden","Ble oppholdet avsluttet for mer enn 90 dager siden?","Det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet","det er mer en 90 dager siden oppholdet ble avsluttet","det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet"),
+    SP6414("Er oppholdet i utlandet kortere enn 180 dager","Er oppholdet i utlandet kortere enn 180 dager?","Oppholdet utenfor Norge er lengere en 180 dager","oppholdet utenfor Norge er kortere en 180 dager","oppholdet utenfor Norge er lengere en 180 dager"),
     SP6401("Finnes brukersvar for OppholdUtenfor Norge","Finnes brukersvar for OppholdUtenfor Norge","Det finnes ikke brukersvar for OppholdUtenfor Norge","Det finnes brukersvar for OppholdUtenfor Norge"),
 
     SP6301("Finnes brukersvar for OppholdUtenfor EØS","Finnes brukersvar for OppholdUtenfor EØS","Det finnes ikke brukersvar for OppholdUtenforEØS","Det finnes brukersvar for OppholdUtenforEØS"),
