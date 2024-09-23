@@ -148,3 +148,8 @@ class UtledetInformasjon(
     val informasjon: Informasjon?,
     val kilde:List<String> = listOf()
 )
+
+fun Resultat.harHaleProssesertResultatFraGammelRegelmotor():Boolean{
+    val resultat = finnRegelResultat(RegelId.SP6001)
+    return resultat != null && Svar.JA == resultat.svar
+}
