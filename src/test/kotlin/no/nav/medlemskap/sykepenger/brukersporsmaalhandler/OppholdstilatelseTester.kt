@@ -2,6 +2,7 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.Konklusjon
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.finnRegelKjøring
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Informasjon
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.RegelId
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.ReglerService
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
@@ -116,6 +117,7 @@ class OppholdstilatelseTester {
         val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
         Assertions.assertNotNull(resultatGammelRegelMotor.datagrunnlag.pdlpersonhistorikk)
         val responsRegelMotorHale = ReglerService.kjørRegler(resultatGammelRegelMotor)
+        val tredjelandsBorger:Boolean = responsRegelMotorHale.utledetInformasjon.filter { (it.informasjon == Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE) || it.informasjon == Informasjon.TREDJELANDSBORGER }.isNotEmpty()
         Assertions.assertEquals(Svar.JA,responsRegelMotorHale.finnRegelResultat(RegelId.SP6229)!!.svar)
     }
 

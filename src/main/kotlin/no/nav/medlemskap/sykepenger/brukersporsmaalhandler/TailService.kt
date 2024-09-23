@@ -11,8 +11,6 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.antallDager
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdUtenforEØSOppgitt
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdstillatelseOppgitt
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.arbeiderItoLand
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.oppholderSegIEØS
 
 class TailService() {
     private val logger = KotlinLogging.logger { }
@@ -24,8 +22,9 @@ class TailService() {
                 val resultatGammelRegelMotorJson = JacksonParser().ToJson(json)
                 val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
                 val responsRegelMotorHale = ReglerService.kjørRegler(resultatGammelRegelMotor)
-
                 val konklusjon:Konklusjon = lagKonklusjon(resultatGammelRegelMotor,responsRegelMotorHale)
+                val tredjelandsBorger:Boolean = konklusjon.erTredjelandsborger()
+                val harHaleProssessertresultatFraGammelRegelmotor:Boolean = responsRegelMotorHale.harHaleProssesertResultatFraGammelRegelmotor()
                 val konklusjoner: List<Konklusjon> = listOf(konklusjon)
                 val konklusjonerJson = JacksonParser().ToJson(konklusjoner)
                 val haleRespons: ObjectNode = resultatGammelRegelMotorJson.deepCopy()
@@ -43,6 +42,8 @@ class TailService() {
                         kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }),
                         kv("response",haleRespons.toPrettyString()),
                         kv("callId",key),
+                        kv("erTredjelandsborger",tredjelandsBorger),
+                        kv("harSP6000ProssesertGammeltResultat",harHaleProssessertresultatFraGammelRegelmotor),
                         kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
                         kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
@@ -60,6 +61,8 @@ class TailService() {
                         kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }),
                         kv("response",haleRespons.toPrettyString()),
                         kv("callId",key),
+                        kv("erTredjelandsborger",tredjelandsBorger),
+                        kv("harSP6000ProssesertGammeltResultat",harHaleProssessertresultatFraGammelRegelmotor),
                         kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),

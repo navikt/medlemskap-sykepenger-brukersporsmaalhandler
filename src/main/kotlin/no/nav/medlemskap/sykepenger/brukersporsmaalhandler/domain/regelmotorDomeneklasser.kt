@@ -1,10 +1,7 @@
 
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain
 
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.RegelId
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.UtledetInformasjon
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
 import java.time.LocalDate
 
 
@@ -63,4 +60,6 @@ fun Konklusjon.finnRegelKjøring(regelID:RegelId):Resultat?{
 }
 //utledet_informasjon
 
-
+fun Konklusjon.erTredjelandsborger():Boolean{
+    return utledetInformasjoner.any { (it.informasjon == Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE) || it.informasjon == Informasjon.TREDJELANDSBORGER }
+}
