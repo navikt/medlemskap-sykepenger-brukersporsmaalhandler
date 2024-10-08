@@ -40,10 +40,6 @@ class RegelFactory(private val datagrunnlag: Datagrunnlag,private val årsaker:L
 
             RegelId.SP6229 -> ErOppgittOppholdstilatelseFunksjoneltLiktPDLInnslagRegel.fraDatagrunnlag(datagrunnlag).regel
 
-            RegelId.SP6231 -> ErStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITidRegel.fraDatagrunnlag(datagrunnlag).regel
-            RegelId.SP6241 -> ErSluttDatoForMidlertidigOppholdstilatelse2mndFremTidRegel.fraDatagrunnlag(datagrunnlag).regel
-
-
             //SP6300 - Opphold utenfor EØS regler regeler
             RegelId.SP6311 -> HarBrukerOppholdtsegUtenForEØSRegel.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6312 -> ErDetBareEttUtenlandsoppholdRegel.fraDatagrunnlag(datagrunnlag).regel

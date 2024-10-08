@@ -20,7 +20,6 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
 
     SP6313("Ble oppholdet avsluttet for mer enn 90 dager siden","Ble oppholdet avsluttet for mer enn 90 dager siden?","Det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet","det er mer en 90 dager siden oppholdet ble avsluttet","det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet"),
 
-
     SP6411("Opphold Utenfor Norge","Har Bruker oppholdt seg utenfor Norge Norge","Bruker har oppgitt JA i Opphold utenfor Norge","Bruker har oppgitt NEI i Opphold utenfor Norge","Bruker har oppgitt JA i Opphold utenfor Norge"),
     SP6412("Er det bare 1 utenlandsOpphold","Er det bare ett utenlandsopphold?","Det er flere en ett utenlandsopphold registrert","Det er bare ett utenlandsopphold registrert","Bruker har oppgitt flere utenlandsopphold utenfor EØS"),
     SP6413("Ble oppholdet avsluttet for mer enn 90 dager siden","Ble oppholdet avsluttet for mer enn 90 dager siden?","Det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet","det er mer en 90 dager siden oppholdet ble avsluttet","det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet"),
@@ -45,18 +44,13 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
 
     SP6229("Er oppgitt oppholdstilatelse likt som PDL innslag","Er oppgitt oppholdstilatelse likt som PDL innslag","oppholdstilatelse  oppgitt av bruker er ikke likt som PDL innslag","oppholdstilatelse  oppgitt av bruker er likt som PDL innslag"),
     SP6229_1("Det er logget avvik i brukeropplysninger","Det er logget avvik i brukeropplysninger","Det er logget avvik i brukeropplysninger","Det er logget avvik i brukeropplysninger"),
-    SP6231("Er start datoen bruker selv har opplyst mer en 12 mnd tibake i tid","Er start datoen bruker selv har opplyst mer en 12 mnd tilbake i tid","Datoen bruker selv har opplyst er ikke mer en 12 mnd tilbake i tid","Datoen bruker selv har opplyst er mer en 12 mnd tilbake i tid"),
-    SP6241("Er slutt  datoen bruker selv har opplyst mer en 2 mnd frem i tid","Er slutt  datoen bruker selv har opplyst mer en 2 mnd frem i tid","slutt Datoen bruker selv har opplyst er ikke mer en 2 mnd frem i tid","slutt Datoen bruker selv har opplyst er mer en 2 mnd frem i tid"),
-
-
 
     ARBEID_UTLAND_FLYT("ARBEID_UTLAND_FLYT", "Har bruker på noen måte gitt svar på arbeid utland?"),
     REGEL_UTSJEKK("Utsjekk av reger brudd", "Kan alle regelbrudd fra gammel regelmotor sjekkes ut?"),
     SP6120("ArbeidUtlandNyModell","har bruker oppgitt JA i arbeid utland ny modell","bruker har  oppgitt NEI i arbeid utland ny modell","bruker har oppgitt JA i arbeid utland ny modell"),
     SP6510("Regelutsjekk Norske borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk"),
     SP6600("Regelutsjekk EOS borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk"),
-    SP6700("Regelutsjekk 3 land borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk"), ;
-    ;
+    SP6700("Regelutsjekk 3 land borgere","Kan alle regelbrudd sjekkes ut","Det finnes regelbrudd som ikke kan djekkes ut automatisk","alle regelbrudd kan sjekkes ut automatisk") ;
 
     fun begrunnelse(svar: Svar): String {
         return when (svar) {
