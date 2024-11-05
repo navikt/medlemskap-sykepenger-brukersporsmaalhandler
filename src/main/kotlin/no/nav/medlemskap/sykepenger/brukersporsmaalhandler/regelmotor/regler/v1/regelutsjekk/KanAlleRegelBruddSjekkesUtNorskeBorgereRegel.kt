@@ -16,11 +16,11 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
     ) : BasisRegel(RegelId.SP6510, ytelse) {
         val reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland =
             listOf(
-                "REGEL_3"
+                "REGEL_3","REGEL_12"
             )
         val reglerSomSjekkesUtMedArbeidINorgeTrue =
         listOf(
-            "REGEL_3","REGEL_9"
+            "REGEL_3","REGEL_9","REGEL_12","REGEL_5"
         )
 
     override fun operasjon(): Resultat {
