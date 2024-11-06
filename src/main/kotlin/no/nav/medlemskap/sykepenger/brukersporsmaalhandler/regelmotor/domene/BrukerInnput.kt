@@ -67,9 +67,21 @@ fun Brukerinput.oppholdUtenforEØSOppgitt():Boolean{
           this.oppholdUtenforEos.svar
           )
 }
+fun Brukerinput.oppholdUtenforNorgeOpppgitt():Boolean{
+    return (
+            this.oppholdUtenforNorge != null &&
+            this.oppholdUtenforNorge.svar
+            )
+}
+fun Brukerinput.utfortAarbeidUtenforNorgeOpppgitt():Boolean{
+    return (
+            this.utfortAarbeidUtenforNorge != null &&
+            this.utfortAarbeidUtenforNorge.svar
+            )
+}
 fun Brukerinput.oppholdstillatelseOppgitt():Boolean{
     return (
             this.oppholdstilatelse != null &&
-                    this.oppholdstilatelse.svar
+            this.oppholdstilatelse.svar
             )
 }
