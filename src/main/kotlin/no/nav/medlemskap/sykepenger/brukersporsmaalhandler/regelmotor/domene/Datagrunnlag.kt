@@ -1,6 +1,7 @@
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene
 
 
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.Medlemskap
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Ytelse
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -11,12 +12,23 @@ data class Datagrunnlag(
     val fnr:String,
     val brukerinput:Brukerinput,
     val pdlpersonhistorikk:PdlPersonHistorikk,
-    val oppholdstillatelse:UdiOppholdsTilatelse?
+    val oppholdstillatelse:UdiOppholdsTilatelse?,
+    val medlemskap: List<MedlData> = emptyList()
 )
 data class InputPeriode(
     val fom: LocalDate,
     val tom: LocalDate
 )
+data class MedlData(
+    val dekning:String,
+    val fraOgMed:LocalDate,
+    val tilOgMed:LocalDate,
+    val lovvalgsland:String,
+    val erMedlem:Boolean,
+    val lovvalg:String,
+    val periodeStatus:String
+)
+
 data class PdlPersonHistorikk(
     val oppholdstilatelser:List<PdlOppholdsTilatelse> = emptyList()
 )

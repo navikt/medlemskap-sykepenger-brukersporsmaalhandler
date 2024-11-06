@@ -36,6 +36,9 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
         val toBeControlled:MutableList<Årsak> = mutableListOf()
         toBeControlled.addAll(årsaker)
         //fjern alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
+
+
+
         if (true == brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSFalse()){
            toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland.contains(it.regelId)}
         }

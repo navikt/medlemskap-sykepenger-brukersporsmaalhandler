@@ -8,6 +8,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat.C
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.GammelkjøringResultat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.ArbeidUtenforNorgeRegelFlyt
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.HarBrukerNorskMedlemskapIMedlSiste28DagerRegel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.SkalHaleFlytUtføresRegelV2
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforEOS
@@ -26,7 +27,17 @@ class Hovedregler(private val kjøring: Kjøring) {
 
         val utledetInformasjon:MutableList<UtledetInformasjon> = utledFaktaFraForrigekjoring(kjøring.resultat)
         val skalHaleFlytkjøresResultat = SkalHaleFlytUtføresRegelV2.fraDatagrunnlag(kjøring).utfør()
-        resultater.add(skalHaleFlytkjøresResultat)
+        val harBrukerNorskMedlemskapIMedlSiste28Dager = HarBrukerNorskMedlemskapIMedlSiste28DagerRegel.fraDatagrunnlag(kjøring).utfør()
+
+        resultater.addAll(listOf(skalHaleFlytkjøresResultat,harBrukerNorskMedlemskapIMedlSiste28Dager))
+
+        if (Svar.JA == harBrukerNorskMedlemskapIMedlSiste28Dager.svar){
+            val respons =  lagKonklusjon(jaResultat(ytelse), resultater)
+            respons.utledetInformasjon = utledetInformasjon
+            return respons
+        }
+
+
         if (Svar.JA == skalHaleFlytkjøresResultat.svar){
 
             val arbeidutenforNorgeFlyt = ArbeidUtenforNorgeRegelFlyt.fraDatagrunnlag(kjøring.datagrunnlag).kjørHovedflyt()

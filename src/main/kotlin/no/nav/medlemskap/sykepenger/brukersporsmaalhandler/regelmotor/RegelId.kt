@@ -11,6 +11,8 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
     REGEL_FLYT_KONKLUSJON("RFK", "Svar på regelflyt", "Regelflyt konkluderer med NEI"),
     REGEL_OPPLYSNINGER("OPPLYSNINGER", "Finnes det registrerte opplysninger på bruker?", "Alle de følgende ble NEI"),
     SP6001("SkalHalekjøres","Skal regelmotor prosessere gammel kjøring","Årsaker i gammel kjøring tilsier ikke at hale skal utføres","Årsaker i gammel kjøring tilsier at halen skal kjøres"),
+    SP6002("HarBrukerNorskMedlemskapIMedlSiste28Dager","HarBrukerNorskMedlemskapIMedlSiste28Dager","Bruker har ikke Norsk medlemskap i medl siste 28 dager","Bruker har Norsk medlemskap i medl siste 28 dager"),
+
     SP6130("ArbeidUtlandGammelModell","Har Bruker svart JA i arbeid utland","Bruker har oppgitt NEI i arbeid utland","Bruker har oppgitt JA i arbeid utland gammel modell"),
     SP6110("ArbeidUtlandNyModell","Er ny modell for ArbeidUtland oppgitt","Ingen brukersvar på ny modell for Arbeid Utland","Brukersvar for arbeid utland på ny modell finnes"),
     SP6311("Opphold Utenfor EØS","Har Bruker Oppholdt seg utenfor EØS","Bruker har oppgitt NEI i Opphold utenfor EØS","Bruker har oppgitt JA i Opphold utenfor EØS","Bruker har oppgitt JA i Opphold utenfor EØS"),
