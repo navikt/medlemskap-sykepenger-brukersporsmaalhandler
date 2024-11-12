@@ -100,6 +100,6 @@ Egenskap: SP6600 RegelUtsjekk Eos borgere
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
       | NEI      | true               | true              |
-      | JA       | false              | false             |
-      | JA       | false              | true              |
+      | NEI      | false              | false             |
+      | NEI      | false              | true              |
       | NEI      | true               | false             |
