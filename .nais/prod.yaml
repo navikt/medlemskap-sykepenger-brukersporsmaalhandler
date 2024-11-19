@@ -45,9 +45,6 @@ spec:
     streams: true
     pool: nav-prod
   accessPolicy:
-    inbound:
-      rules:
-        - application: medlemskap-sykepenger-listener
     outbound:
       rules:
       external:
