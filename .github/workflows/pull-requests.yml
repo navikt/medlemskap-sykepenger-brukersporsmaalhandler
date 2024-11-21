@@ -37,6 +37,8 @@ jobs:
           MESSAGE: "Bygg feilet"
           CHANNEL: "#team-p3-medlemskap-notifications"
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+    outputs:
+      image: ${{ steps.docker-push.outputs.image }}
   deploypreprod:
     name: Deploy to Preprod
     needs: build_and_push
