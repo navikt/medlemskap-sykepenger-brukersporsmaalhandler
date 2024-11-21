@@ -44,11 +44,11 @@ jobs:
     needs: build_and_push
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v2
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/dev.yaml
-          IMAGE: ${{ build_and_push.docker-push.outputs.image }}
-          TELEMETRY: ${{ build_and_push.docker-push.outputs.telemetry }}
+          IMAGE: ${{ needs.build_and_push.outputs.image }}
+          TELEMETRY: ${{ needs.build_and_push.outputs.telemetry }}
