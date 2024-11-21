@@ -56,7 +56,7 @@ jobs:
           TELEMETRY: ${{ needs.build_and_push.outputs.telemetry }}
   deployprod:
     name: Deploy to Prod
-    needs: deploypreprod
+    needs: build_and_push
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
