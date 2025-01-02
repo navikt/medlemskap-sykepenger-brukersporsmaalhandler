@@ -19,6 +19,8 @@ data class Brukerinput(
     val oppholdUtenforEos:OppholdUtenforEos?=null,
     val oppholdUtenforNorge:OppholdUtenforNorge?=null
 )
+
+
 data class OppholdUtenforNorge(
     val id: String,
     val sporsmalstekst: String?,
@@ -60,6 +62,25 @@ fun Brukerinput.inneholderNyeBrukerSpørsmål():Boolean{
             this.oppholdUtenforNorge!=null ||
             this.oppholdstilatelse !=null
 }
+fun Brukerinput.oppgittArbeidUtenforNorgeLand():String{
+    if (this.utfortAarbeidUtenforNorge !=null && this.utfortAarbeidUtenforNorge.arbeidUtenforNorge.isNotEmpty()){
+        return this.utfortAarbeidUtenforNorge.arbeidUtenforNorge.first().land
+    }
+        return "IKKE_OPPGITT"
+}
+
+fun Brukerinput.oppgittArbeidUtenforNorgePeriode(): String {
+    try {
+        if (this.utfortAarbeidUtenforNorge != null && this.utfortAarbeidUtenforNorge.arbeidUtenforNorge.isNotEmpty()) {
+            return this.utfortAarbeidUtenforNorge.arbeidUtenforNorge.first().perioder.first().toString()
+        }
+        return "IKKE_OPPGITT"
+    }
+    catch(e:Exception){
+        return "IKKE_OPPGITT"
+    }
+}
+
 
 fun Brukerinput.oppholdUtenforEØSOppgitt():Boolean{
   return (
