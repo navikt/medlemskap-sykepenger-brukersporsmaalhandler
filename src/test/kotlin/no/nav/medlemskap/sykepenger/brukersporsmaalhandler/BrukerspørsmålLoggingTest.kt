@@ -21,6 +21,16 @@ class BrukerspørsmålLoggingTest {
     }
 
     @Test
+    fun IngenBrukerspørsmålOppgittSkalIkkeFeileVedLogging(){
+        val fileContent = Datagrunnlag::class.java.classLoader.getResource("JaSvarUtenNyeBrukerSporsmaal.json").readText(Charsets.UTF_8)
+        val jsonRespons = JacksonParser().ToJson(fileContent)
+        val resultatGammelRegelMotor: Kjøring = JacksonParser().toDomainObject(jsonRespons)
+        Assertions.assertEquals("[NOR]",resultatGammelRegelMotor.datagrunnlag.statsborgerskap())
+        Assertions.assertEquals("IKKE_OPPGITT",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgeLand())
+        Assertions.assertEquals("IKKE_OPPGITT",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgePeriode())
+    }
+
+    @Test
     fun IkkeNorskBorgerMedArbeidUtlandOppgitt_Stasborgerskap(){
         val fileContent = Datagrunnlag::class.java.classLoader.getResource("BrukerIkkeNorskMedArbeidUtlandOppgitt.json").readText(Charsets.UTF_8)
         val jsonRespons = JacksonParser().ToJson(fileContent)
