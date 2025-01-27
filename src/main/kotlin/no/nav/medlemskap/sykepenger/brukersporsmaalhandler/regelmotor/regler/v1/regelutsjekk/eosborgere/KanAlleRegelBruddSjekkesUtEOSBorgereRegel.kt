@@ -22,7 +22,7 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
             )
             val reglerSomSjekkesUtMedArbeidINorgeTrue =
             listOf(
-                "REGEL_3","REGEL_9"
+                "REGEL_3","REGEL_9", "REGEL_15"
             )
     val reglerSomSjekkesUtOppholdstilatelseOppgitt =
         listOf(

@@ -20,7 +20,7 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
             )
         val reglerSomSjekkesUtMedArbeidINorgeTrue =
         listOf(
-            "REGEL_3","REGEL_9"
+            "REGEL_3","REGEL_9", "REGEL_15"
         )
 
     override fun operasjon(): Resultat {
