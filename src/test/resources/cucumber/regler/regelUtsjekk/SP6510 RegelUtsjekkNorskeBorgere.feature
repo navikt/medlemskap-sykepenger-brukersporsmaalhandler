@@ -100,5 +100,5 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
       | NEI      | true               | true              |
       | JA       | false              | false             |
-      | JA       | false              | true              |
+      | NEI      | false              | true              |
       | NEI      | true               | false             |
