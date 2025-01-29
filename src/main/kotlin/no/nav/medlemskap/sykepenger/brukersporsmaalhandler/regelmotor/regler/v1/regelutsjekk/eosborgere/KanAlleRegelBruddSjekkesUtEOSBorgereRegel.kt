@@ -18,7 +18,7 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
     ) : BasisRegel(RegelId.SP6600, ytelse) {
         val reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland =
             listOf(
-                "REGEL_3"
+                "REGEL_3", "REGEL_15"
             )
             val reglerSomSjekkesUtMedArbeidINorgeTrue =
             listOf(
