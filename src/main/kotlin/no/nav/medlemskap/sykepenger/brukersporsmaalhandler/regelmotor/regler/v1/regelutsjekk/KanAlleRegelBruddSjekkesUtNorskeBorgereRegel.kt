@@ -13,46 +13,39 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
     private val brukerInput: Brukerinput?,
     private val årsaker: List<Årsak> = emptyList()
 
-    ) : BasisRegel(RegelId.SP6510, ytelse) {
-        val reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland =
-            listOf(
-                "REGEL_3", "REGEL_15"
-            )
-        val reglerSomSjekkesUtMedArbeidINorgeTrue =
+    ) :  BasisRegel(RegelId.SP6510, ytelse) {
+
+    val reglerSomKanSjekkesUt =
         listOf(
-            "REGEL_3","REGEL_9"
+            "REGEL_3", "REGEL_9", "REGEL_C", "REGEL_15"
         )
 
     override fun operasjon(): Resultat {
 
-        if (årsaker.isEmpty()){
+        if (årsaker.isEmpty()) {
             return Resultat.ja(regelId)
         }
-        val toBeControlled:MutableList<Årsak> = mutableListOf()
+        val toBeControlled: MutableList<Årsak> = mutableListOf()
         toBeControlled.addAll(årsaker)
         //fjern alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
-        if (true == brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSFalse()){
-           toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland.contains(it.regelId)}
+        if (brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSOppgitt() == true) {
+            toBeControlled.removeIf { reglerSomKanSjekkesUt.contains(it.regelId) }
         }
 
-        if (toBeControlled.isEmpty()){
+        if (toBeControlled.isEmpty()) {
             return Resultat.ja(regelId)
         }
-        if (false == brukerInput?.arbeidUtlandTrue()){
-            toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeTrue.contains(it.regelId)}
-        }
-        if (toBeControlled.isEmpty()){
-            return Resultat.ja(regelId)
-        }
+
         return Resultat(
             regelId = RegelId.SP6510,
             svar = Svar.NEI,
-            utledetInformasjon = listOf(UtledetInformasjon(Informasjon.IKKE_SJEKKET_UT,toBeControlled.map { it.regelId }))
+            utledetInformasjon = listOf(
+                UtledetInformasjon(
+                    Informasjon.IKKE_SJEKKET_UT,
+                    toBeControlled.map { it.regelId })
+            )
         )
     }
-
-
-
     companion object {
         fun fraDatagrunnlag(datagrunnlag: Datagrunnlag,årsaker: List<Årsak>): KanAlleRegelBruddSjekkesUtNorskeBorgereRegel {
             return KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
@@ -66,11 +59,8 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
 
 }
 
-fun Brukerinput.bådeArbeidUtlandOgOppholdUtenforEOSFalse() :Boolean{
-    return (false == utfortAarbeidUtenforNorge?.svar) && (false == oppholdUtenforEos?.svar)
-}
-fun Brukerinput.arbeidUtlandTrue() :Boolean{
-    return (true == utfortAarbeidUtenforNorge?.svar)
+fun Brukerinput.bådeArbeidUtlandOgOppholdUtenforEOSOppgitt() :Boolean{
+    return (utfortAarbeidUtenforNorge?.svar !=null ) && (oppholdUtenforEos?.svar !=null)
 }
 
 

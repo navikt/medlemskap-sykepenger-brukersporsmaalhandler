@@ -1,5 +1,6 @@
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler
 
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.config.objectMapper
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.Konklusjon
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.finnRegelKjøring
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Informasjon
@@ -119,6 +120,16 @@ class OppholdstilatelseTester {
         val responsRegelMotorHale = ReglerService.kjørRegler(resultatGammelRegelMotor)
         val tredjelandsBorger:Boolean = responsRegelMotorHale.utledetInformasjon.filter { (it.informasjon == Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE) || it.informasjon == Informasjon.TREDJELANDSBORGER }.isNotEmpty()
         Assertions.assertEquals(Svar.JA,responsRegelMotorHale.finnRegelResultat(RegelId.SP6229)!!.svar)
+    }
+    @Test
+    fun `kjøring av regelmotor med gammelt resultat REGELBRUDD_C`(){
+        val fileContent = Datagrunnlag::class.java.classLoader.getResource("REGEL_C.json").readText(Charsets.UTF_8)
+        val respons = TailService().handleKeyValueMessage(UUID.randomUUID().toString(),fileContent)
+        val jsonRespons = JacksonParser().ToJson(respons.value)
+        val konklusjon:Konklusjon = JacksonParser().toDomainObject(jsonRespons.get("konklusjon").get(0))
+        Assertions.assertEquals(Svar.UAVKLART,konklusjon.status)
+        val expected = listOf<String>("SP6120","SP6312","REGEL_C")
+        Assertions.assertTrue(konklusjon.avklaringsListe.map{it.regel_id}.containsAll(expected))
     }
 
 

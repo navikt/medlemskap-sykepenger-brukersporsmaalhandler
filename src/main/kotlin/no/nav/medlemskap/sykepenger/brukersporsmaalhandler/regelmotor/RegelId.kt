@@ -43,6 +43,9 @@ enum class RegelId(val identifikator: String, val avklaring: String, val neiBegr
     OPHOLDSTILATELSE_FLYT("OPHOLDSTILATELSE_FLYT", "Tilsier ny oppholdstilatelse flyt at bruker har oppholdstilatelse"),
     REGEL_UTSJEKK("Utsjekk av regel brudd", "Kan alle regelbrudd fra gammel regelmotor sjekkes ut?"),
     ARBEID_UTLAND_FLYT("ARBEID_UTLAND_FLYT", "Har bruker på noen måte gitt svar på arbeid utland?"),
+    OPPHOLDUTENFOREOSFLYT("OPPHOLD_UTENFOR_EOS_FLYT", "Har bruker oppgitt opphold utenfor EØS?"),
+    OPPHOLD_UTENFOR_NORGE_FLYT("OPPHOLD_UTENFOR_NORGE_FLYT", "Har bruker oppgitt opphold utenfor Norge?"),
+
     REGEL_OPPLYSNINGER("OPPLYSNINGER", "Finnes det registrerte opplysninger på bruker?", "Alle de følgende ble NEI"),
     REGEL_FLYT_KONKLUSJON("RFK", "Svar på regelflyt", "Regelflyt konkluderer med NEI"),
     REGEL_MEDLEM_KONKLUSJON("LOVME", "Er bruker medlem?", "Kan ikke konkludere med medlemskap", "Bruker er medlem", "Kan ikke konkludere med medlemskap");
