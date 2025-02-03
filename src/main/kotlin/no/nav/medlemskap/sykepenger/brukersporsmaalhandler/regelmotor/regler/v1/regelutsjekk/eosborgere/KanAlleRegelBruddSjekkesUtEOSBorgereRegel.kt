@@ -5,8 +5,8 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Brukerinput
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Årsak
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.arbeidUtlandTrue
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.bådeArbeidUtlandOgOppholdUtenforEOSFalse
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.KanAlleRegelBruddSjekkesUtNorskeBorgereRegel
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.bådeArbeidUtlandOgOppholdUtenforEOSOppgitt
 import java.time.LocalDate
 
 class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
@@ -16,57 +16,43 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
     private val årsaker: List<Årsak> = emptyList()
 
     ) : BasisRegel(RegelId.SP6600, ytelse) {
-        val reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland =
-            listOf(
-                "REGEL_3", "REGEL_15"
-            )
-            val reglerSomSjekkesUtMedArbeidINorgeTrue =
-            listOf(
-                "REGEL_3","REGEL_9"
-            )
-    val reglerSomSjekkesUtOppholdstilatelseOppgitt =
+
+    val reglerSomKanSjekkesUt =
         listOf(
-            "REGEL_19_3_1"
+            "REGEL_3", "REGEL_9", "REGEL_C", "REGEL_15"
         )
+
+
     override fun operasjon(): Resultat {
 
-        if (årsaker.isEmpty()){
+        if (årsaker.isEmpty()) {
             return Resultat.ja(regelId)
         }
-        val toBeControlled:MutableList<Årsak> = mutableListOf()
+        val toBeControlled: MutableList<Årsak> = mutableListOf()
         toBeControlled.addAll(årsaker)
         //fjern alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
-        if (true == brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSFalse()){
-           toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland.contains(it.regelId)}
+
+        if (brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSOppgitt() == true) {
+            toBeControlled.removeIf { reglerSomKanSjekkesUt.contains(it.regelId) }
         }
-        if (toBeControlled.isEmpty()){
+
+        if (toBeControlled.isEmpty()) {
             return Resultat.ja(regelId)
         }
 
-        if (false == brukerInput?.arbeidUtlandTrue()){
-            toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeTrue.contains(it.regelId)}
-        }
-        if (toBeControlled.isEmpty()){
-            return Resultat.ja(regelId)
-        }
-        if (brukerInput?.oppholdstilatelse!=null){
-            toBeControlled.removeIf{reglerSomSjekkesUtOppholdstilatelseOppgitt.contains(it.regelId)}
-        }
-        if (toBeControlled.isEmpty()){
-            return Resultat.ja(regelId)
-        }
         return Resultat(
-            regelId = RegelId.SP6600,
+            regelId = RegelId.SP6510,
             svar = Svar.NEI,
-            utledetInformasjon = listOf(UtledetInformasjon(Informasjon.IKKE_SJEKKET_UT,toBeControlled.map { it.regelId }))
+            utledetInformasjon = listOf(
+                UtledetInformasjon(
+                    Informasjon.IKKE_SJEKKET_UT,
+                    toBeControlled.map { it.regelId })
+            )
         )
     }
-
-
-
     companion object {
-        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag,årsaker: List<Årsak>): KanAlleRegelBruddSjekkesUtEOSBorgereRegel {
-            return KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
+        fun fraDatagrunnlag(datagrunnlag: Datagrunnlag,årsaker: List<Årsak>): KanAlleRegelBruddSjekkesUtNorskeBorgereRegel {
+            return KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
                 ytelse = datagrunnlag.ytelse,
                 startDatoForYtelse = datagrunnlag.periode.fom,
                 brukerInput = datagrunnlag.brukerinput,
@@ -74,6 +60,7 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
             )
         }
     }
+
 }
 
 

@@ -23,10 +23,10 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | NEI      | true               | true              |
+      | JA       | true               | true              |
       | JA       | false              | false             |
       | JA       | false              | true              |
-      | NEI      | true               | false             |
+      | JA       | true               | false             |
 
 
   Scenariomal: SP6510 bli kalt med nye brukerspørsmål der flere regler bryter
@@ -74,10 +74,10 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | NEI      | true               | true              |
+      | JA      | true               | true              |
       | JA       | false              | false             |
       | JA       | false              | true              |
-      | NEI      | true               | false             |
+      | JA      | true               | false             |
 
   Scenariomal: SP6510 bli kalt med nye brukerspørsmål der REGEL_15 bryter
     Gitt årsaker i gammel kjøring
@@ -98,10 +98,10 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | NEI      | true               | true              |
+      | JA      | true               | true              |
       | JA       | false              | false             |
-      | NEI      | false              | true              |
-      | NEI      | true               | false             |
+      | JA      | false              | true              |
+      | JA      | true               | false             |
 
   Scenariomal: SP6510 bli kalt med nye brukerspørsmål der REGEL_C bryter
     Gitt årsaker i gammel kjøring
@@ -122,7 +122,31 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | NEI      | true               | true              |
+      | JA      | true               | true              |
       | JA       | false              | false             |
       | JA       | false              | true              |
+      | JA      | true               | false             |
+
+  Scenariomal: SP6510 bli kalt med nye brukerspørsmål der REGEL_X bryter
+    Gitt årsaker i gammel kjøring
+      | REGELBRUDD |
+      | REGEL_X   |
+
+    Og utfoertArbeidUtenforNorge
+      | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
+      | null            | null            | <arbeidUtenforNorge>          | <LAND> |
+
+    Og OppholdUtenforEos
+      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
+      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+
+
+    Når regel "SP6510" kjøres
+    Så skal resultat av regel være  være "<Resultat>"
+
+    Eksempler:
+      | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
+      | NEI      | true               | true              |
+      | NEI       | false              | false             |
+      | NEI       | false              | true              |
       | NEI      | true               | false             |

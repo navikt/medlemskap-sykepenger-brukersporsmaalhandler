@@ -14,33 +14,33 @@ class KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel(
     private val årsaker: List<Årsak> = emptyList()
 
     ) : BasisRegel(RegelId.SP6700, ytelse) {
-        val reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland =
-            listOf(
-                "REGEL_3", "REGEL_15"
-            )
-    val reglerSomSjekkesUtOppholdstilatelseOppgitt =
+
+
+    val reglerSomKanSjekkesUtMedArbeidOgOppholdOppgitt =
+        listOf(
+            "REGEL_3", "REGEL_9", "REGEL_C", "REGEL_15",
+        )
+    val reglerSomKanSjekkesUtMedOppholdsTilatelseOppgitt =
         listOf(
             "REGEL_19_3_1"
         )
+
     override fun operasjon(): Resultat {
 
-        if (årsaker.isEmpty()){
+        if (årsaker.isEmpty()) {
             return Resultat.ja(regelId)
         }
-        val toBeControlled:MutableList<Årsak> = mutableListOf()
+        val toBeControlled: MutableList<Årsak> = mutableListOf()
         toBeControlled.addAll(årsaker)
-        //fjer alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
-        if (true == brukerInput?.bådeArbeidUtlandOgOppholdUtenforNorgeFalse()){
-           toBeControlled.removeIf{reglerSomSjekkesUtMedArbeidINorgeOgIngenOppholdUtland.contains(it.regelId)}
+        //fjern alle regler som kan sjekkes dersom det er oppgitt brukerspørsmål om oppholdstilatelse
+        if (brukerInput?.oppholdstilatelse !=null){
+            toBeControlled.removeIf { reglerSomKanSjekkesUtMedOppholdsTilatelseOppgitt.contains(it.regelId) }
         }
-        //fjer alle regler som kan sjekkes ut med oppholdsTilatelseOppgitt
-        if (toBeControlled.isEmpty()){
-            return Resultat.ja(regelId)
+        if (brukerInput?.bådeArbeidUtlandOgOppholdUtenforNorgeOppgitt() == true) {
+            toBeControlled.removeIf { reglerSomKanSjekkesUtMedArbeidOgOppholdOppgitt.contains(it.regelId) }
         }
-        if (brukerInput?.oppholdstilatelse!=null){
-            toBeControlled.removeIf{reglerSomSjekkesUtOppholdstilatelseOppgitt.contains(it.regelId)}
-        }
-        if (toBeControlled.isEmpty()){
+
+        if (toBeControlled.isEmpty()) {
             return Resultat.ja(regelId)
         }
         return Resultat(
@@ -65,8 +65,8 @@ class KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel(
 
 }
 
-fun Brukerinput.bådeArbeidUtlandOgOppholdUtenforNorgeFalse() :Boolean{
-    return (false == utfortAarbeidUtenforNorge?.svar) && (false == oppholdUtenforNorge?.svar)
+fun Brukerinput.bådeArbeidUtlandOgOppholdUtenforNorgeOppgitt() :Boolean{
+    return (utfortAarbeidUtenforNorge?.svar !=null) && (oppholdUtenforNorge?.svar !=null)
 }
 
 

@@ -3,6 +3,7 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1
 
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.RegelId
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.konklusjonUavklart
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regelflyt.Companion.regelflytJa
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Regler
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Ytelse
@@ -26,19 +27,19 @@ class ReglerForOppholdUtenforEOS(
         val ErOppholdetIUtlandetKortereEnn180Dager = lagRegelflyt(
             regel = hentRegel(RegelId.SP6314),
             hvisJa = regelflytJa(ytelse),
-            hvisNei =Regelflyt.medlemskonklusjonUavklart(ytelse),
+            hvisNei =konklusjonUavklart(ytelse,RegelId.OPPHOLDUTENFOREOSFLYT),
         )
 
         val bleOppholdetAvsluttetForMerEnn90DagerSiden = lagRegelflyt(
             regel = hentRegel(RegelId.SP6313),
             hvisJa = ErOppholdetIUtlandetKortereEnn180Dager,
-            hvisNei =Regelflyt.medlemskonklusjonUavklart(ytelse),
+            hvisNei =konklusjonUavklart(ytelse,RegelId.OPPHOLDUTENFOREOSFLYT),
         )
 
         val ErDetBareEttUtenlandsOpphold = lagRegelflyt(
             regel = hentRegel(RegelId.SP6312),
             hvisJa = bleOppholdetAvsluttetForMerEnn90DagerSiden,
-            hvisNei =Regelflyt.medlemskonklusjonUavklart(ytelse),
+            hvisNei =konklusjonUavklart(ytelse,RegelId.OPPHOLDUTENFOREOSFLYT),
         )
 
         val harbrukerOppholdtSegUtenForEØS = lagRegelflyt(
@@ -49,7 +50,7 @@ class ReglerForOppholdUtenforEOS(
         val finnesBrukerSvarForOppholdUtenforEØS = lagRegelflyt(
             regel = hentRegel(RegelId.SP6301),
             hvisJa = harbrukerOppholdtSegUtenForEØS,
-            hvisNei = Regelflyt.medlemskonklusjonUavklart(ytelse),
+            hvisNei = konklusjonUavklart(ytelse,RegelId.OPPHOLDUTENFOREOSFLYT),
         )
 
 
