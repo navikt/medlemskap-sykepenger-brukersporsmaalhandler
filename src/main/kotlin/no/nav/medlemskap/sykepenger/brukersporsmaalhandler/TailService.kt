@@ -61,6 +61,7 @@ class TailService() {
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
                         kv("PDL_SAMSVAR",pdl_samsvar),
+                        kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
                         kv("analyse","NEI"))
 
                 }
@@ -85,6 +86,7 @@ class TailService() {
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
                         kv("PDL_SAMSVAR",pdl_samsvar),
+                        kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
                         kv("analyse","NEI")
                     )
                 }
