@@ -15,6 +15,10 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
 
     ) :  BasisRegel(RegelId.SP6510, ytelse) {
 
+    val multiReglerSomKanSjekkesUt =
+        listOf(
+            "REGEL_11"
+        )
     val reglerSomKanSjekkesUt =
         listOf(
             "REGEL_3", "REGEL_9", "REGEL_C", "REGEL_15"
@@ -30,6 +34,10 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
         //fjern alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
         if (brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSOppgitt() == true) {
             toBeControlled.removeIf { reglerSomKanSjekkesUt.contains(it.regelId) }
+            //fjern alle innslag som starter med angitt regel i multiRegelLista
+            multiReglerSomKanSjekkesUt.forEach { regel ->
+                toBeControlled.removeIf{it.regelId.startsWith(regel)}
+            }
         }
 
         if (toBeControlled.isEmpty()) {

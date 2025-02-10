@@ -17,11 +17,14 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
 
     ) : BasisRegel(RegelId.SP6600, ytelse) {
 
+    val multiReglerSomKanSjekkesUt =
+        listOf(
+            "REGEL_11"
+        )
     val reglerSomKanSjekkesUt =
         listOf(
             "REGEL_3", "REGEL_9", "REGEL_C", "REGEL_15"
         )
-
 
     override fun operasjon(): Resultat {
 
@@ -31,9 +34,12 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
         val toBeControlled: MutableList<Årsak> = mutableListOf()
         toBeControlled.addAll(årsaker)
         //fjern alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
-
         if (brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSOppgitt() == true) {
             toBeControlled.removeIf { reglerSomKanSjekkesUt.contains(it.regelId) }
+            //fjern alle innslag som starter med angitt regel i multiRegelLista
+            multiReglerSomKanSjekkesUt.forEach { regel ->
+                toBeControlled.removeIf{it.regelId.startsWith(regel)}
+            }
         }
 
         if (toBeControlled.isEmpty()) {
