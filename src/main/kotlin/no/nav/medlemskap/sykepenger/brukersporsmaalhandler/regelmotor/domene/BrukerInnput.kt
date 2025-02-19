@@ -82,6 +82,45 @@ fun Brukerinput.oppgittArbeidUtenforNorgePeriode(): String {
 }
 
 
+fun Brukerinput.oppgittOppholdUtenforNorgePeriode(): String {
+    try {
+        if (this.oppholdUtenforNorge != null && this.oppholdUtenforNorge.oppholdUtenforNorge.isNotEmpty()) {
+            return this.oppholdUtenforNorge.oppholdUtenforNorge.first().perioder.first().toString()
+        }
+        return "IKKE_OPPGITT"
+    }
+    catch(e:Exception){
+        return "IKKE_OPPGITT"
+    }
+}
+
+fun Brukerinput.oppgittOppholdUtenforNorgeLand():String{
+    if (this.oppholdUtenforNorge !=null && this.oppholdUtenforNorge.oppholdUtenforNorge.isNotEmpty()){
+        return this.oppholdUtenforNorge.oppholdUtenforNorge.first().land
+    }
+    return "IKKE_OPPGITT"
+}
+
+fun Brukerinput.oppgittOppholdUtenforEØSPeriode(): String {
+    try {
+        if (this.oppholdUtenforEos != null && this.oppholdUtenforEos.oppholdUtenforEOS.isNotEmpty()) {
+            return this.oppholdUtenforEos.oppholdUtenforEOS.first().perioder.first().toString()
+        }
+        return "IKKE_OPPGITT"
+    }
+    catch(e:Exception){
+        return "IKKE_OPPGITT"
+    }
+}
+
+fun Brukerinput.oppgittOppholdUtenforEØSLand():String{
+    if (this.oppholdUtenforEos !=null && this.oppholdUtenforEos.oppholdUtenforEOS.isNotEmpty()){
+        return this.oppholdUtenforEos.oppholdUtenforEOS.first().land
+    }
+    return "IKKE_OPPGITT"
+}
+
+
 fun Brukerinput.oppholdUtenforEØSOppgitt():Boolean{
   return (
           this.oppholdUtenforEos != null &&
