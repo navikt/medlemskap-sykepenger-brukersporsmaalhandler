@@ -8,10 +8,13 @@ import org.apache.kafka.streams.KeyValue
 import java.time.LocalDate
 import net.logstash.logback.argument.StructuredArguments.kv
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Brukerinput
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.antallDager
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittArbeidUtenforNorgeLand
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittArbeidUtenforNorgePeriode
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSLand
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSPeriode
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgeLand
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgePeriode
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdUtenforEØSOppgitt
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdUtenforNorgeOpppgitt
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdstillatelseOppgitt
@@ -51,11 +54,19 @@ class TailService() {
                         kv("erTredjelandsborger",tredjelandsBorger),
                         kv("harSP6000ProssesertGammeltResultat",harHaleProssessertresultatFraGammelRegelmotor),
                         kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
+
                         kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
+                        kv("oppholdUtenforEØS_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSLand()),
+                        kv("oppholdUtenforEØS_peridoe",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSPeriode()),
+
                         kv("oppholdUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforNorgeOpppgitt()),
+                        kv("oppholdUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeLand()),
+                        kv("oppholdUtenforNorge_peridoe",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgePeriode()),
+
                         kv("utfortAarbeidUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt()),
                         kv("utfortAarbeidUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgeLand()),
                         kv("utfortAarbeidUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgePeriode()),
+
                         kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),

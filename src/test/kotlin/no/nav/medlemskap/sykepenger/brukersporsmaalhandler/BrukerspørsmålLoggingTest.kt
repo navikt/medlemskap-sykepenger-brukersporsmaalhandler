@@ -1,14 +1,26 @@
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler
 
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.ArbeidUtenforNorge
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Brukerinput
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Opphold
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.OppholdUtenforEos
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.OppholdUtenforNorge
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Periode
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.UtfortAarbeidUtenforNorge
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittArbeidUtenforNorgeLand
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittArbeidUtenforNorgePeriode
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSLand
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSPeriode
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgeLand
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgePeriode
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdUtenforEØSOppgitt
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.statsborgerskap
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
+import java.util.UUID
 
 class BrukerspørsmålLoggingTest {
 
@@ -70,9 +82,113 @@ class BrukerspørsmålLoggingTest {
     }
 
 
+    @Test
+    fun brukerspørsmaalOppholdOppgittLoggingTest(){
 
+       val brukerinput = Brukerinput(
+            arbeidUtenforNorge = false,
+            utfortAarbeidUtenforNorge = UtfortAarbeidUtenforNorge(
+                id = UUID.randomUUID().toString(),
+                sporsmalstekst = "",
+                svar = true,
+                arbeidUtenforNorge = listOf(ArbeidUtenforNorge(
+                    id = UUID.randomUUID().toString(),
+                    arbeidsgiver = "Svenska Volo",
+                    land = "Sverige",
+                    perioder = listOf(Periode(LocalDate.of(2020, 1, 1).toString(), LocalDate.of(2020, 12, 31).toString())),
+                ))
+            ),
+            oppholdUtenforEos = OppholdUtenforEos(
+                    id = UUID.randomUUID().toString(),
+                    sporsmalstekst = "",
+                    svar = true,
+                    oppholdUtenforEOS = listOf(
+                        Opphold(
+                            id = UUID.randomUUID().toString(),
+                            land = "USA",
+                            grunn = "FERIE",
+                            perioder = listOf(
+                                Periode(
+                                    LocalDate.of(2020, 1, 1).toString(), LocalDate.of(2020, 12, 31).toString()
+                                )
+                            )
+                        )
+                    )
+                ),
+            oppholdUtenforNorge= OppholdUtenforNorge(
+                id = UUID.randomUUID().toString(),
+                sporsmalstekst = "",
+                svar = true,
+                oppholdUtenforNorge = listOf(
+                    Opphold(
+                        id = UUID.randomUUID().toString(),
+                        land = "Sverige",
+                        grunn = "FERIE",
+                        perioder = listOf(
+                            Periode(
+                                LocalDate.of(2024, 1, 1).toString(), LocalDate.of(2024, 1, 2).toString()
+                            )
+                        )
+                    )
+                )
+            )
+        )
 
+        Assertions.assertEquals("Sverige",brukerinput.oppgittOppholdUtenforNorgeLand(),"Feil i tolkning av land")
+        Assertions.assertEquals("Periode(fom=2024-01-01, tom=2024-01-02)",brukerinput.oppgittOppholdUtenforNorgePeriode(),"Feil i tolkning av periode")
 
+        Assertions.assertEquals("USA",brukerinput.oppgittOppholdUtenforEØSLand(),"Feil i tolkning av land")
+        Assertions.assertEquals("Periode(fom=2020-01-01, tom=2020-12-31)",brukerinput.oppgittOppholdUtenforEØSPeriode(),"Feil i tolkning av periode")
+    }
+
+    @Test
+    fun brukerspørsmaalOppholdOppgittMenMedNeiSvarLoggingTest(){
+
+        val brukerinput = Brukerinput(
+            arbeidUtenforNorge = false,
+            utfortAarbeidUtenforNorge = UtfortAarbeidUtenforNorge(
+                id = UUID.randomUUID().toString(),
+                sporsmalstekst = "",
+                svar = false,
+                arbeidUtenforNorge = listOf()
+            ),
+            oppholdUtenforEos = OppholdUtenforEos(
+                id = UUID.randomUUID().toString(),
+                sporsmalstekst = "",
+                svar = false,
+                oppholdUtenforEOS = listOf()
+            ),
+            oppholdUtenforNorge= OppholdUtenforNorge(
+                id = UUID.randomUUID().toString(),
+                sporsmalstekst = "",
+                svar = false,
+                oppholdUtenforNorge = listOf()
+            )
+        )
+
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforNorgeLand(),"Feil i tolkning av land")
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforNorgePeriode(),"Feil i tolkning av periode")
+
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforEØSLand(),"Feil i tolkning av land")
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforEØSPeriode(),"Feil i tolkning av periode")
+    }
+
+    @Test
+    fun brukerspørsmaalOppholdIkkeOppgittSvarLoggingTest(){
+
+        val brukerinput = Brukerinput(
+            arbeidUtenforNorge = false,
+            utfortAarbeidUtenforNorge = null,
+            oppholdUtenforEos = null,
+            oppholdUtenforNorge= null
+        )
+
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforNorgeLand(),"Feil i tolkning av land")
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforNorgePeriode(),"Feil i tolkning av periode")
+
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforEØSLand(),"Feil i tolkning av land")
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforEØSPeriode(),"Feil i tolkning av periode")
+    }
 
 }
 
