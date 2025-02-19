@@ -88,11 +88,19 @@ class TailService() {
                         kv("harSP6000ProssesertGammeltResultat",harHaleProssessertresultatFraGammelRegelmotor),
                         kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
+
                         kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
+                        kv("oppholdUtenforEØS_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSLand()),
+                        kv("oppholdUtenforEØS_peridoe",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSPeriode()),
+
                         kv("oppholdUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforNorgeOpppgitt()),
+                        kv("oppholdUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeLand()),
+                        kv("oppholdUtenforNorge_peridoe",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgePeriode()),
+
                         kv("utfortAarbeidUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt()),
                         kv("utfortAarbeidUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgeLand()),
                         kv("utfortAarbeidUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgePeriode()),
+
                         kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
