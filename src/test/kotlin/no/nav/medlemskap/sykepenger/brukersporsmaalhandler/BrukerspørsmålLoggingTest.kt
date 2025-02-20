@@ -11,8 +11,10 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Per
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.UtfortAarbeidUtenforNorge
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittArbeidUtenforNorgeLand
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittArbeidUtenforNorgePeriode
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSGrunn
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSLand
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSPeriode
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgeGrunn
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgeLand
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgePeriode
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdUtenforEØSOppgitt
@@ -106,7 +108,7 @@ class BrukerspørsmålLoggingTest {
                         Opphold(
                             id = UUID.randomUUID().toString(),
                             land = "USA",
-                            grunn = "FERIE",
+                            grunn = "Ferie",
                             perioder = listOf(
                                 Periode(
                                     LocalDate.of(2020, 1, 1).toString(), LocalDate.of(2020, 12, 31).toString()
@@ -123,7 +125,7 @@ class BrukerspørsmålLoggingTest {
                     Opphold(
                         id = UUID.randomUUID().toString(),
                         land = "Sverige",
-                        grunn = "FERIE",
+                        grunn = "Studier",
                         perioder = listOf(
                             Periode(
                                 LocalDate.of(2024, 1, 1).toString(), LocalDate.of(2024, 1, 2).toString()
@@ -136,9 +138,11 @@ class BrukerspørsmålLoggingTest {
 
         Assertions.assertEquals("Sverige",brukerinput.oppgittOppholdUtenforNorgeLand(),"Feil i tolkning av land")
         Assertions.assertEquals("Periode(fom=2024-01-01, tom=2024-01-02)",brukerinput.oppgittOppholdUtenforNorgePeriode(),"Feil i tolkning av periode")
+        Assertions.assertEquals("Studier",brukerinput.oppgittOppholdUtenforNorgeGrunn(),"Feil i tolkning av periode")
 
         Assertions.assertEquals("USA",brukerinput.oppgittOppholdUtenforEØSLand(),"Feil i tolkning av land")
         Assertions.assertEquals("Periode(fom=2020-01-01, tom=2020-12-31)",brukerinput.oppgittOppholdUtenforEØSPeriode(),"Feil i tolkning av periode")
+        Assertions.assertEquals("Ferie",brukerinput.oppgittOppholdUtenforEØSGrunn(),"Feil i tolkning av periode")
     }
 
     @Test
@@ -168,9 +172,11 @@ class BrukerspørsmålLoggingTest {
 
         Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforNorgeLand(),"Feil i tolkning av land")
         Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforNorgePeriode(),"Feil i tolkning av periode")
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforNorgeGrunn(),"Feil i tolkning av periode")
 
         Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforEØSLand(),"Feil i tolkning av land")
         Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforEØSPeriode(),"Feil i tolkning av periode")
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforEØSGrunn(),"Feil i tolkning av periode")
     }
 
     @Test
@@ -185,9 +191,11 @@ class BrukerspørsmålLoggingTest {
 
         Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforNorgeLand(),"Feil i tolkning av land")
         Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforNorgePeriode(),"Feil i tolkning av periode")
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforNorgeGrunn(),"Feil i tolkning av periode")
 
         Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforEØSLand(),"Feil i tolkning av land")
         Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforEØSPeriode(),"Feil i tolkning av periode")
+        Assertions.assertEquals("IKKE_OPPGITT",brukerinput.oppgittOppholdUtenforEØSGrunn(),"Feil i tolkning av periode")
     }
 
 }

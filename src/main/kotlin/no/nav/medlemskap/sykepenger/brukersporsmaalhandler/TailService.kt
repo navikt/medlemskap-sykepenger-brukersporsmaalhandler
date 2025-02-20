@@ -11,8 +11,10 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.antallDager
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittArbeidUtenforNorgeLand
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittArbeidUtenforNorgePeriode
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSGrunn
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSLand
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSPeriode
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgeGrunn
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgeLand
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgePeriode
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdUtenforEØSOppgitt
@@ -57,11 +59,13 @@ class TailService() {
 
                         kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
                         kv("oppholdUtenforEØS_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSLand()),
-                        kv("oppholdUtenforEØS_peridoe",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSPeriode()),
+                        kv("oppholdUtenforEØS_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSPeriode()),
+                        kv("oppholdUtenforEØS_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSGrunn()),
 
                         kv("oppholdUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforNorgeOpppgitt()),
                         kv("oppholdUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeLand()),
                         kv("oppholdUtenforNorge_peridoe",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgePeriode()),
+                        kv("oppholdUtenforNorge_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeGrunn()),
 
                         kv("utfortAarbeidUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt()),
                         kv("utfortAarbeidUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgeLand()),
@@ -91,15 +95,18 @@ class TailService() {
 
                         kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
                         kv("oppholdUtenforEØS_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSLand()),
-                        kv("oppholdUtenforEØS_peridoe",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSPeriode()),
+                        kv("oppholdUtenforEØS_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSPeriode()),
+                        kv("oppholdUtenforEØS_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSGrunn()),
 
                         kv("oppholdUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforNorgeOpppgitt()),
                         kv("oppholdUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeLand()),
-                        kv("oppholdUtenforNorge_peridoe",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgePeriode()),
+                        kv("oppholdUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgePeriode()),
+                        kv("oppholdUtenforNorge_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeGrunn()),
 
                         kv("utfortAarbeidUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt()),
                         kv("utfortAarbeidUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgeLand()),
                         kv("utfortAarbeidUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgePeriode()),
+
 
                         kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
