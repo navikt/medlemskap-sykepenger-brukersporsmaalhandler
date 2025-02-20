@@ -21,7 +21,7 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
         )
     val reglerSomKanSjekkesUt =
         listOf(
-            "REGEL_3", "REGEL_9", "REGEL_C", "REGEL_15","REGEL_12"
+            "REGEL_3", "REGEL_9", "REGEL_C", "REGEL_15","REGEL_12", "REGEL_21"
         )
 
     override fun operasjon(): Resultat {
