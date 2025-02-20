@@ -100,6 +100,12 @@ fun Brukerinput.oppgittOppholdUtenforNorgeLand():String{
     }
     return "IKKE_OPPGITT"
 }
+fun Brukerinput.oppgittOppholdUtenforNorgeGrunn():String{
+    if (this.oppholdUtenforNorge !=null && this.oppholdUtenforNorge.oppholdUtenforNorge.isNotEmpty()){
+        return this.oppholdUtenforNorge.oppholdUtenforNorge.first().grunn
+    }
+    return "IKKE_OPPGITT"
+}
 
 fun Brukerinput.oppgittOppholdUtenforEØSPeriode(): String {
     try {
@@ -116,6 +122,12 @@ fun Brukerinput.oppgittOppholdUtenforEØSPeriode(): String {
 fun Brukerinput.oppgittOppholdUtenforEØSLand():String{
     if (this.oppholdUtenforEos !=null && this.oppholdUtenforEos.oppholdUtenforEOS.isNotEmpty()){
         return this.oppholdUtenforEos.oppholdUtenforEOS.first().land
+    }
+    return "IKKE_OPPGITT"
+}
+fun Brukerinput.oppgittOppholdUtenforEØSGrunn():String{
+    if (this.oppholdUtenforEos !=null && this.oppholdUtenforEos.oppholdUtenforEOS.isNotEmpty()){
+        return this.oppholdUtenforEos.oppholdUtenforEOS.first().grunn
     }
     return "IKKE_OPPGITT"
 }
