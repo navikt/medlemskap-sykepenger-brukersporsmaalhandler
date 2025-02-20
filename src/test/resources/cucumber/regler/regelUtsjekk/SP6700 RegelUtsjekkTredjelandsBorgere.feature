@@ -249,3 +249,27 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
       | JA      | false              | false             |
       | JA      | false              | true              |
       | JA      | true               | false             |
+
+  Scenariomal: SP6700 bli kalt med nye brukerspørsmål der REGEL_25 bryter
+    Gitt årsaker i gammel kjøring
+      | REGELBRUDD |
+      | REGEL_25   |
+
+    Og utfoertArbeidUtenforNorge
+      | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
+      | null            | null            | <arbeidUtenforNorge>          | <LAND> |
+
+    Og OppholdUtenforNorge
+      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
+      | null            | null            | <OppholdUtenforNorge>          | THAILAND |
+
+
+    Når regel "SP6700" kjøres
+    Så skal resultat av regel være  være "<Resultat>"
+
+    Eksempler:
+      | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
+      | JA      | true               | true              |
+      | JA      | false              | false             |
+      | JA      | false              | true              |
+      | JA      | true               | false             |
