@@ -9,6 +9,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.ReglerServ
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Datagrunnlag
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.udiOppholdstillatelsePeriode
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -132,5 +133,21 @@ class OppholdstilatelseTester {
         Assertions.assertTrue(konklusjon.avklaringsListe.map{it.regel_id}.containsAll(expected))
     }
 
+    @Test
+    fun `Uthenting av oppholdstillatelse fra UDI haandterer null-verdi`(){
+        val fileContent = Datagrunnlag::class.java.classLoader.getResource("REGEL_C.json").readText(Charsets.UTF_8)
+        val resultatGammelRegelMotorJson = JacksonParser().ToJson(fileContent)
+        val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
+        Assertions.assertNull(resultatGammelRegelMotor.datagrunnlag.oppholdstillatelse)
+        Assertions.assertEquals( "IKKE_OPPGITT",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode())
+    }
+
+    @Test
+    fun `Uthenting av oppholdstillatelse  periode fra UDI skal returnere perioden`(){
+        val fileContent = Datagrunnlag::class.java.classLoader.getResource("Regel19_3_1_Brudd_med_PDL_OppholdsDataOgIngenNyeBrukerSporsmaal.json").readText(Charsets.UTF_8)
+        val resultatGammelRegelMotorJson = JacksonParser().ToJson(fileContent)
+        val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
+        Assertions.assertEquals( "UdiPeriode(fom=2024-05-14, tom=2025-05-14)",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode())
+    }
 
 }

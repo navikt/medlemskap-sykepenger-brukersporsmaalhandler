@@ -157,3 +157,14 @@ fun Brukerinput.oppholdstillatelseOppgitt():Boolean{
             this.oppholdstilatelse.svar
             )
 }
+
+fun Brukerinput.oppholdstillatelsePeriode():String{
+            if (this.oppholdstilatelse != null && oppholdstilatelse.perioder.isNotEmpty()) {
+             return oppholdstilatelse.perioder.first().toString()
+            } else if (this.oppholdstilatelse != null && oppholdstilatelse.perioder.isEmpty())
+                return "INGEN_OPPHOLDSTILLATELSE_OPPGITT"
+            else {
+                return "IKKE_OPPGITT"
+            }
+
+}
