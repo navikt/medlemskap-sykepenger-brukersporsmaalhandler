@@ -68,3 +68,11 @@ fun InputPeriode.antallDager():Long{
 fun Datagrunnlag.statsborgerskap(): String{
     return this.pdlpersonhistorikk.statsborgerskap.filter { it.historisk == false}.map { it.landkode }.toString()
 }
+
+fun Datagrunnlag.udiOppholdstillatelsePeriode(): String{
+    if (this.oppholdstillatelse == null  || this.oppholdstillatelse.periode() == null ){
+        return "IKKE_OPPGITT"
+    } else {
+        return this.oppholdstillatelse.periode().toString()
+    }
+}

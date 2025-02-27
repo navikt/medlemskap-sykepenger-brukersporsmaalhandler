@@ -3,25 +3,12 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler
 import com.fasterxml.jackson.databind.node.ObjectNode
 import mu.KotlinLogging
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.*
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Kjøring
 import org.apache.kafka.streams.KeyValue
 import java.time.LocalDate
 import net.logstash.logback.argument.StructuredArguments.kv
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.antallDager
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittArbeidUtenforNorgeLand
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittArbeidUtenforNorgePeriode
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSGrunn
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSLand
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforEØSPeriode
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgeGrunn
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgeLand
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppgittOppholdUtenforNorgePeriode
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdUtenforEØSOppgitt
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdUtenforNorgeOpppgitt
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.oppholdstillatelseOppgitt
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.statsborgerskap
-import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.utfortAarbeidUtenforNorgeOpppgitt
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.*
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Årsak
 
 class TailService() {
     private val logger = KotlinLogging.logger { }
@@ -72,7 +59,11 @@ class TailService() {
                         kv("utfortAarbeidUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgePeriode()),
 
                         kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
+
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
+                        kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
+                        kv("udi_oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode()),
+
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
                         kv("PDL_SAMSVAR",pdl_samsvar),
@@ -109,7 +100,11 @@ class TailService() {
 
 
                         kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
+
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
+                        kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
+                        kv("udi_oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode()),
+
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
                         kv("PDL_SAMSVAR",pdl_samsvar),
                         kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
