@@ -1,7 +1,6 @@
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene
 
 
-import com.natpryce.konfig.booleanType
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Ytelse
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -12,8 +11,66 @@ data class Datagrunnlag(
     val fnr:String,
     val brukerinput:Brukerinput,
     val pdlpersonhistorikk:PdlPersonHistorikk,
-    val oppholdstillatelse:UdiOppholdsTilatelse?
+    val oppholdstillatelse:UdiOppholdsTilatelse?,
+    val arbeidsforhold: List<Arbeidsforhold> = listOf()
 )
+
+fun Datagrunnlag.arbeidsforholdAvType(type: Arbeidsforholdstype): List<Arbeidsforhold> {
+    return arbeidsforhold.filter {
+        it.arbeidsforholdstype == type
+    }
+}
+
+fun Datagrunnlag.maritimeArbeidsAvtaler():List<Arbeidsavtale> {
+    return arbeidsforholdAvType(Arbeidsforholdstype.MARITIMT).flatMap { it.arbeidsavtaler }.sortedByDescending { it.gyldighetsperiode.fom }
+}
+
+fun Datagrunnlag.sisteMaritimeArbeidsAvtale(): Arbeidsavtale?{
+    return maritimeArbeidsAvtaler().firstOrNull()
+}
+
+
+enum class Arbeidsforholdstype(val kodeverdi: String) {
+    FRILANSER("frilanserOppdragstakerHonorarPersonerMm"),
+    MARITIMT("maritimtArbeidsforhold"),
+    NORMALT("ordinaertArbeidsforhold"),
+    FORENKLET("forenkletOppgjoersordning"),
+    ANDRE("pensjonOgAndreTyperYtelserUtenAnsettelsesforhold");
+
+    companion object {
+        fun fraArbeidsforholdtypeVerdi(arbeidsforholdstypeVerdi: String): Arbeidsforholdstype {
+            return values().first { it.kodeverdi == arbeidsforholdstypeVerdi }
+        }
+    }
+}
+
+data class Arbeidsavtale(
+    var periode: ArbeidsForholdPeriode,
+    val gyldighetsperiode: ArbeidsForholdPeriode,
+    val yrkeskode: String,
+    val skipsregister: Skipsregister?,
+    val fartsomraade: Fartsomraade?,
+    val stillingsprosent: Double?,
+    val beregnetAntallTimerPrUke: Double?,
+    val skipstype: Skipstype?
+) {
+    fun getStillingsprosent(): Double {
+        if (stillingsprosent == 0.0 && beregnetAntallTimerPrUke != null && beregnetAntallTimerPrUke > 0) {
+            val beregnetStillingsprosent = (beregnetAntallTimerPrUke / 37.5) * 100
+            return Math.round(beregnetStillingsprosent * 10.0) / 10.0
+        }
+
+        return stillingsprosent ?: 100.0
+    }
+}
+
+
+data class Arbeidsforhold(
+    val periode: ArbeidsForholdPeriode,
+    val arbeidsforholdstype: Arbeidsforholdstype,
+    var arbeidsavtaler: List<Arbeidsavtale>
+)
+
 data class InputPeriode(
     val fom: LocalDate,
     val tom: LocalDate
@@ -74,5 +131,41 @@ fun Datagrunnlag.udiOppholdstillatelsePeriode(): String{
         return "IKKE_OPPGITT"
     } else {
         return this.oppholdstillatelse.periode().toString()
+    }
+}
+
+fun Datagrunnlag.sisteMaritimeArbeidsavtalePeriode(): String{
+    val v = sisteMaritimeArbeidsAvtale()
+    if (v == null){
+        return "IKKE_OPPGITT"
+    } else {
+        return "fom: ${v.gyldighetsperiode.fom} , tom: ${v.gyldighetsperiode.tom}"
+    }
+}
+
+fun Datagrunnlag.sisteMaritimeArbeidsavtaleSkipstype(): String{
+    val v = sisteMaritimeArbeidsAvtale()
+    if (v == null){
+        return "IKKE_OPPGITT"
+    } else {
+        return v.skipstype.toString()
+    }
+}
+
+fun Datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister(): String{
+    val v = sisteMaritimeArbeidsAvtale()
+    if (v == null){
+        return "IKKE_OPPGITT"
+    } else {
+        return v.skipsregister.toString()
+    }
+}
+
+fun Datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade(): String{
+    val v = sisteMaritimeArbeidsAvtale()
+    if (v == null){
+        return "IKKE_OPPGITT"
+    } else {
+        return v.fartsomraade.toString()
     }
 }

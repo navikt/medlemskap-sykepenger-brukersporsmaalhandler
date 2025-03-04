@@ -289,7 +289,7 @@ class BrukerspørsmålLoggingTest {
                 svar = true,
                 vedtaksdato = LocalDate.now(),
                 vedtaksTypePermanent = false,
-                perioder = listOf(Periode(LocalDate.now().toString(), LocalDate.now().toString()))
+                perioder = listOf(Periode(LocalDate.of(2025, 2, 27).toString(), LocalDate.of(2025, 2, 27).toString()))
             ),
             arbeidUtenforNorge = false,
             utfortAarbeidUtenforNorge = null,

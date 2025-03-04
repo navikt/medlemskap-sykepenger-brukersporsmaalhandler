@@ -60,6 +60,11 @@ class TailService() {
 
                         kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
 
+                        kv("mar-gyldighetsperiode",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtalePeriode()),
+                        kv("mar-skipstype",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipstype()),
+                        kv("mar-fartsomraade",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade()),
+                        kv("mar-skipsregister",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister()),
+
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
                         kv("udi_oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode()),
@@ -100,6 +105,11 @@ class TailService() {
 
 
                         kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
+
+                        kv("mar-gyldighetsperiode",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtalePeriode()),
+                        kv("mar-skipstype",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipstype()),
+                        kv("mar-fartsomraade",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade()),
+                        kv("mar-skipsregister",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister()),
 
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
