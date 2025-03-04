@@ -12,6 +12,26 @@ data class ArbeidUtenforNorge(
 
 data class Periode(val fom: String, val tom: String= Date().toString())
 
+data class ArbeidsForholdPeriode(
+    val fom: LocalDate?,
+    val tom: LocalDate?
+)
+
+fun ArbeidsForholdPeriode.erLøpendePerDato(forsteDagYtelse: LocalDate): Boolean {
+    if (fom == null && tom == null) {
+        return false
+    }
+    if (fom == null) {
+        return !forsteDagYtelse.isAfter(tom)
+    }
+    if (tom == null) {
+        return !forsteDagYtelse.isBefore(fom)
+    }
+
+    return !forsteDagYtelse.isBefore(fom) && !forsteDagYtelse.isAfter(tom)
+}
+
+
 data class Brukerinput(
     val arbeidUtenforNorge: Boolean,
     val oppholdstilatelse:Oppholdstilatelse?=null,
