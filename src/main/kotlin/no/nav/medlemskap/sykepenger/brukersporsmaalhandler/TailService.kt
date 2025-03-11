@@ -49,6 +49,7 @@ class TailService() {
                 if (resultatGammelRegelMotor.resultat.svar.name != konklusjon.status.name){
                     secureLogger.info("post prosessering ferdig. Differanse i svar!",
                         kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
+                        kv("gammelt_aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
                         kv("konklusjon",konklusjon.status.name),
                         kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }.toString()),
                         kv("response",haleRespons.toPrettyString()),
@@ -84,6 +85,7 @@ class TailService() {
                 {
                     secureLogger.info("post prosessering ferdig",
                         kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
+                        kv("gammelt_aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
                         kv("konklusjon",konklusjon.status.name),
                         kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }.toString()),
                         kv("response",haleRespons.toPrettyString()),
