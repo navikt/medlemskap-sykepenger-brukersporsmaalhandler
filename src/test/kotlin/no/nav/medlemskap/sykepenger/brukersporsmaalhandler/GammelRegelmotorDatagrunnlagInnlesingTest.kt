@@ -39,5 +39,20 @@ class GammelRegelmotorDatagrunnlagInnlesingTest {
         Assertions.assertEquals("IKKE_OPPGITT",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipstype())
         Assertions.assertEquals("IKKE_OPPGITT",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtalePeriode())
     }
+
+    @Test
+    fun innlesingAvPermisjonsPermitteringTest() {
+        val fileContent =
+            Datagrunnlag::class.java.classLoader.getResource("REGEL_33.json")
+                .readText(Charsets.UTF_8)
+        val jsonRespons = JacksonParser().ToJson(fileContent)
+        val resultatGammelRegelMotor: Kjøring = JacksonParser().toDomainObject(jsonRespons)
+        Assertions.assertTrue(
+            resultatGammelRegelMotor.datagrunnlag.arbeidsforhold.first().permisjonPermittering!!.isNotEmpty(),
+            "Datagrunnlag skal inneholde PermisjonsPermittering"
+        )
+
+    }
 }
+
 
