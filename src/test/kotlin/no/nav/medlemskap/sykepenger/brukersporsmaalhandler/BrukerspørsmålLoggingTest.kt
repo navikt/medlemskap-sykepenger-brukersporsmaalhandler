@@ -1,5 +1,6 @@
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler
 
+import net.logstash.logback.argument.StructuredArguments.kv
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.extensionfunctions.sistePermisjonIkontrollPerioden
 import org.junit.jupiter.api.Assertions
@@ -398,10 +399,86 @@ class BrukerspørsmålLoggingTest {
                     permisjonPermitteringId = "1",
                     prosent = 100.0,
                     type = PermisjonPermitteringType.PERMISJON_MED_FORELDREPENGER,
-                    varslingskode = "1")
+                    varslingskode = "1"),
+                PermisjonPermittering(
+                    periode = PeriodeMedNullVerdier(kontrollperiode.fom.minusDays(30), kontrollperiode.tom),
+                    permisjonPermitteringId = "2",
+                    prosent = 100.0,
+                    type = PermisjonPermitteringType.UTDANNINGSPERMISJON_IKKE_LOVFESTET,
+                    varslingskode = "2")
             )
         )
         val funn = listOf(arbeidsforhold).sistePermisjonIkontrollPerioden(kontrollperiode)
-        Assertions.assertNull(funn, "funn skal ikke inneholde permisjonsperiode")
+        Assertions.assertNotNull(funn, "funn skal ikke inneholde permisjonsperiode")
+        Assertions.assertEquals("2",funn!!.permisjonPermitteringId, "nyeste permisjonsPermitering skal finnes")
     }
+    @Test
+    fun VedFlerePermisjonerDerFomDatoErNullSlalDisseFiltreresUtSkalNyesteFinnes() {
+        val kontrollperiode = InputPeriode(LocalDate.of(
+            2024, 2, 1), LocalDate.of(2025, 2, 1))
+        val arbeidsforhold = Arbeidsforhold(
+            periode = ArbeidsForholdPeriode(LocalDate.of(
+                2025, 2, 27), LocalDate.of(2025, 2, 27)),
+            arbeidsforholdstype = Arbeidsforholdstype.NORMALT,
+            emptyList(),
+            permisjonPermittering = listOf(
+                PermisjonPermittering(
+                    periode = PeriodeMedNullVerdier(kontrollperiode.fom.minusDays(60), kontrollperiode.tom),
+                    permisjonPermitteringId = "1",
+                    prosent = 100.0,
+                    type = PermisjonPermitteringType.PERMISJON_MED_FORELDREPENGER,
+                    varslingskode = "1"),
+                PermisjonPermittering(
+                    periode = PeriodeMedNullVerdier(kontrollperiode.fom.minusDays(30), kontrollperiode.tom),
+                    permisjonPermitteringId = "2",
+                    prosent = 100.0,
+                    type = PermisjonPermitteringType.UTDANNINGSPERMISJON_IKKE_LOVFESTET,
+                    varslingskode = "2"),
+                PermisjonPermittering(
+                    periode = PeriodeMedNullVerdier(null, kontrollperiode.tom),
+                    permisjonPermitteringId = "3",
+                    prosent = 100.0,
+                    type = PermisjonPermitteringType.UTDANNINGSPERMISJON_IKKE_LOVFESTET,
+                    varslingskode = "3")
+            )
+        )
+        val funn = listOf(arbeidsforhold).sistePermisjonIkontrollPerioden(kontrollperiode)
+        Assertions.assertNotNull(funn, "funn skal ikke inneholde permisjonsperiode")
+        Assertions.assertEquals("2",funn!!.permisjonPermitteringId, "nyeste permisjonsPermitering skal finnes")
+    }
+    @Test
+    fun SkalFinnePersmisjonsPermiteringerSomStarterEtterKontrollPeriodeFomOgFørTom() {
+        val kontrollperiode = InputPeriode(LocalDate.of(
+            2024, 2, 1), LocalDate.of(2025, 2, 1))
+        val arbeidsforhold = Arbeidsforhold(
+            periode = ArbeidsForholdPeriode(LocalDate.of(
+                2025, 2, 27), LocalDate.of(2025, 2, 27)),
+            arbeidsforholdstype = Arbeidsforholdstype.NORMALT,
+            emptyList(),
+            permisjonPermittering = listOf(
+                PermisjonPermittering(
+                    periode = PeriodeMedNullVerdier(kontrollperiode.fom.plusDays(60), kontrollperiode.tom),
+                    permisjonPermitteringId = "1",
+                    prosent = 100.0,
+                    type = PermisjonPermitteringType.PERMISJON_MED_FORELDREPENGER,
+                    varslingskode = "1"),
+                PermisjonPermittering(
+                    periode = PeriodeMedNullVerdier(kontrollperiode.fom.plusDays(30), kontrollperiode.tom),
+                    permisjonPermitteringId = "2",
+                    prosent = 100.0,
+                    type = PermisjonPermitteringType.UTDANNINGSPERMISJON_IKKE_LOVFESTET,
+                    varslingskode = "2"),
+                PermisjonPermittering(
+                    periode = PeriodeMedNullVerdier(null, kontrollperiode.tom),
+                    permisjonPermitteringId = "3",
+                    prosent = 100.0,
+                    type = PermisjonPermitteringType.UTDANNINGSPERMISJON_IKKE_LOVFESTET,
+                    varslingskode = "3")
+            )
+        )
+        val funn = listOf(arbeidsforhold).sistePermisjonIkontrollPerioden(kontrollperiode)
+        Assertions.assertNotNull(funn, "funn skal ikke inneholde permisjonsperiode")
+        Assertions.assertEquals("1",funn!!.permisjonPermitteringId, "nyeste permisjonsPermitering skal finnes")
+    }
+
 }

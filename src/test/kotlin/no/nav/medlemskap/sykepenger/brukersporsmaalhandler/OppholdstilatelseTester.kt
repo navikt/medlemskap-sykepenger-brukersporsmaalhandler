@@ -147,7 +147,7 @@ class OppholdstilatelseTester {
         val fileContent = Datagrunnlag::class.java.classLoader.getResource("Regel19_3_1_Brudd_med_PDL_OppholdsDataOgIngenNyeBrukerSporsmaal.json").readText(Charsets.UTF_8)
         val resultatGammelRegelMotorJson = JacksonParser().ToJson(fileContent)
         val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
-        Assertions.assertEquals( "UdiPeriode(fom=2024-05-14, tom=2025-05-14)",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode())
+        Assertions.assertEquals( "UdiPeriode(fom=2024-05-14, tom=2090-05-14)",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode())
     }
 
 }

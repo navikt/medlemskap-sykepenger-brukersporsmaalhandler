@@ -253,7 +253,7 @@
         "oppholdstillatelsePaSammeVilkar" : {
           "periode" : {
             "fom" : "2024-05-14",
-            "tom" : "2025-05-14"
+            "tom" : "2090-05-14"
           },
           "type" : "MIDLERTIDIG",
           "harTillatelse" : true,
