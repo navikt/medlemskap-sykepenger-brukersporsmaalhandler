@@ -10,6 +10,11 @@ data class ArbeidUtenforNorge(
     val perioder: List<Periode>
 )
 
+data class PeriodeMedNullVerdier(
+    val fom: LocalDate?,
+    val tom: LocalDate?
+)
+
 data class Periode(val fom: String, val tom: String= Date().toString())
 
 data class ArbeidsForholdPeriode(

@@ -8,6 +8,9 @@ import java.time.LocalDate
 import net.logstash.logback.argument.StructuredArguments.kv
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.*
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.extensionfunctions.siste_permisjonPermitteringPeriode
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.extensionfunctions.siste_permisjonPermitteringProsent
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.extensionfunctions.siste_permisjonPermitteringType
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Årsak
 
 class TailService() {
@@ -19,6 +22,7 @@ class TailService() {
             try {
                 val resultatGammelRegelMotorJson = JacksonParser().ToJson(json)
                 val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
+                val kontrollPeriode = InputPeriode(resultatGammelRegelMotor.datagrunnlag.periode.fom.minusYears(1),resultatGammelRegelMotor.datagrunnlag.periode.fom)
                 val responsRegelMotorHale = ReglerService.kjørRegler(resultatGammelRegelMotor)
                 val konklusjon:Konklusjon = lagKonklusjon(resultatGammelRegelMotor,responsRegelMotorHale)
                 val tredjelandsBorger:Boolean = konklusjon.erTredjelandsborger()
@@ -65,6 +69,10 @@ class TailService() {
                         kv("mar-fartsomraade",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade()),
                         kv("mar-skipsregister",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister()),
 
+                        kv("perm-periode",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringPeriode(kontrollPeriode)),
+                        kv("perm-type",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringType(kontrollPeriode)),
+                        kv("perm-prosent",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringProsent(kontrollPeriode)),
+
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
                         kv("udi_oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode()),
@@ -110,6 +118,10 @@ class TailService() {
                         kv("mar-skipstype",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipstype()),
                         kv("mar-fartsomraade",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade()),
                         kv("mar-skipsregister",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister()),
+
+                        kv("perm-periode",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringPeriode(kontrollPeriode)),
+                        kv("perm-type",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringType(kontrollPeriode)),
+                        kv("perm-prosent",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringProsent(kontrollPeriode)),
 
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),

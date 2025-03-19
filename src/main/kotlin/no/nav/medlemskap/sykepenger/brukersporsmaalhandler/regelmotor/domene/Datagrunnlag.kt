@@ -68,8 +68,38 @@ data class Arbeidsavtale(
 data class Arbeidsforhold(
     val periode: ArbeidsForholdPeriode,
     val arbeidsforholdstype: Arbeidsforholdstype,
-    var arbeidsavtaler: List<Arbeidsavtale>
+    var arbeidsavtaler: List<Arbeidsavtale>,
+    val permisjonPermittering: List<PermisjonPermittering>?
 )
+
+data class PermisjonPermittering(
+    val periode: PeriodeMedNullVerdier,
+    val permisjonPermitteringId: String,
+    val prosent: Double?,
+    val type: PermisjonPermitteringType,
+    val varslingskode: String?
+)
+
+enum class PermisjonPermitteringType(val kodeverdi: String) {
+    PERMISJON("permisjon"),
+    PERMISJON_MED_FORELDREPENGER("permisjonMedForeldrepenger"),
+    PERMISJON_VED_MILITAERTJENESTE("permisjonVedMilitaertjeneste"),
+    PERMITTERING("permittering"),
+    UTDANNINGSPERMISJON("utdanningspermisjon"),
+    VELFERDSPERMISJON("velferdspermisjon"),
+    ANDRE_IKKE_LOVFESTEDE_PERMISJONER("andreIkkeLovfestedePermisjoner"),
+    ANDRE_LOVFESTEDE_PERMISJONER("andreLovfestedePermisjoner"),
+    UTDANNINGSPERMISJON_IKKE_LOVFESTET("utdanningspermisjonIkkeLovfestet"),
+    UTDANNINGSPERMISJON_LOVFESTET("utdanningspermisjonLovfestet"),
+    ANNET("Annet")
+    ;
+
+    companion object {
+        fun fraPermisjonPermitteringVerdi(permisjonPermittering: String): PermisjonPermitteringType {
+            return PermisjonPermitteringType.values().first { it.kodeverdi == permisjonPermittering }
+        }
+    }
+}
 
 data class InputPeriode(
     val fom: LocalDate,
