@@ -32,7 +32,7 @@ class KanAlleRegelBruddSjekkesUtTredjelandBorgereRegel(
         }
         val toBeControlled: MutableList<Årsak> = mutableListOf()
         toBeControlled.addAll(årsaker)
-        //fjern alle regler som kan sjekkes dersom det er oppgitt brukerspørsmål om oppholdstilatelse
+        //fjern alle regler som kan sjekkes dersom det er oppgitt brukerspørsmål om oppholdstilatelse.
         if (brukerInput?.oppholdstilatelse !=null){
             toBeControlled.removeIf { reglerSomKanSjekkesUtMedOppholdsTilatelseOppgitt.contains(it.regelId) }
         }
