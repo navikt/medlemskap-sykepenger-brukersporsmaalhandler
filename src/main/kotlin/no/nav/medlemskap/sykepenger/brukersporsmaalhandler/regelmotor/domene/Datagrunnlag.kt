@@ -124,7 +124,7 @@ data class UdiOppholdsTilatelse(
     val gjeldendeOppholdsstatus:GjeldendeOppholdsstatus?
 )
 data class GjeldendeOppholdsstatus(
-    val oppholdstillatelsePaSammeVilkar:OppholdstillatelsePaSammeVilkar?,
+    val oppholdstillatelsePaSammeVilkar:OppholdstillatelsePaSammeVilkar?
 )
 data class OppholdstillatelsePaSammeVilkar(
     val periode:UdiPeriode,
