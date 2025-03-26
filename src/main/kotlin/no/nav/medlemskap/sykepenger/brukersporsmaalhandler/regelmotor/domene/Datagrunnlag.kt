@@ -124,11 +124,12 @@ data class UdiOppholdsTilatelse(
     val gjeldendeOppholdsstatus:GjeldendeOppholdsstatus?
 )
 data class GjeldendeOppholdsstatus(
-    val oppholdstillatelsePaSammeVilkar:OppholdstillatelsePaSammeVilkar?
+    val oppholdstillatelsePaSammeVilkar:OppholdstillatelsePaSammeVilkar?,
 )
 data class OppholdstillatelsePaSammeVilkar(
     val periode:UdiPeriode,
-    val type: String? = null
+    val type: String? = null,
+    val soknadIkkeAvgjort: Boolean? = null
 )
 data class UdiPeriode(
     val fom:LocalDate,
@@ -164,14 +165,15 @@ fun Datagrunnlag.udiOppholdstillatelsePeriode(): String{
     }
 }
 fun Datagrunnlag.udiOppholdstillatelseType(): String{
-    if (this.oppholdstillatelse == null  || this.oppholdstillatelse.gjeldendeOppholdsstatus==null ){
+    if (this.oppholdstillatelse == null  || this.oppholdstillatelse.gjeldendeOppholdsstatus==null || this.oppholdstillatelse.gjeldendeOppholdsstatus.oppholdstillatelsePaSammeVilkar==null){
         return "IKKE_OPPGITT"
-    } else {
-        if (this.oppholdstillatelse.gjeldendeOppholdsstatus.oppholdstillatelsePaSammeVilkar!=null){
-            return this.oppholdstillatelse.gjeldendeOppholdsstatus.oppholdstillatelsePaSammeVilkar.type!!
+    }
+    else {
+        if (true == this.oppholdstillatelse.gjeldendeOppholdsstatus.oppholdstillatelsePaSammeVilkar.soknadIkkeAvgjort){
+            return "SOKNAD-IKKE_AVGJORT"
         }
         else{
-            return "IKKE_OPPGITT"
+            return this.oppholdstillatelse.gjeldendeOppholdsstatus.oppholdstillatelsePaSammeVilkar.type!!
         }
     }
 }

@@ -152,5 +152,13 @@ class OppholdstilatelseTester {
         Assertions.assertEquals( "UdiPeriode(fom=2024-05-14, tom=2090-05-14)",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode())
         Assertions.assertEquals( "MIDLERTIDIG",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelseType())
     }
+    @Test
+    fun `Uthenting av oppholdstillatelse  type skal ta hensyn til soknadIkkeAvgjort`(){
+        val fileContent = Datagrunnlag::class.java.classLoader.getResource("REGEL_19_8.json").readText(Charsets.UTF_8)
+        val resultatGammelRegelMotorJson = JacksonParser().ToJson(fileContent)
+        val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
+        Assertions.assertEquals( "UdiPeriode(fom=2024-05-16, tom=2024-06-21)",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode())
+        Assertions.assertEquals( "SOKNAD-IKKE_AVGJORT",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelseType())
+    }
 
 }
