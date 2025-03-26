@@ -36,8 +36,105 @@ class TailService() {
                 if (SP6229Svar!=null){
                     pdl_samsvar = SP6229Svar.svar.name
                 }
-                logstatestikk(resultatGammelRegelMotor,konklusjon,haleRespons,tredjelandsBorger,pdl_samsvar,key,harHaleProssessertresultatFraGammelRegelmotor,kontrollPeriode)
 
+                if (resultatGammelRegelMotor.resultat.svar.name != konklusjon.status.name){
+                    secureLogger.info("post prosessering ferdig. Differanse i svar!",
+                        kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
+                        kv("gammelt_aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
+                        kv("konklusjon",konklusjon.status.name),
+                        kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }.toString()),
+                        kv("response",haleRespons.toPrettyString()),
+                        kv("callId",key),
+                        kv("erTredjelandsborger",tredjelandsBorger),
+                        kv("harSP6000ProssesertGammeltResultat",harHaleProssessertresultatFraGammelRegelmotor),
+                        kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
+
+                        kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
+                        kv("oppholdUtenforEØS_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSLand()),
+                        kv("oppholdUtenforEØS_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSPeriode()),
+                        kv("oppholdUtenforEØS_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSGrunn()),
+
+                        kv("oppholdUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforNorgeOpppgitt()),
+                        kv("oppholdUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeLand()),
+                        kv("oppholdUtenforNorge_peridoe",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgePeriode()),
+                        kv("oppholdUtenforNorge_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeGrunn()),
+
+                        kv("utfortAarbeidUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt()),
+                        kv("utfortAarbeidUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgeLand()),
+                        kv("utfortAarbeidUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgePeriode()),
+
+                        kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
+
+                        kv("mar-gyldighetsperiode",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtalePeriode()),
+                        kv("mar-skipstype",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipstype()),
+                        kv("mar-fartsomraade",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade()),
+                        kv("mar-skipsregister",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister()),
+
+                        kv("permittering-periode",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringPeriode(kontrollPeriode)),
+                        kv("permittering-type",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringType(kontrollPeriode)),
+                        kv("permittering-prosent",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringProsent(kontrollPeriode)),
+
+                        kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
+                        kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
+                        kv("udi_oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode()),
+
+                        kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
+                        kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
+                        kv("PDL_SAMSVAR",pdl_samsvar),
+                        kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
+                        kv("analyse","NEI"))
+
+                }
+                else
+                {
+                    secureLogger.info("post prosessering ferdig",
+                        kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
+                        kv("gammelt_aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
+                        kv("konklusjon",konklusjon.status.name),
+                        kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }.toString()),
+                        kv("response",haleRespons.toPrettyString()),
+                        kv("callId",key),
+                        kv("erTredjelandsborger",tredjelandsBorger),
+                        kv("harSP6000ProssesertGammeltResultat",harHaleProssessertresultatFraGammelRegelmotor),
+                        kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
+                        kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
+
+                        kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
+                        kv("oppholdUtenforEØS_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSLand()),
+                        kv("oppholdUtenforEØS_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSPeriode()),
+                        kv("oppholdUtenforEØS_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSGrunn()),
+
+                        kv("oppholdUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforNorgeOpppgitt()),
+                        kv("oppholdUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeLand()),
+                        kv("oppholdUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgePeriode()),
+                        kv("oppholdUtenforNorge_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeGrunn()),
+
+                        kv("utfortAarbeidUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt()),
+                        kv("utfortAarbeidUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgeLand()),
+                        kv("utfortAarbeidUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgePeriode()),
+
+
+                        kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
+
+                        kv("mar-gyldighetsperiode",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtalePeriode()),
+                        kv("mar-skipstype",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipstype()),
+                        kv("mar-fartsomraade",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade()),
+                        kv("mar-skipsregister",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister()),
+
+                        kv("permittering-periode",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringPeriode(kontrollPeriode)),
+                        kv("permittering-type",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringType(kontrollPeriode)),
+                        kv("permittering-prosent",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringProsent(kontrollPeriode)),
+
+                        kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
+                        kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
+                        kv("udi_oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode()),
+
+                        kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
+                        kv("PDL_SAMSVAR",pdl_samsvar),
+                        kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
+                        kv("analyse","NEI")
+                    )
+                }
                 return KeyValue(key,haleRespons.toPrettyString())
             } catch (e: Exception) {
                 logger.error("teknisk feil i regelkjøring: ${e.message}",
@@ -50,67 +147,6 @@ class TailService() {
         } else {
             return KeyValue(key,json)
         }
-    }
-
-
-    private fun logstatestikk(
-        resultatGammelRegelMotor: Kjøring,
-        konklusjon: Konklusjon,
-        haleRespons: ObjectNode,
-        tredjelandsBorger: Boolean,
-        pdl_samsvar: String,
-        key: String,
-        harHaleProssessertresultatFraGammelRegelmotor: Boolean,
-        kontrollPeriode: InputPeriode
-    ) {
-        secureLogger.info("post prosessering ferdig",
-            kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
-            kv("gammelt_aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
-            kv("konklusjon",konklusjon.status.name),
-            kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }.toString()),
-            kv("response",haleRespons.toPrettyString()),
-            kv("callId",key),
-            kv("erTredjelandsborger",tredjelandsBorger),
-            kv("harSP6000ProssesertGammeltResultat",harHaleProssessertresultatFraGammelRegelmotor),
-            kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
-            kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
-
-            kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
-            kv("oppholdUtenforEØS_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSLand()),
-            kv("oppholdUtenforEØS_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSPeriode()),
-            kv("oppholdUtenforEØS_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSGrunn()),
-
-            kv("oppholdUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforNorgeOpppgitt()),
-            kv("oppholdUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeLand()),
-            kv("oppholdUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgePeriode()),
-            kv("oppholdUtenforNorge_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeGrunn()),
-
-            kv("utfortAarbeidUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt()),
-            kv("utfortAarbeidUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgeLand()),
-            kv("utfortAarbeidUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgePeriode()),
-
-
-            kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
-
-            kv("mar-gyldighetsperiode",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtalePeriode()),
-            kv("mar-skipstype",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipstype()),
-            kv("mar-fartsomraade",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade()),
-            kv("mar-skipsregister",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister()),
-
-            kv("perm-periode",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringPeriode(kontrollPeriode)),
-            kv("perm-type",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringType(kontrollPeriode)),
-            kv("perm-prosent",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringProsent(kontrollPeriode)),
-
-            kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
-            kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
-            kv("udi_oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode()),
-            kv("udi_oppholdstillatelse_type",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelseType()),
-
-            kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
-            kv("PDL_SAMSVAR",pdl_samsvar),
-            kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
-            kv("analyse","NEI")
-        )
     }
 
     /*
