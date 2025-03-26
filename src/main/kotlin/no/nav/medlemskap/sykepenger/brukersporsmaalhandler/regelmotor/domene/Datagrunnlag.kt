@@ -163,6 +163,18 @@ fun Datagrunnlag.udiOppholdstillatelsePeriode(): String{
         return this.oppholdstillatelse.periode().toString()
     }
 }
+fun Datagrunnlag.udiOppholdstillatelseType(): String{
+    if (this.oppholdstillatelse == null  || this.oppholdstillatelse.gjeldendeOppholdsstatus==null ){
+        return "IKKE_OPPGITT"
+    } else {
+        if (this.oppholdstillatelse.gjeldendeOppholdsstatus.oppholdstillatelsePaSammeVilkar!=null){
+            return this.oppholdstillatelse.gjeldendeOppholdsstatus.oppholdstillatelsePaSammeVilkar.type!!
+        }
+        else{
+            return "IKKE_OPPGITT"
+        }
+    }
+}
 
 fun Datagrunnlag.sisteMaritimeArbeidsavtalePeriode(): String{
     val v = sisteMaritimeArbeidsAvtale()
