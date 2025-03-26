@@ -128,7 +128,8 @@ data class GjeldendeOppholdsstatus(
 )
 data class OppholdstillatelsePaSammeVilkar(
     val periode:UdiPeriode,
-    val type: String? = null
+    val type: String? = null,
+    val soknadIkkeAvgjort: Boolean? = null
 )
 data class UdiPeriode(
     val fom:LocalDate,
@@ -161,6 +162,19 @@ fun Datagrunnlag.udiOppholdstillatelsePeriode(): String{
         return "IKKE_OPPGITT"
     } else {
         return this.oppholdstillatelse.periode().toString()
+    }
+}
+fun Datagrunnlag.udiOppholdstillatelseType(): String{
+    if (this.oppholdstillatelse == null  || this.oppholdstillatelse.gjeldendeOppholdsstatus==null || this.oppholdstillatelse.gjeldendeOppholdsstatus.oppholdstillatelsePaSammeVilkar==null){
+        return "IKKE_OPPGITT"
+    }
+    else {
+        if (true == this.oppholdstillatelse.gjeldendeOppholdsstatus.oppholdstillatelsePaSammeVilkar.soknadIkkeAvgjort){
+            return "SOKNAD-IKKE_AVGJORT"
+        }
+        else{
+            return this.oppholdstillatelse.gjeldendeOppholdsstatus.oppholdstillatelsePaSammeVilkar.type!!
+        }
     }
 }
 
