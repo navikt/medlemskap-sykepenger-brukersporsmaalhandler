@@ -117,8 +117,12 @@ class DomainMapper {
         }
         return UdiOppholdsTilatelse(
             gjeldendeOppholdsstatus = GjeldendeOppholdsstatus(
-                oppholdstillatelsePaSammeVilkar = OppholdstillatelsePaSammeVilkar(
-                    periode = UdiPeriode(udiFrom,udiTom),type=type
+                oppholdstillatelsePaSammeVilkar = OppholdstillatelsePaSammeVilkar
+                    (
+                    periode = UdiPeriode(udiFrom,udiTom),
+                    type=type,
+                    soknadIkkeAvgjort=null,
+
                 )
             )
         )
@@ -141,8 +145,10 @@ class DomainMapper {
         }
         return UdiOppholdsTilatelse(
             gjeldendeOppholdsstatus = GjeldendeOppholdsstatus(
-                oppholdstillatelsePaSammeVilkar = OppholdstillatelsePaSammeVilkar(
+                oppholdstillatelsePaSammeVilkar = OppholdstillatelsePaSammeVilkar
+                    (
                     periode = UdiPeriode(udiFrom,udiTom)
+
                 )
             )
         )
