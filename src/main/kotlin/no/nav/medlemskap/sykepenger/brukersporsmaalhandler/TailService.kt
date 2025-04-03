@@ -70,9 +70,9 @@ class TailService() {
                         kv("mar-fartsomraade",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade()),
                         kv("mar-skipsregister",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister()),
 
-                        kv("permittering-periode",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringPeriode(kontrollPeriode)),
-                        kv("permittering-type",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringType(kontrollPeriode)),
-                        kv("permittering-prosent",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringProsent(kontrollPeriode)),
+                        kv("permisjon-periode",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringPeriode(kontrollPeriode)),
+                        kv("permisjon-type",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringType(kontrollPeriode)),
+                        kv("permisjon-prosent",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringProsent(kontrollPeriode)),
 
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
@@ -122,9 +122,9 @@ class TailService() {
                         kv("mar-fartsomraade",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade()),
                         kv("mar-skipsregister",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister()),
 
-                        kv("permittering-periode",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringPeriode(kontrollPeriode)),
-                        kv("permittering-type",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringType(kontrollPeriode)),
-                        kv("permittering-prosent",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringProsent(kontrollPeriode)),
+                        kv("permisjon-periode",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringPeriode(kontrollPeriode)),
+                        kv("permisjon-type",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringType(kontrollPeriode)),
+                        kv("permisjon-prosent",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringProsent(kontrollPeriode)),
 
                         kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
                         kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
