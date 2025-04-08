@@ -24,6 +24,12 @@ class ReglerForOppholdUtenforEOS(
 
     override fun hentHovedflyt(): Regelflyt {
 
+        val ErOppholdFerieOgAvsluttetForMerEnn30DagerSiden = lagRegelflyt(
+            regel = hentRegel(RegelId.SP6321),
+            hvisJa = regelflytJa(ytelse),
+            hvisNei =konklusjonUavklart(ytelse,RegelId.OPPHOLDUTENFOREOSFLYT),
+        )
+
         val ErOppholdetIUtlandetKortereEnn180Dager = lagRegelflyt(
             regel = hentRegel(RegelId.SP6314),
             hvisJa = regelflytJa(ytelse),
@@ -33,7 +39,7 @@ class ReglerForOppholdUtenforEOS(
         val bleOppholdetAvsluttetForMerEnn90DagerSiden = lagRegelflyt(
             regel = hentRegel(RegelId.SP6313),
             hvisJa = ErOppholdetIUtlandetKortereEnn180Dager,
-            hvisNei =konklusjonUavklart(ytelse,RegelId.OPPHOLDUTENFOREOSFLYT),
+            hvisNei =ErOppholdFerieOgAvsluttetForMerEnn30DagerSiden,
         )
 
         val ErDetBareEttUtenlandsOpphold = lagRegelflyt(

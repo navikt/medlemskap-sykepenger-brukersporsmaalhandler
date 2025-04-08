@@ -141,10 +141,21 @@ class RegelSteps  {
         this.oppholdUtenforEos = DomainMapper().mapOppholdUtenforEos(datatable)
         //brukerinput = Brukerinput(false, oppholdUtenforEos = this.oppholdUtenforEos)
     }
+    @Gitt("OppholdUtenforEosMedFerie")
+    fun OppholdUtenforEosMedFerie(datatable: DataTable){
+        this.oppholdUtenforEos = DomainMapper().mapOppholdUtenforEos(datatable, true)
+        //brukerinput = Brukerinput(false, oppholdUtenforEos = this.oppholdUtenforEos)
+    }
     @Gitt("OppholdUtenforNorge")
     fun OppholdUtenforNorge(datatable: DataTable){
         this.oppholdUtenforNorge = DomainMapper().mapOppholdUtenforNorge(datatable)
     }
+
+    @Og("InputPeriode")
+    fun InputPeriode(datatable: DataTable){
+        this.inputPeriode = DomainMapper().mapInputPeriode(datatable)
+    }
+
     @Og("utfoertArbeidUtenforNorge")
     fun arbeidUtenforNorgeNyModell(datatable: DataTable){
         this.utfortAarbeidUtenforNorge = DomainMapper().mapArbeidUtlandNyModell(datatable)
