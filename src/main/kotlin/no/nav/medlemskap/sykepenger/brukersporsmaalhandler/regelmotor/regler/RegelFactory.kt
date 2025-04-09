@@ -46,6 +46,7 @@ class RegelFactory(private val datagrunnlag: Datagrunnlag,private val årsaker:L
             RegelId.SP6313 -> BleOppholdetAvsluttetForMerEnn90DagerSidenRegel.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6314 -> ErOppholdetIUtlandetKortereEnn180DagerRegel.fraDatagrunnlag(datagrunnlag).regel
             RegelId.SP6301 -> FinnesBrukerSvarForOppholdUtenforEØSRegel.fraDatagrunnlag(datagrunnlag).regel
+            RegelId.SP6321 -> ErOppholdFerieOgAvsluttetForMerEnn30DagerSidenRegel.fraDatagrunnlag(datagrunnlag).regel
 
             //SP6100 - Arbeid utenfor norge regler
             RegelId.SP6130 -> HarBrukerOppgittArbeidUtlandGammelModell.fraDatagrunnlag(datagrunnlag).regel

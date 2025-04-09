@@ -203,7 +203,29 @@ class DomainMapper {
         }
         return null
     }
-    fun mapOppholdUtenforEos(datatable: DataTable): OppholdUtenforEos? {
+
+    fun mapInputPeriode(datatable: DataTable): InputPeriode {
+        var fomDato = LocalDate.now()
+        var tomDato = LocalDate.now()
+        val rows: List<Map<String, String>> = datatable.asMaps(
+            String::class.java,
+            String::class.java
+        )
+
+            var fom = rows.first()["Fra og med dato"]
+            var tom = rows.first()["Til og med dato"]
+            try{
+                fomDato = LocalDate.parse(fom)
+                tomDato = LocalDate.parse(tom)
+
+            }
+            catch (e:Exception){
+              throw e
+            }
+        return InputPeriode(fomDato,tomDato)
+    }
+
+    fun mapOppholdUtenforEos(datatable: DataTable, ferie: Boolean = false): OppholdUtenforEos? {
         val rows: List<Map<String, String>> = datatable.asMaps(
             String::class.java,
             String::class.java
@@ -218,6 +240,7 @@ class DomainMapper {
             if (tom.equals("TODAYS_DATE")){
                 tom = LocalDate.now().toString()
             }
+            val ferie = if (ferie) "Jeg var på ferie" else ""
             val land = rows.first()["LAND"]
             return OppholdUtenforEos(id =UUID.randomUUID().toString(),
                 sporsmalstekst = "spørsmåltext ",
@@ -226,7 +249,7 @@ class DomainMapper {
                     Opphold(
                         id = "",
                         land=land!!,
-                        grunn = "",
+                        grunn = ferie,
                         perioder = listOf(Periode(fom!!,tom!!))
                     )
                 )
