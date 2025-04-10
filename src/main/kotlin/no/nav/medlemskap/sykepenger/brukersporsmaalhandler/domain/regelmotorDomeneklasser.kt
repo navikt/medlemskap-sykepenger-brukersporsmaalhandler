@@ -63,3 +63,7 @@ fun Konklusjon.finnRegelKjøring(regelID:RegelId):Resultat?{
 fun Konklusjon.erTredjelandsborger():Boolean{
     return utledetInformasjoner.any { (it.informasjon == Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE) || it.informasjon == Informasjon.TREDJELANDSBORGER }
 }
+
+fun Konklusjon.erTredjelandsborgerMedEOSFamilie(): Boolean {
+    return utledetInformasjoner.any { it.informasjon == Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE }
+}

@@ -1,11 +1,18 @@
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler
 
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.DekningsAltrnativer
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.Konklusjon
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.domain.erTredjelandsborgerMedEOSFamilie
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Informasjon
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.UtledetInformasjon
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.*
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.extensionfunctions.siste_permisjonPermitteringPeriode
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.extensionfunctions.siste_permisjonPermitteringProsent
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.extensionfunctions.siste_permisjonPermitteringType
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
 
 class GammelRegelmotorDatagrunnlagInnlesingTest {
 
@@ -24,6 +31,39 @@ class GammelRegelmotorDatagrunnlagInnlesingTest {
         Assertions.assertEquals("NOR",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister())
         Assertions.assertEquals("ANNET",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipstype())
         Assertions.assertEquals("fom: 2024-11-01 , tom: null",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtalePeriode())
+    }
+
+    @Test
+    fun dersomBrukerEr3LandsBorgerMedEOSFamilieSkalFunksjonReturnereTrue() {
+        val konklusjon = Konklusjon(
+            hvem = "TEST6000",
+            dato = LocalDate.now(),
+            status = Svar.JA,
+            lovvalg = null,
+            medlemskap = null,
+            dekningForSP = DekningsAltrnativer.JA,
+            utledetInformasjoner = listOf(UtledetInformasjon(
+                informasjon = Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE,
+                kilde = emptyList()
+            ))
+        )
+        Assertions.assertTrue(konklusjon.erTredjelandsborgerMedEOSFamilie())
+    }
+    @Test
+    fun dersomBrukerIkkeEr3LandsBorgerMedEOSFamilieSkalFunksjonReturnereFalse() {
+        val konklusjon = Konklusjon(
+            hvem = "TEST6000",
+            dato = LocalDate.now(),
+            status = Svar.JA,
+            lovvalg = null,
+            medlemskap = null,
+            dekningForSP = DekningsAltrnativer.JA,
+            utledetInformasjoner = listOf(UtledetInformasjon(
+                informasjon = Informasjon.TREDJELANDSBORGER,
+                kilde = emptyList()
+            ))
+        )
+        Assertions.assertFalse (konklusjon.erTredjelandsborgerMedEOSFamilie())
     }
 
     @Test
@@ -74,5 +114,6 @@ class GammelRegelmotorDatagrunnlagInnlesingTest {
 
     }
 }
+
 
 

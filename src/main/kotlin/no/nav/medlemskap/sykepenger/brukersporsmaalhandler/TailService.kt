@@ -79,6 +79,8 @@ class TailService() {
                         kv("udi_oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode()),
                         kv("udi_oppholdstillatelse_type",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelseType()),
 
+                        kv("erTredjelandsborgerMedEØSFamilie",konklusjon.erTredjelandsborgerMedEOSFamilie()),
+
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
                         kv("PDL_SAMSVAR",pdl_samsvar),
@@ -130,6 +132,8 @@ class TailService() {
                         kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
                         kv("udi_oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode()),
                         kv("udi_oppholdstillatelse_type",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelseType()),
+
+                        kv("erTredjelandsborgerMedEØSFamilie",konklusjon.erTredjelandsborgerMedEOSFamilie()),
 
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
                         kv("PDL_SAMSVAR",pdl_samsvar),
