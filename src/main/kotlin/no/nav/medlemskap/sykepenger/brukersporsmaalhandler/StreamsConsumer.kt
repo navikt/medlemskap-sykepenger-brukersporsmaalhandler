@@ -33,6 +33,8 @@ class StreamsConsumer(environment: Environment) {
         props[SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG] = Configuration.KafkaConfig().trustStorePath
         props[SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG] = Configuration.KafkaConfig().keystorePassword
         props[SslConfigs.SSL_KEYSTORE_TYPE_CONFIG] = Configuration.KafkaConfig().keystoreType
+        props[StreamsConfig.PROCESSING_GUARANTEE_CONFIG] = StreamsConfig.EXACTLY_ONCE
+
         val builder = StreamsBuilder()
         builder.stream<String, String>(Configuration.KafkaConfig().streamFrom)
             .map { key, value -> TailService().handleKeyValueMessage(key,value) }
