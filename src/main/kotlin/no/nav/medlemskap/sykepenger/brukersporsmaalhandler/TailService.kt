@@ -18,6 +18,8 @@ class TailService() {
     private val secureLogger = KotlinLogging.logger("tjenestekall")
 
     fun handleKeyValueMessage(key:String, json: String?): KeyValue<String,String> {
+        logger.info("Mottatt Kafka melding for callId: $key")
+
         if (json != null) {
             try {
                 val resultatGammelRegelMotorJson = JacksonParser().ToJson(json)
