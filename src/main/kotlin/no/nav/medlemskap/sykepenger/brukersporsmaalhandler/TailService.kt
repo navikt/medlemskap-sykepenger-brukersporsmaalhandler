@@ -40,6 +40,11 @@ class TailService() {
                 }
 
                 if (resultatGammelRegelMotor.resultat.svar.name != konklusjon.status.name){
+                    logger.info("Behandlet ferdig med differanse",
+                        kv("callId", key),
+                        kv("konklusjon", konklusjon.status.name),
+                    )
+
                     secureLogger.info("post prosessering ferdig. Differanse i svar!",
                         kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
                         kv("gammelt_aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
@@ -92,6 +97,11 @@ class TailService() {
                 }
                 else
                 {
+                    logger.info("Behandlet ferdig med lik svar",
+                        kv("callId", key),
+                        kv("konklusjon", konklusjon.status.name),
+                    )
+
                     secureLogger.info("post prosessering ferdig",
                         kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
                         kv("gammelt_aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
