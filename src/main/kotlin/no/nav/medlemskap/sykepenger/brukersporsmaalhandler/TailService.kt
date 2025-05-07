@@ -43,6 +43,8 @@ class TailService() {
                     logger.info("Behandlet ferdig med differanse",
                         kv("callId", key),
                         kv("konklusjon", konklusjon.status.name),
+                        kv("kanal", resultatGammelRegelMotor.kanal),
+                        kv("utfortAarbeidUtenforNorge", resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt())
                     )
 
                     secureLogger.info("post prosessering ferdig. Differanse i svar!",
@@ -100,6 +102,8 @@ class TailService() {
                     logger.info("Behandlet ferdig med lik svar",
                         kv("callId", key),
                         kv("konklusjon", konklusjon.status.name),
+                        kv("kanal", resultatGammelRegelMotor.kanal),
+                        kv("utfortAarbeidUtenforNorge", resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt())
                     )
 
                     secureLogger.info("post prosessering ferdig",
