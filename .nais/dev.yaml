@@ -53,6 +53,8 @@ spec:
   accessPolicy:
     outbound:
       rules:
+        - application: logging
+          namespace: nais-system
       external:
         - host: login.microsoftonline.com
   env:
