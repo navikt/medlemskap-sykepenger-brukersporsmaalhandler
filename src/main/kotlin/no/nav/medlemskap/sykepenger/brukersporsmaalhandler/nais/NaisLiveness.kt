@@ -10,7 +10,6 @@ import org.apache.kafka.streams.KafkaStreams
 
 
 private val logger = KotlinLogging.logger { }
-private val secureLogger = KotlinLogging.logger("tjenestekall")
 
 fun Routing.naisRoutes(
     consumeJob: KafkaStreams
