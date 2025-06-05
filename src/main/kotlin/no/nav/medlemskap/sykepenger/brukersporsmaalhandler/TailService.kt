@@ -42,7 +42,9 @@ class TailService() {
                 }
 
                 if (resultatGammelRegelMotor.resultat.svar.name != konklusjon.status.name){
-                    logger.info("Behandlet ferdig med differanse",
+                    logger.info(
+                        teamLogs,
+                        "Behandlet ferdig med differanse",
                         kv("callId", key),
                         kv("konklusjon", konklusjon.status.name),
                         kv("kanal", resultatGammelRegelMotor.kanal),
@@ -154,7 +156,9 @@ class TailService() {
                 }
                 else
                 {
-                    logger.info("Behandlet ferdig med lik svar",
+                    logger.info(
+                        teamLogs,
+                        "Behandlet ferdig med lik svar",
                         kv("callId", key),
                         kv("konklusjon", konklusjon.status.name),
                         kv("kanal", resultatGammelRegelMotor.kanal),
