@@ -12,6 +12,9 @@ spec:
         - id: loki
         - id: elastic
         - id: secure_logs
+    autoInstrumentation:
+      enabled: true
+      runtime: java
   gcp:
   azure:
     application:
@@ -24,11 +27,10 @@ spec:
     timeout: 90
   resources:
     limits:
-      cpu: "200m"
-      memory: "256Mi"
+      memory: "512Mi"
     requests:
       cpu: "200m"
-      memory: "256Mi"
+      memory: "512Mi"
   readiness:
     path: "/isReady"
     port: 8080
