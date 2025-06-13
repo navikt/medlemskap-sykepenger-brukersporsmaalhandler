@@ -240,7 +240,7 @@ class DomainMapper {
             if (tom.equals("TODAYS_DATE")){
                 tom = LocalDate.now().toString()
             }
-            val ferie = if (ferie) "Jeg var på ferie" else ""
+            val ferie = if (ferie) "Jeg var paa ferie" else ""
             val land = rows.first()["LAND"]
             return OppholdUtenforEos(id =UUID.randomUUID().toString(),
                 sporsmalstekst = "spørsmåltext ",
