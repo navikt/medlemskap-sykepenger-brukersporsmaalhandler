@@ -18,7 +18,7 @@ class ErDetRegelBruddForOppholdTilatelseIGammelFlytRegel(
 
     override fun operasjon(): Resultat {
 
-        val resultatRegelFlytOpphTilatelse = gammelkjøringResultat!!.delresultat.find { it.regelId=="UDILOVLIGOPPHOLD" }
+        val resultatRegelFlytOpphTilatelse = gammelkjøringResultat!!.delresultat.find { it.regelId=="REGEL_UDI_LOVLIG_OPPHOLD" }
 
         if (resultatRegelFlytOpphTilatelse == null){
             return nei(regelId)

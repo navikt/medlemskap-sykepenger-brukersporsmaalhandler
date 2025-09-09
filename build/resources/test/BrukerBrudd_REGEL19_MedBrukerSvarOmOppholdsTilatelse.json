@@ -420,7 +420,7 @@
       "årsaker" : [ ],
       "avklaring" : "Er arbeidstaker i hovedsak arbeidstaker?"
     }, {
-      "regelId" : "UDILOVLIGOPPHOLD",
+      "regelId" : "REGEL_UDI_LOVLIG_OPPHOLD",
       "svar" : "UAVKLART",
       "begrunnelse" : "",
       "harDekning" : null,

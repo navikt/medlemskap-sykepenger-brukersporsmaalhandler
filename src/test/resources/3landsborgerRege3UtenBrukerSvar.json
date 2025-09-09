@@ -506,7 +506,7 @@
       "årsaker" : [ ],
       "avklaring" : "Er tredjelandsborgers familie EØS medlem?"
     }, {
-      "regelId" : "UDILOVLIGOPPHOLD",
+      "regelId" : "REGEL_UDI_LOVLIG_OPPHOLD",
       "svar" : "JA",
       "begrunnelse" : "",
       "harDekning" : null,
