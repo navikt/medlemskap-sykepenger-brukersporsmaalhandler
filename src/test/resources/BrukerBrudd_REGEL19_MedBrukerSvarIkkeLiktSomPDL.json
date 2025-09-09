@@ -447,7 +447,7 @@
       "årsaker" : [ ],
       "avklaring" : "Er arbeidstaker i hovedsak arbeidstaker?"
     }, {
-      "regelId" : "REGEL_OPPHOLDSTILLATELSE",
+      "regelId" : "REGEL_UDI_LOVLIG_OPPHOLD",
       "svar" : "UAVKLART",
       "begrunnelse" : "",
       "harDekning" : null,
