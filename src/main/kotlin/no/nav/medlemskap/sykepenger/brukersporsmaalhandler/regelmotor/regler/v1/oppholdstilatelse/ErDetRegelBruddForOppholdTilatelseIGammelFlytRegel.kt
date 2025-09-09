@@ -18,18 +18,12 @@ class ErDetRegelBruddForOppholdTilatelseIGammelFlytRegel(
 
     override fun operasjon(): Resultat {
 
-        val resultatRegelFlytOpphTilatelse = gammelkjøringResultat!!.delresultat.find { it.regelId=="REGEL_OPPHOLDSTILLATELSE" }
+        val resultatRegelFlytOpphTilatelse = gammelkjøringResultat!!.delresultat.find { it.regelId=="UDILOVLIGOPPHOLD" }
 
-        /*
-        * Om REGEL_OPPHOLDSTILLATELSE ikke finnes, så betyr det at bruker ikke trenger å sjekkes for oppholdstilatelse, a.k.a nei
-        * */
         if (resultatRegelFlytOpphTilatelse == null){
             return nei(regelId)
             }
 
-        /*
-       * Om REGEL_OPPHOLDSTILLATELSE  finnes, og svar er JA, så har bruker ingen problemer med oppholdstilatelsen og vi kan svare nei
-       * */
         if (resultatRegelFlytOpphTilatelse!=null && Svar.JA == resultatRegelFlytOpphTilatelse.svar){
              return nei(regelId)
         }
