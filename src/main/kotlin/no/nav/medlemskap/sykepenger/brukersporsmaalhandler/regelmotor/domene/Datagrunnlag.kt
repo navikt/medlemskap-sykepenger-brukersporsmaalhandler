@@ -106,14 +106,9 @@ data class InputPeriode(
     val tom: LocalDate
 )
 data class PdlPersonHistorikk(
-    val oppholdstilatelser:List<PdlOppholdsTilatelse> = emptyList(),
     val statsborgerskap:List<Statsborgerskap> = emptyList()
 )
-data class PdlOppholdsTilatelse(
-    val type:String,
-    val oppholdFra:LocalDate?,
-    val oppholdTil:LocalDate?
-)
+
 data class Statsborgerskap(
     val landkode:String,
     val fom:LocalDate?,

@@ -89,14 +89,7 @@ class OppholdstilatelseTester {
         Assertions.assertEquals(Svar.UAVKLART ,konklusjon.status)
         Assertions.assertEquals("SP6000" ,konklusjon.hvem)
     }
-    @Test
-    fun `uthenting av oppholdstilatelser fra PDL `(){
-        val fileContent = Datagrunnlag::class.java.classLoader.getResource("Regel19_3_1_Brudd_med_PDL_OppholdsDataOgIngenNyeBrukerSporsmaal.json").readText(Charsets.UTF_8)
-        val resultatGammelRegelMotorJson = JacksonParser().ToJson(fileContent)
-        val resultatGammelRegelMotor: Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
-        Assertions.assertNotNull(resultatGammelRegelMotor.datagrunnlag.pdlpersonhistorikk)
-        Assertions.assertEquals(3,resultatGammelRegelMotor.datagrunnlag.pdlpersonhistorikk.oppholdstilatelser.size)
-    }
+
     @Test
     fun `uthenting av oppholdstilatelser fra UDI `(){
         val fileContent = Datagrunnlag::class.java.classLoader.getResource("Regel19_3_1_Brudd_med_PDL_OppholdsDataOgIngenNyeBrukerSporsmaal.json").readText(Charsets.UTF_8)

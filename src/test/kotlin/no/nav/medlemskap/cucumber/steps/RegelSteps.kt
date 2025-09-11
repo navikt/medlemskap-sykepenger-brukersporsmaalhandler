@@ -37,7 +37,6 @@ class RegelSteps  {
     var regelkjoringResultat:Resultat? = null
     var inputPeriode:InputPeriode = InputPeriode(LocalDate.now(), LocalDate.now())
     var gammelkjøringResultat:Kjøring? = null
-    var pdl_oppholdsilatelser:List<PdlOppholdsTilatelse> = emptyList()
     var udi_oppholdsilatelse:UdiOppholdsTilatelse? = null
 
 
@@ -48,7 +47,6 @@ class RegelSteps  {
        val fileContent = Datagrunnlag::class.java.classLoader.getResource(filSti).readText(Charsets.UTF_8)
        this.gammelkjøringResultat = JacksonParser().toDomainObject(fileContent)
        this.udi_oppholdsilatelse = gammelkjøringResultat!!.datagrunnlag.oppholdstillatelse
-       this.pdl_oppholdsilatelser = gammelkjøringResultat!!.datagrunnlag.pdlpersonhistorikk.oppholdstilatelser
         println("lest gammel kjøring fra fil")
    }
 
@@ -57,22 +55,12 @@ class RegelSteps  {
         this.oppholdstilatelse = DomainMapper().mapOppholdsTilatelse(datatable)
         println("lest gammel kjøring fra fil")
     }
-    @Og("pdlOpplysninger om oppholdstilatelse")
-    fun pdl_oppholdstilatelkse(datatable: DataTable){
-        this.pdl_oppholdsilatelser = DomainMapper().mapPdlOppholdsTilatelse(datatable)
-        println("lest gammel kjøring fra fil")
-    }
+
     @Og("UDIOpplysninger om oppholdstilatelse")
     fun udi_oppholdstilatelkse(datatable: DataTable){
         this.udi_oppholdsilatelse = DomainMapper().mapUdiOppholdsTilatelse(datatable)
         println("lest gammel kjøring fra fil")
     }
-    @Og("pdlOpplysninger om oppholdstilatelse med flere innslag")
-    fun pdl_oppholdstilatelkseMedFlereInnslag(datatable: DataTable){
-        this.pdl_oppholdsilatelser = DomainMapper().mapPdlOppholdsTilatelseMedFlereRader(datatable)
-        println("lest gammel kjøring fra fil")
-    }
-
 
     @Gitt("arbeidUtenforNorgeGammelModell er {string}")
     fun function(arbeidutenfornorge:String){
@@ -235,7 +223,7 @@ class RegelSteps  {
             oppholdUtenforNorge = this.oppholdUtenforNorge,
             oppholdstilatelse = this.oppholdstilatelse,
         ),
-        pdlpersonhistorikk = PdlPersonHistorikk(pdl_oppholdsilatelser),
+        pdlpersonhistorikk = PdlPersonHistorikk(),
         oppholdstillatelse = udi_oppholdsilatelse
 
     )
