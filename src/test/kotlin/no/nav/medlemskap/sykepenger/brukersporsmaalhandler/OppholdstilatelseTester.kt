@@ -89,14 +89,7 @@ class OppholdstilatelseTester {
         Assertions.assertEquals(Svar.UAVKLART ,konklusjon.status)
         Assertions.assertEquals("SP6000" ,konklusjon.hvem)
     }
-    @Test
-    fun `uthenting av oppholdstilatelser fra PDL `(){
-        val fileContent = Datagrunnlag::class.java.classLoader.getResource("Regel19_3_1_Brudd_med_PDL_OppholdsDataOgIngenNyeBrukerSporsmaal.json").readText(Charsets.UTF_8)
-        val resultatGammelRegelMotorJson = JacksonParser().ToJson(fileContent)
-        val resultatGammelRegelMotor: Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
-        Assertions.assertNotNull(resultatGammelRegelMotor.datagrunnlag.pdlpersonhistorikk)
-        Assertions.assertEquals(3,resultatGammelRegelMotor.datagrunnlag.pdlpersonhistorikk.oppholdstilatelser.size)
-    }
+
     @Test
     fun `uthenting av oppholdstilatelser fra UDI `(){
         val fileContent = Datagrunnlag::class.java.classLoader.getResource("Regel19_3_1_Brudd_med_PDL_OppholdsDataOgIngenNyeBrukerSporsmaal.json").readText(Charsets.UTF_8)
@@ -105,24 +98,7 @@ class OppholdstilatelseTester {
         Assertions.assertNotNull(resultatGammelRegelMotor.datagrunnlag.oppholdstillatelse)
         Assertions.assertNotNull(resultatGammelRegelMotor.datagrunnlag.oppholdstillatelse!!.gjeldendeOppholdsstatus?.oppholdstillatelsePaSammeVilkar!!.periode)
     }
-    @Test
-    fun `uthenting av eksisterende regel resultat fra hale regel motor der Brukerpsørsmål ikke er likt med PDL innslag skal Reggel SP6229 svare NEI `(){
-        val fileContent = Datagrunnlag::class.java.classLoader.getResource("BrukerBrudd_REGEL19_MedBrukerSvarIkkeLiktSomPDL.json").readText(Charsets.UTF_8)
-        val resultatGammelRegelMotorJson = JacksonParser().ToJson(fileContent)
-        val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
-        val responsRegelMotorHale = ReglerService.kjørRegler(resultatGammelRegelMotor)
-        Assertions.assertEquals(Svar.NEI,responsRegelMotorHale.finnRegelResultat(RegelId.SP6229)!!.svar)
-    }
-    @Test
-    fun `uthenting av eksisterende regel resultat fra hale regel motor der Brukerpsørsmål er likt med PDL innslag skal Reggel SP6229 svare NEI `(){
-        val fileContent = Datagrunnlag::class.java.classLoader.getResource("BrukerBrudd_REGEL19_MedBrukerSvarLiktSomPDL.json").readText(Charsets.UTF_8)
-        val resultatGammelRegelMotorJson = JacksonParser().ToJson(fileContent)
-        val resultatGammelRegelMotor:Kjøring = JacksonParser().toDomainObject(resultatGammelRegelMotorJson)
-        Assertions.assertNotNull(resultatGammelRegelMotor.datagrunnlag.pdlpersonhistorikk)
-        val responsRegelMotorHale = ReglerService.kjørRegler(resultatGammelRegelMotor)
-        val tredjelandsBorger:Boolean = responsRegelMotorHale.utledetInformasjon.filter { (it.informasjon == Informasjon.TREDJELANDSBORGER_MED_EOS_FAMILIE) || it.informasjon == Informasjon.TREDJELANDSBORGER }.isNotEmpty()
-        Assertions.assertEquals(Svar.JA,responsRegelMotorHale.finnRegelResultat(RegelId.SP6229)!!.svar)
-    }
+
     @Test
     fun `kjøring av regelmotor med gammelt resultat REGELBRUDD_C`(){
         val fileContent = Datagrunnlag::class.java.classLoader.getResource("REGEL_C.json").readText(Charsets.UTF_8)

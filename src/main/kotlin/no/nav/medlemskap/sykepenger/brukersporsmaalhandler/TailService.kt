@@ -35,11 +35,6 @@ class TailService() {
                 val konklusjonerJson = JacksonParser().ToJson(konklusjoner)
                 val haleRespons: ObjectNode = resultatGammelRegelMotorJson.deepCopy()
                 val t:ObjectNode = haleRespons.set("konklusjon", konklusjonerJson)
-                var pdl_samsvar = "NA"
-                val SP6229Svar = responsRegelMotorHale.finnRegelResultat(RegelId.SP6229)
-                if (SP6229Svar!=null){
-                    pdl_samsvar = SP6229Svar.svar.name
-                }
 
                 if (resultatGammelRegelMotor.resultat.svar.name != konklusjon.status.name){
                     logger.info(
@@ -96,7 +91,6 @@ class TailService() {
 
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
-                        kv("PDL_SAMSVAR",pdl_samsvar),
                         kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
                         kv("analyse","NEI"))
 
@@ -148,7 +142,6 @@ class TailService() {
 
                         kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
-                        kv("PDL_SAMSVAR",pdl_samsvar),
                         kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
                         kv("analyse","NEI")
                     )
@@ -211,7 +204,6 @@ class TailService() {
                         kv("erTredjelandsborgerMedEØSFamilie",konklusjon.erTredjelandsborgerMedEOSFamilie()),
 
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
-                        kv("PDL_SAMSVAR",pdl_samsvar),
                         kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
                         kv("analyse","NEI")
                     )
@@ -264,7 +256,6 @@ class TailService() {
                         kv("erTredjelandsborgerMedEØSFamilie",konklusjon.erTredjelandsborgerMedEOSFamilie()),
 
                         kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
-                        kv("PDL_SAMSVAR",pdl_samsvar),
                         kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
                         kv("analyse","NEI")
                     )

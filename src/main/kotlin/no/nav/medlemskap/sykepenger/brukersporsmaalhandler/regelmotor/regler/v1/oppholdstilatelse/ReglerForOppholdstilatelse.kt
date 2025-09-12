@@ -22,73 +22,15 @@ class ReglerForOppholdstilatelse(
 
     override fun hentHovedflyt(): Regelflyt {
 
-
-
-
-        /*
-        val erVedtaksdatoForPermanentOppgittFraBrukerMerEn12mndTilbakeITid =
-            lagRegelflyt(
-                regel = hentRegel(RegelId.SP6223),
-                hvisJa = Regelflyt.regelflytJa(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
-                hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT)
-            )
-
-         */
-
-        /*
-        val erStartdatoPermanentOppgittFraBrukerMerEn12mndTilbakeITid =
-            lagRegelflyt(
-                regel = hentRegel(RegelId.SP6222),
-                hvisJa = erVedtaksdatoForPermanentOppgittFraBrukerMerEn12mndTilbakeITid,
-                hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT)
-            )
-
-         */
-        /*
-        val erSluttDatoForMidlertidigOppholdstilatelse2mndFremTidRegel =
-            lagRegelflyt(
-                regel = hentRegel(RegelId.SP6241),
-                hvisJa = Regelflyt.regelflytJa(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
-                hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT)
-            )
-
-         */
-
-        /*
-        val erStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITid =
-            lagRegelflyt(
-                regel = hentRegel(RegelId.SP6231),
-                hvisJa = erSluttDatoForMidlertidigOppholdstilatelse2mndFremTidRegel,
-                hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT)
-            )
-
-         */
-
-        /*
-        val harBrukerOpplystOmPermanentOppholdsTilatelseRegel = lagRegelflyt(
-            regel = hentRegel(RegelId.SP6221),
-            hvisJa = erStartdatoPermanentOppgittFraBrukerMerEn12mndTilbakeITid,
-            hvisNei = erStartDatoForMidlertidigOppholdstilatelse12mndTilbakeITid,
-        )
-
-         */
-
-
         val erSammenSlåttPeriodeMinst1ÅrTilbakeOg2MndFrem = lagRegelflyt(
             regel = hentRegel(RegelId.SP6226),
             hvisJa = Regelflyt.regelflytJa(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
             hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
         )
-        //vi skal ikke slå ut på denne regelen lenger, men vil ha sporing at regelen har svart NEI
-        val erOppgittOppholdstilatelseFunksjoneltLiktPDLInnslag = lagRegelflyt(
-            regel = hentRegel(RegelId.SP6229),
-            hvisJa = erSammenSlåttPeriodeMinst1ÅrTilbakeOg2MndFrem,
-            hvisNei = erSammenSlåttPeriodeMinst1ÅrTilbakeOg2MndFrem,
-        )
 
         val kanOppgittPeriodeSlaasSammenMedUDIPeriodeTilEnSammenhengedePeriode = lagRegelflyt(
             regel = hentRegel(RegelId.SP6225),
-            hvisJa = erOppgittOppholdstilatelseFunksjoneltLiktPDLInnslag,
+            hvisJa = erSammenSlåttPeriodeMinst1ÅrTilbakeOg2MndFrem,
             hvisNei = Regelflyt.regelflytUavklart(ytelse,RegelId.OPHOLDSTILATELSE_FLYT),
         )
 
