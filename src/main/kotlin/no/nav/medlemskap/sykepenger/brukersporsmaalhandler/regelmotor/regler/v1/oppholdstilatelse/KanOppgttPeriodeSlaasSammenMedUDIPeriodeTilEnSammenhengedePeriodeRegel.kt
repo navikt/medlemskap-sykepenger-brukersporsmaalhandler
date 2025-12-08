@@ -1,6 +1,7 @@
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdstilatelse
 
 
+import mu.KotlinLogging
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.BasisRegel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.RegelId
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
@@ -19,6 +20,8 @@ class KanOppgttPeriodeSlaasSammenMedUDIPeriodeTilEnSammenhengedePeriodeRegel(
 
 
 ) : BasisRegel(RegelId.SP6225, ytelse) {
+
+    private val logger = KotlinLogging.logger { }
 
     final val numberofDaysSlack = 1L
 
@@ -57,11 +60,18 @@ class KanOppgttPeriodeSlaasSammenMedUDIPeriodeTilEnSammenhengedePeriodeRegel(
         /*
         * Håndter midlertidige oppholdstilatelser fra UDI
         * */
-        if (isDateWithinRange(brukerInputTomDato,udiOpphold.gjeldendeOppholdsstatus!!.oppholdstillatelsePaSammeVilkar!!.periode.fom,numberofDaysSlack)){
-            return ja(regelId)
+
+        try {
+            if (isDateWithinRange(brukerInputTomDato,
+                    udiOpphold.gjeldendeOppholdsstatus!!.oppholdstillatelsePaSammeVilkar!!.periode.fom!!,numberofDaysSlack)){
+                return ja(regelId)
+            }
+        } catch (ex: Exception) {
+            logger.info("Ingen fom dato funnet for oppholdstillatelse fra UDI")
         }
 
         return nei(regelId)
+
     }
 
 
