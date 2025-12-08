@@ -127,7 +127,7 @@ data class OppholdstillatelsePaSammeVilkar(
     val soknadIkkeAvgjort: Boolean? = null
 )
 data class UdiPeriode(
-    val fom:LocalDate,
+    val fom:LocalDate?,
     val tom:LocalDate?
 )
 
