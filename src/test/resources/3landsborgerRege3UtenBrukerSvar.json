@@ -4,7 +4,7 @@
   "versjonRegler" : "v1",
   "kanal" : "kafka",
   "datagrunnlag" : {
-    "fnr" : "06108529421",
+    "fnr" : "123",
     "periode" : {
       "fom" : "2023-11-01",
       "tom" : "2023-11-10"
@@ -36,7 +36,7 @@
         "type" : "GIFT",
         "gyldigFraOgMed" : "2021-07-23",
         "gyldigTilOgMed" : null,
-        "relatertVedSivilstand" : "02128227310"
+        "relatertVedSivilstand" : "123"
       } ],
       "forelderBarnRelasjon" : [ ],
       "doedsfall" : [ ],
@@ -54,9 +54,9 @@
       } ],
       "utflyttingFraNorge" : [ ],
       "navn" : [ {
-        "fornavn" : "AMILA",
+        "fornavn" : "Navn",
         "mellomnavn" : null,
-        "etternavn" : "VUK MAVRIC"
+        "etternavn" : "Etternavn"
       } ]
     },
     "medlemskap" : [ ],
@@ -108,7 +108,7 @@
     "dataOmBarn" : [ ],
     "dataOmEktefelle" : {
       "personhistorikkEktefelle" : {
-        "ident" : "02128227310",
+        "ident" : "123",
         "statsborgerskap" : [ {
           "landkode" : "BIH",
           "fom" : null,

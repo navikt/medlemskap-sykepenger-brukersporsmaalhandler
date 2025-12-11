@@ -4,7 +4,7 @@
   "versjonRegler" : "v1",
   "kanal" : "kafka",
   "datagrunnlag" : {
-    "fnr" : "03029740029",
+    "fnr" : "123",
     "periode" : {
       "fom" : "2023-05-30",
       "tom" : "2023-06-13"
@@ -67,14 +67,14 @@
         "type" : "GIFT",
         "gyldigFraOgMed" : "2020-07-30",
         "gyldigTilOgMed" : null,
-        "relatertVedSivilstand" : "03119325721"
+        "relatertVedSivilstand" : "123"
       } ],
       "forelderBarnRelasjon" : [ {
-        "relatertPersonsIdent" : "03017420347",
+        "relatertPersonsIdent" : "123",
         "relatertPersonsRolle" : "FAR",
         "minRolleForPerson" : "BARN"
       }, {
-        "relatertPersonsIdent" : "16057723223",
+        "relatertPersonsIdent" : "123",
         "relatertPersonsRolle" : "MOR",
         "minRolleForPerson" : "BARN"
       } ],
@@ -100,9 +100,9 @@
         }
       } ],
       "navn" : [ {
-        "fornavn" : "ARDITA",
+        "fornavn" : "Navn",
         "mellomnavn" : null,
-        "etternavn" : "KADRIU"
+        "etternavn" : "Etternavn"
       } ]
     },
     "medlemskap" : [ {
@@ -744,7 +744,7 @@
     "dataOmBarn" : [ ],
     "dataOmEktefelle" : {
       "personhistorikkEktefelle" : {
-        "ident" : "03119325721",
+        "ident" : "123",
         "statsborgerskap" : [ {
           "landkode" : "XXK",
           "fom" : null,
