@@ -295,7 +295,7 @@
     "dataOmBarn": [
       {
         "personhistorikkBarn": {
-          "ident": "13082081547",
+          "ident": "123",
           "bostedsadresser": [
             {
               "fom": "2020-08-13",
@@ -321,12 +321,12 @@
           "forelderBarnRelasjon": [
             {
               "minRolleForPerson": "BARN",
-              "relatertPersonsIdent": "98787657567",
+              "relatertPersonsIdent": "123",
               "relatertPersonsRolle": "MOR"
             },
             {
               "minRolleForPerson": "BARN",
-              "relatertPersonsIdent": "76567765433",
+              "relatertPersonsIdent": "123",
               "relatertPersonsRolle": "FAR"
             }
           ]
@@ -649,7 +649,7 @@
           "type": "GIFT",
           "gyldigFraOgMed": "2020-03-30",
           "gyldigTilOgMed": null,
-          "relatertVedSivilstand": "04039442359"
+          "relatertVedSivilstand": "123"
         }
       ],
       "bostedsadresser": [
@@ -778,17 +778,17 @@
       "forelderBarnRelasjon": [
         {
           "minRolleForPerson": "BARN",
-          "relatertPersonsIdent": "13075627089",
+          "relatertPersonsIdent": "123",
           "relatertPersonsRolle": "MOR"
         },
         {
           "minRolleForPerson": "BARN",
-          "relatertPersonsIdent": "27024537140",
+          "relatertPersonsIdent": "123",
           "relatertPersonsRolle": "FAR"
         },
         {
           "minRolleForPerson": "MOR",
-          "relatertPersonsIdent": "13082081547",
+          "relatertPersonsIdent": "123",
           "relatertPersonsRolle": "BARN"
         }
       ]
