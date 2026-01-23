@@ -16,7 +16,6 @@ import org.slf4j.MarkerFactory
 
 class TailService() {
     private val logger = KotlinLogging.logger { }
-    private val secureLogger = KotlinLogging.logger("tjenestekall")
     private val teamLogs = MarkerFactory.getMarker("TEAM_LOGS")
 
     fun handleKeyValueMessage(key:String, json: String?): KeyValue<String,String> {
@@ -45,54 +44,6 @@ class TailService() {
                         kv("kanal", resultatGammelRegelMotor.kanal),
                         kv("utfortAarbeidUtenforNorge", resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt())
                     )
-
-                    secureLogger.info("post prosessering ferdig. Differanse i svar!",
-                        kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
-                        kv("gammelt_aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
-                        kv("konklusjon",konklusjon.status.name),
-                        kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }.toString()),
-                        kv("callId",key),
-                        kv("erTredjelandsborger",tredjelandsBorger),
-                        kv("harSP6000ProssesertGammeltResultat",harHaleProssessertresultatFraGammelRegelmotor),
-                        kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
-
-                        kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
-                        kv("oppholdUtenforEØS_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSLand()),
-                        kv("oppholdUtenforEØS_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSPeriode()),
-                        kv("oppholdUtenforEØS_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSGrunn()),
-
-                        kv("oppholdUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforNorgeOpppgitt()),
-                        kv("oppholdUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeLand()),
-                        kv("oppholdUtenforNorge_peridoe",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgePeriode()),
-                        kv("oppholdUtenforNorge_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeGrunn()),
-
-                        kv("utfortAarbeidUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt()),
-                        kv("utfortAarbeidUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgeLand()),
-                        kv("utfortAarbeidUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgePeriode()),
-
-                        kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
-
-                        kv("mar-gyldighetsperiode",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtalePeriode()),
-                        kv("mar-skipstype",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipstype()),
-                        kv("mar-fartsomraade",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade()),
-                        kv("mar-skipsregister",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister()),
-
-                        kv("permisjon-periode",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringPeriode(kontrollPeriode)),
-                        kv("permisjon-type",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringType(kontrollPeriode)),
-                        kv("permisjon-prosent",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringProsent(kontrollPeriode)),
-
-                        kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
-                        kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
-                        kv("udi_oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode()),
-                        kv("udi_oppholdstillatelse_type",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelseType()),
-
-                        kv("erTredjelandsborgerMedEØSFamilie",konklusjon.erTredjelandsborgerMedEOSFamilie()),
-
-                        kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
-                        kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
-                        kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
-                        kv("analyse","NEI"))
-
 
                     logger.info(
                         teamLogs,
@@ -154,55 +105,6 @@ class TailService() {
                         kv("konklusjon", konklusjon.status.name),
                         kv("kanal", resultatGammelRegelMotor.kanal),
                         kv("utfortAarbeidUtenforNorge", resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt())
-                    )
-
-                    secureLogger.info("post prosessering ferdig",
-                        kv("gammeltsvar",resultatGammelRegelMotor.resultat.svar.name),
-                        kv("gammelt_aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
-                        kv("konklusjon",konklusjon.status.name),
-                        kv("avklaringer",konklusjon.avklaringsListe.map { it.regel_id }.toString()),
-                        kv("callId",key),
-                        kv("erTredjelandsborger",tredjelandsBorger),
-                        kv("harSP6000ProssesertGammeltResultat",harHaleProssessertresultatFraGammelRegelmotor),
-                        kv("fnr",resultatGammelRegelMotor.datagrunnlag.fnr),
-                        kv("nye_sporsmaal",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorge!=null),
-
-                        kv("oppholdUtenforEØS",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforEØSOppgitt()),
-                        kv("oppholdUtenforEØS_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSLand()),
-                        kv("oppholdUtenforEØS_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSPeriode()),
-                        kv("oppholdUtenforEØS_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforEØSGrunn()),
-
-                        kv("oppholdUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdUtenforNorgeOpppgitt()),
-                        kv("oppholdUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeLand()),
-                        kv("oppholdUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgePeriode()),
-                        kv("oppholdUtenforNorge_grunn",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittOppholdUtenforNorgeGrunn()),
-
-                        kv("utfortAarbeidUtenforNorge",resultatGammelRegelMotor.datagrunnlag.brukerinput.utfortAarbeidUtenforNorgeOpppgitt()),
-                        kv("utfortAarbeidUtenforNorge_land",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgeLand()),
-                        kv("utfortAarbeidUtenforNorge_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppgittArbeidUtenforNorgePeriode()),
-
-
-                        kv("statsborgerskap",resultatGammelRegelMotor.datagrunnlag.statsborgerskap()),
-
-                        kv("mar-gyldighetsperiode",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtalePeriode()),
-                        kv("mar-skipstype",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipstype()),
-                        kv("mar-fartsomraade",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleFartsomraade()),
-                        kv("mar-skipsregister",resultatGammelRegelMotor.datagrunnlag.sisteMaritimeArbeidsavtaleSkipsregister()),
-
-                        kv("permisjon-periode",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringPeriode(kontrollPeriode)),
-                        kv("permisjon-type",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringType(kontrollPeriode)),
-                        kv("permisjon-prosent",resultatGammelRegelMotor.datagrunnlag.siste_permisjonPermitteringProsent(kontrollPeriode)),
-
-                        kv("oppholdstillatelse",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelseOppgitt()),
-                        kv("oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.brukerinput.oppholdstillatelsePeriode()),
-                        kv("udi_oppholdstillatelse_periode",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelsePeriode()),
-                        kv("udi_oppholdstillatelse_type",resultatGammelRegelMotor.datagrunnlag.udiOppholdstillatelseType()),
-
-                        kv("erTredjelandsborgerMedEØSFamilie",konklusjon.erTredjelandsborgerMedEOSFamilie()),
-
-                        kv("antall_dager_sykemelding",resultatGammelRegelMotor.datagrunnlag.periode.antallDager()),
-                        kv("aarsaker",resultatGammelRegelMotor.resultat.årsaker.map { it.regelId }.toString()),
-                        kv("analyse","NEI")
                     )
 
                     logger.info(
