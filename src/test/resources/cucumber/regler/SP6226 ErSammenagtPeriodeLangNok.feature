@@ -17,6 +17,6 @@ Når regel "SP6226" kjøres
 Så skal resultat av regel være  være "<Resultat>"
 
 Eksempler:
-| Permanent | FOM         | TOM         | VDATO       | Resultat |  UDI_FOM          |   UDI_TOM          |
-#| false     | 2023-02-26  | 2026-02-26  | 2023-02-26  | NEI      |   2023-02-26      | 2026-02-26         |
-| false     | 2022-02-26  | 2023-02-26  | 2023-02-26  | JA       |   2023-02-26      | 3026-05-26         |
+| Permanent | FOM         | TOM         | VDATO       | Resultat |  UDI_FOM          |   UDI_TOM          | |
+#| false     | 2023-02-26  | 2026-02-26  | 2023-02-26  | NEI      |   2023-02-26      | 2026-02-26         ||
+| false     | 2022-02-26  | 2023-02-26  | 2023-02-26  | JA       |   2023-02-26      | 3026-05-26         | UDI_TOM er satt langt frem i tid som en midlertidig håndtering slik at testen ikke vil feile i snar fremtid |
