@@ -7,7 +7,7 @@ Egenskap: Utenlandsopphold mindre enn 30 dager
   Scenariomal: Ingen brukersvar for regel SP6321
     Gitt arbeidUtenforNorgeGammelModell er "false"
     Når oppholdUtenforEØSRegler kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
     Og årsak etter regelkjøring er "<ÅRSAK>"
 
     Eksempler:
@@ -20,7 +20,7 @@ Egenskap: Utenlandsopphold mindre enn 30 dager
       | <FOM>           | <TOM>           | <oppholdUtenforEOS>          | <LAND> |
 
     Når regel "SP6321" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | oppholdUtenforEOS | FOM         | TOM         | LAND  |
@@ -40,7 +40,7 @@ Egenskap: Utenlandsopphold mindre enn 30 dager
 
 
     Når regel "SP6321" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | oppholdUtenforEOS | FOM         | TOM         | LAND  |

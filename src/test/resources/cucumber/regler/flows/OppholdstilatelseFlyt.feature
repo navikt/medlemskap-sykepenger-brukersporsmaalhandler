@@ -7,7 +7,7 @@ Egenskap: Flyt test av Oppholdstilatelse
   Scenariomal: Oppholdstilatelse blir kalt uten brukerspørsmål om oppholdstilatelse skal regelflyt svare JA
     Gitt gammelt resultat for gammel kjøring er "<FIL>"
     Når oppholdstilatelseRegler kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | ÅRSAK | FIL                                                                                |
@@ -21,7 +21,7 @@ Egenskap: Flyt test av Oppholdstilatelse
 
     Gitt gammelt resultat for gammel kjøring er "<FIL>"
     Når oppholdstilatelseRegler kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
     Og årsak etter regelkjøring er "<ÅRSAK>"
 
     Eksempler:

@@ -15,7 +15,7 @@ Egenskap: SP6225 sammenslåing av bruker data og data fra UDI
       | MIDLERTIDIG   | <UDI_FOM> | <UDI_TOM> |
 
     Når regel "SP6225" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Permanent | FOM         | TOM         | VDATO       | Resultat |  UDI_FOM          |   UDI_TOM          |
@@ -36,7 +36,7 @@ Egenskap: SP6225 sammenslåing av bruker data og data fra UDI
       | PERMANENT   | <UDI_FOM> | <UDI_TOM> |
 
     Når regel "SP6225" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Permanent | FOM         | TOM         | VDATO       | Resultat |  UDI_FOM          |   UDI_TOM          |

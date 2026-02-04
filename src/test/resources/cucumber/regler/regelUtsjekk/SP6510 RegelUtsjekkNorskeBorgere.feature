@@ -19,7 +19,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
@@ -45,7 +45,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
@@ -70,7 +70,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
@@ -94,7 +94,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
@@ -118,7 +118,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
@@ -142,7 +142,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
@@ -170,7 +170,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
@@ -195,7 +195,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
@@ -219,7 +219,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
@@ -243,7 +243,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
@@ -267,7 +267,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
@@ -291,7 +291,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6510" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |

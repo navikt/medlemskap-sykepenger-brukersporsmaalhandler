@@ -8,7 +8,7 @@ Egenskap: SP6130 Arbeid utenfor Norge gammel modell (dvs at bruker ikke har fåt
     Gitt arbeidUtenforNorgeGammelModell er "<arbeidUtenforNorge>"
 
     Når regel "SP6130" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge |
