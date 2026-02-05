@@ -23,7 +23,7 @@ class KanOppgttPeriodeSlaasSammenMedUDIPeriodeTilEnSammenhengedePeriodeRegel(
 
     private val logger = KotlinLogging.logger { }
 
-    final val numberofDaysSlack = 1L
+    val numberofDaysSlack = 1L
 
     fun isDateWithinRange(dateToCheck: LocalDate, referenceDate: LocalDate, daysRange: Long = 5): Boolean {
         val daysBetween = ChronoUnit.DAYS.between(referenceDate, dateToCheck)

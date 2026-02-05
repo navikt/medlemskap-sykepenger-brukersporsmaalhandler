@@ -64,18 +64,6 @@ class RegelSteps  {
         println("lest gammel kjøring fra fil")
    }
 
-    @Gitt("brukersvar om oppholdstitatelse")
-    fun brukersporsmaalOppholdsTilatelse(datatable: DataTable){
-        this.oppholdstilatelse = DomainMapper().mapOppholdsTilatelse(datatable)
-        println("lest gammel kjøring fra fil")
-    }
-
-    @Og("UDIOpplysninger om oppholdstilatelse")
-    fun udi_oppholdstilatelkse(datatable: DataTable){
-        this.udi_oppholdsilatelse = DomainMapper().mapUdiOppholdsTilatelse(datatable)
-        println("lest gammel kjøring fra fil")
-    }
-
     @Gitt("arbeidUtenforNorgeGammelModell er {string}")
     fun function(arbeidutenfornorge:String){
         this.arbeidUtenforNorgeGammelModell = arbeidutenfornorge.toBoolean()

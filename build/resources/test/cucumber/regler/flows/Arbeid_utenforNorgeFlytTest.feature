@@ -8,7 +8,7 @@ Egenskap: Flyt test av arbeid utenfor norge
     Gitt arbeidUtenforNorgeGammelModell er "<arbeidUtenforNorge>"
 
     Når arbeidutenforNorgeFlyt kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
     Og årsak etter regelkjøring er "<årsak>"
 
     Eksempler:
@@ -22,7 +22,7 @@ Egenskap: Flyt test av arbeid utenfor norge
       | <FOM>           | <TOM>           | <arbeidUtenforNorge>          | <LAND>|
 
     Når arbeidutenforNorgeFlyt kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
     Og årsak etter regelkjøring er "<årsak>"
 
     Eksempler:
