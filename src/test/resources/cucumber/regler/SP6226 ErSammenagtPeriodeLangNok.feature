@@ -3,20 +3,20 @@
 
 Egenskap: SP6226 sammenslåing av UDIdata og brukerspørsmål
 
-Scenariomal: Regelkjøreing for SP6226.
+  Scenariomal: Regelkjøring for SP6226.
 
-Gitt brukersvar om oppholdstitatelse
-| Permanent   | FOM   | TOM   | VDATO   |
-| <Permanent> | <FOM> | <TOM> | <VDATO> |
+    Gitt følgende brukersvar om oppholdstillatelse
+      | Vedtakstype permanent | fom   | tom   | Vedtaksdato | Svar |
+      | <Permanent>           | <FOM> | <TOM> | <VDATO>     | Ja   |
 
-Og UDIOpplysninger om oppholdstilatelse
-| TYPE   | UDI_FOM   | UDI_TOM   |
-| MIDLERTIDIG   | <UDI_FOM> | <UDI_TOM> |
+    Og følgende oppholdstillatelse fra UDI
+      | Type        | fom       | tom       |
+      | MIDLERTIDIG | <UDI_FOM> | <UDI_TOM> |
 
-Når regel "SP6226" kjøres
-Så skal resultat av regel være  være "<Resultat>"
+    Når regel "SP6226" kjøres
+    Så skal resultat av regel være "<Resultat>"
 
-Eksempler:
-| Permanent | FOM         | TOM         | VDATO       | Resultat |  UDI_FOM          |   UDI_TOM          | |
+    Eksempler:
+      | Permanent | FOM        | TOM        | VDATO      | Resultat | UDI_FOM    | UDI_TOM    |                                                                                                             |
 #| false     | 2023-02-26  | 2026-02-26  | 2023-02-26  | NEI      |   2023-02-26      | 2026-02-26         ||
-| false     | 2022-02-26  | 2023-02-26  | 2023-02-26  | JA       |   2023-02-26      | 3026-05-26         | UDI_TOM er satt langt frem i tid som en midlertidig håndtering slik at testen ikke vil feile i snar fremtid |
+      | false     | 2022-02-26 | 2023-02-26 | 2023-02-26 | JA       | 2023-02-26 | 2026-05-26 | UDI_TOM er satt langt frem i tid som en midlertidig håndtering slik at testen ikke vil feile i snar fremtid |

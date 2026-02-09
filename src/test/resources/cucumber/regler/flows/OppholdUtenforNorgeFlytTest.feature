@@ -7,7 +7,7 @@ Egenskap: Flyt test av opphold utenfor Norge
   Scenariomal: opphold utenforNorge Norge blir kalt uten nye bruker spørsmål
     Gitt arbeidUtenforNorgeGammelModell er "false"
     Når oppholdUtenforNorgeRegler kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
     Og årsak etter regelkjøring er "<ÅRSAK>"
 
     Eksempler:
@@ -20,7 +20,7 @@ Egenskap: Flyt test av opphold utenfor Norge
       | <FOM>           | <TOM>           | <oppholdUtenforNorge>          | <LAND>|
 
     Når oppholdUtenforNorgeRegler kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
     Og årsak etter regelkjøring er "<ÅRSAK>"
     Og begrunnelse på årsak er "<BEGRUNNELSE>"
 
@@ -35,7 +35,7 @@ Egenskap: Flyt test av opphold utenfor Norge
     Gitt OppholdUtenforNorgeMedFlereInnslag
 
     Når oppholdUtenforNorgeRegler kjøres
-    Så skal resultat av regel være  være "UAVKLART"
+    Så skal resultat av regel være "UAVKLART"
     Og årsak etter regelkjøring er "SP6412"
     Og begrunnelse på årsak er "Det er flere en ett utenlandsopphold registrert"
     Eksempler:

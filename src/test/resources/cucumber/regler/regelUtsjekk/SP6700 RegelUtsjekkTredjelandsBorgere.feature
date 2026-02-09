@@ -19,7 +19,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -45,7 +45,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -70,7 +70,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -94,7 +94,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -118,7 +118,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -142,7 +142,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -169,7 +169,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -193,7 +193,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -217,7 +217,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -241,7 +241,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -265,7 +265,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -289,7 +289,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
@@ -313,7 +313,7 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
 
 
     Når regel "SP6700" kjøres
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |

@@ -7,7 +7,7 @@ Egenskap: SP6001 Skal hale utføres
   Scenariomal: Regelkjøreing for SP6001. Forskjellig svar ut fra hvilke regler som bryter i gammel regel motor
     Når gammelt resultat for gammelregelkjøring er "<GammelKjøring>"
     Og årsaker er "<Årsaker>"
-    Så skal resultat av regel være  være "<Resultat>"
+    Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | GammelKjøring  |   Årsaker          |

@@ -7,6 +7,8 @@ import io.cucumber.java.no.Gitt
 import io.cucumber.java.no.Når
 import io.cucumber.java.no.Og
 import io.cucumber.java.no.Så
+import no.nav.medlemskap.cucumber.mapping.brukersvar.BrukersvarDomeneSpraakParser
+import no.nav.medlemskap.cucumber.mapping.udi.UdiDomeneSpraakParser
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.JacksonParser
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Resultat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Svar
@@ -25,6 +27,8 @@ import java.util.*
 
 
 class RegelSteps  {
+    private val udiDomenespraakParser = UdiDomeneSpraakParser()
+    private val brukersvarDomenespraakParser = BrukersvarDomeneSpraakParser()
     var brukerinput :Brukerinput? = null
     var resultat_gammel_kjoring :String? = null
     var utfortAarbeidUtenforNorge:UtfortAarbeidUtenforNorge? = null
@@ -40,6 +44,16 @@ class RegelSteps  {
     var udi_oppholdsilatelse:UdiOppholdsTilatelse? = null
 
 
+    @Gitt("følgende oppholdstillatelse fra UDI")
+    fun oppholdstillatelseFraUdi(dataTable: DataTable){
+        udi_oppholdsilatelse = udiDomenespraakParser.mapUdiOppholdstillatelse(dataTable)
+    }
+
+    @Gitt("følgende brukersvar om oppholdstillatelse")
+    fun brukersvarOppholdstillatelse(dataTable: DataTable){
+        oppholdstilatelse = brukersvarDomenespraakParser.mapOppholdstillatelseBrukersvar(dataTable)
+    }
+
     //@Gitt("resultat av medlemskap-oppslag er {string}")
    @Gitt("gammelt resultat for gammel kjøring er {string}")
    fun stiTilGammelKjoringFil(filSti:String){
@@ -49,18 +63,6 @@ class RegelSteps  {
        this.udi_oppholdsilatelse = gammelkjøringResultat!!.datagrunnlag.oppholdstillatelse
         println("lest gammel kjøring fra fil")
    }
-
-    @Gitt("brukersvar om oppholdstitatelse")
-    fun brukersporsmaalOppholdsTilatelse(datatable: DataTable){
-        this.oppholdstilatelse = DomainMapper().mapOppholdsTilatelse(datatable)
-        println("lest gammel kjøring fra fil")
-    }
-
-    @Og("UDIOpplysninger om oppholdstilatelse")
-    fun udi_oppholdstilatelkse(datatable: DataTable){
-        this.udi_oppholdsilatelse = DomainMapper().mapUdiOppholdsTilatelse(datatable)
-        println("lest gammel kjøring fra fil")
-    }
 
     @Gitt("arbeidUtenforNorgeGammelModell er {string}")
     fun function(arbeidutenfornorge:String){
@@ -262,11 +264,12 @@ class RegelSteps  {
         )
         regelkjoringResultat = SkalHaleFlytUtføresRegel.fraDatagrunnlag(kjøring).utfør()
     }
-    @Så("skal resultat av regel være  være {string}")
-    fun skalResultatAvRegelVære( forventetSvar: String?){
 
+    @Så("skal resultat av regel være {string}")
+    fun skalResultatAvRegelVære( forventetSvar: String?){
         Assertions.assertEquals(forventetSvar,regelkjoringResultat?.svar?.name)
     }
+
     @Og("årsak etter regelkjøring er {string}")
     fun årsak_etter_regelkjøring_er(forventetÅrsakRegelID :String){
         if ("NULL".equals(forventetÅrsakRegelID.uppercase()))
