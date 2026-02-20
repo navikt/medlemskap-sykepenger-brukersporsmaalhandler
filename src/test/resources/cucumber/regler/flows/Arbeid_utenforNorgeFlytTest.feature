@@ -12,20 +12,20 @@ Egenskap: Flyt test av arbeid utenfor norge
     Og årsak etter regelkjøring er "<årsak>"
 
     Eksempler:
-      | Resultat | arbeidUtenforNorge | årsak |
-      | UAVKLART | true               | SP6130|
-      | JA       |false               |  NULL |
+      | Resultat | arbeidUtenforNorge | årsak  |
+      | UAVKLART | true               | SP6130 |
+      | JA       | false              |        |
 
   Scenariomal: Arbeid utenforNorge flyt blir kalt med nye bruker spørsmål
     Gitt utfoertArbeidUtenforNorge
-      | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge |LAND|
-      | <FOM>           | <TOM>           | <arbeidUtenforNorge>          | <LAND>|
+      | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
+      | <FOM>           | <TOM>           | <arbeidUtenforNorge>          | <LAND> |
 
     Når arbeidutenforNorgeFlyt kjøres
     Så skal resultat av regel være "<Resultat>"
     Og årsak etter regelkjøring er "<årsak>"
 
     Eksempler:
-      | Resultat | arbeidUtenforNorge |FOM        | TOM        | årsak |LAND    |
-      | UAVKLART | true               |  1.1.2022 | 1.1.2024   |SP6120 | india  |
-      | JA       | false              |     NULL  | NULL       |  NULL |  null  |
+      | Resultat | arbeidUtenforNorge | FOM      | TOM      | årsak  | LAND  |
+      | UAVKLART | true               | 1.1.2022 | 1.1.2024 | SP6120 | india |
+      | JA       | false              |          |          |        |       |

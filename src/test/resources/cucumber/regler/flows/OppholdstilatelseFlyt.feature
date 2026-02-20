@@ -26,6 +26,6 @@ Egenskap: Flyt test av Oppholdstilatelse
 
     Eksempler:
       | Permanent | FOM        | TOM        | VDATO      | Resultat | ÅRSAK  | FIL                                                                  |
-      | false     | 2023-05-14 | 2024-05-14 | 2023-05-14 | JA       | null   | Regel19_3_1_Brudd_med_PDL_OppholdsDataOgIngenNyeBrukerSporsmaal.json |
+      | false     | 2023-05-14 | 2024-05-14 | 2023-05-14 | JA       |    | Regel19_3_1_Brudd_med_PDL_OppholdsDataOgIngenNyeBrukerSporsmaal.json |
       | false     | 2023-05-14 | 2024-05-10 | 2023-05-14 | UAVKLART | SP6225 | Regel19_3_1_Brudd_med_PDL_OppholdsDataOgIngenNyeBrukerSporsmaal.json |
-      | false     | 2023-01-01 | 2024-05-14 | 2023-05-14 | JA       | null   | Regel19_3_1_Brudd_med_PDL_OppholdsDataOgIngenNyeBrukerSporsmaal.json |
+      | false     | 2023-01-01 | 2024-05-14 | 2023-05-14 | JA       |    | Regel19_3_1_Brudd_med_PDL_OppholdsDataOgIngenNyeBrukerSporsmaal.json |
