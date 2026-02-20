@@ -100,45 +100,6 @@ class DomainMapper {
         return InputPeriode(fomDato,tomDato)
     }
 
-    fun mapOppholdUtenforEos(datatable: DataTable, ferie: Boolean = false): OppholdUtenforEos? {
-        val rows: List<Map<String, String>> = datatable.asMaps(
-            String::class.java,
-            String::class.java
-        )
-        val haroppholdtsegutenforEØS = rows.first()["Har oppholdt seg utenfor EØS"].toBoolean()
-        if (haroppholdtsegutenforEØS){
-            var fom = rows.first()["Fra og med dato"]
-            if (fom.equals("TODAYS_DATE")){
-              fom = LocalDate.now().toString()
-            }
-            var tom = rows.first()["Til og med dato"]
-            if (tom.equals("TODAYS_DATE")){
-                tom = LocalDate.now().toString()
-            }
-            val ferie = if (ferie) "Jeg var på ferie" else ""
-            val land = rows.first()["LAND"]
-            return OppholdUtenforEos(id =UUID.randomUUID().toString(),
-                sporsmalstekst = "spørsmåltext ",
-                svar= true,
-                oppholdUtenforEOS = listOf(
-                    Opphold(
-                        id = "",
-                        land=land!!,
-                        grunn = ferie,
-                        perioder = listOf(Periode(fom!!,tom!!))
-                    )
-                )
-            )
-        }
-        else{
-            return OppholdUtenforEos(id =UUID.randomUUID().toString(),
-                sporsmalstekst = "spørsmåltext ",
-                svar= false,
-                oppholdUtenforEOS = emptyList()
-            )
-        }
-        return null
-    }
     fun mapÅrsaker(datatable: DataTable): List<Årsak> {
         val rows: List<Map<String, String>> = datatable.asMaps(
             String::class.java,

@@ -29,67 +29,68 @@ import java.time.LocalDateTime
 import java.util.*
 
 
-class RegelSteps  {
+class RegelSteps {
     private val udiDomenespraakParser = UdiDomeneSpraakParser()
     private val brukersvarDomenespraakParser = BrukersvarDomeneSpraakParser()
     private val basisDomeneSpraakParser = BasisDomeneSpraakParser()
-    var brukerinput :Brukerinput? = null
-    var resultat_gammel_kjoring :String? = null
-    var utfortAarbeidUtenforNorge:UtfortAarbeidUtenforNorge? = null
-    var oppholdUtenforNorge:OppholdUtenforNorge? = null
-    var oppholdUtenforEos:OppholdUtenforEos? = null
-    var oppholdstilatelse:Oppholdstilatelse? = null
+    var brukerinput: Brukerinput? = null
+    var resultat_gammel_kjoring: String? = null
+    var utfortAarbeidUtenforNorge: UtfortAarbeidUtenforNorge? = null
+    var oppholdUtenforNorge: OppholdUtenforNorge? = null
+    var oppholdUtenforEos: OppholdUtenforEos? = null
+    var oppholdstilatelse: Oppholdstilatelse? = null
     var arbeidUtenforNorgeGammelModell = false
-    var svar:String? = null
+    var svar: String? = null
     var årsaker = mutableListOf<Årsak>()
-    var regelkjoringResultat:Resultat? = null
-    var inputPeriode:InputPeriode = InputPeriode(LocalDate.now(), LocalDate.now())
-    var gammelkjøringResultat:Kjøring? = null
-    var udi_oppholdsilatelse:UdiOppholdsTilatelse? = null
+    var regelkjoringResultat: Resultat? = null
+    var inputPeriode: InputPeriode = InputPeriode(LocalDate.now(), LocalDate.now())
+    var gammelkjøringResultat: Kjøring? = null
+    var udi_oppholdsilatelse: UdiOppholdsTilatelse? = null
 
 
     @Gitt("følgende oppholdstillatelse fra UDI")
-    fun oppholdstillatelseFraUdi(dataTable: DataTable){
+    fun oppholdstillatelseFraUdi(dataTable: DataTable) {
         udi_oppholdsilatelse = udiDomenespraakParser.mapUdiOppholdstillatelse(dataTable)
     }
 
     @Gitt("følgende brukersvar om oppholdstillatelse")
-    fun brukersvarOppholdstillatelse(dataTable: DataTable){
+    fun brukersvarOppholdstillatelse(dataTable: DataTable) {
         oppholdstilatelse = brukersvarDomenespraakParser.mapOppholdstillatelseBrukersvar(dataTable)
     }
 
     @Gitt("Følgende brukersvar om opphold utenfor EØS")
-    fun brukersvarOppholdUtenforEØS(dataTable: DataTable){
+    fun brukersvarOppholdUtenforEØS(dataTable: DataTable) {
         oppholdUtenforEos = brukersvarDomenespraakParser.mapOppholdUtenforEosBrukersvar(dataTable)
     }
 
     @Gitt("Følgende inputperiode")
-    fun inputPeriode(dataTable: DataTable){
+    fun inputPeriode(dataTable: DataTable) {
         inputPeriode = basisDomeneSpraakParser.mapInputperiode(dataTable)
     }
 
     //@Gitt("resultat av medlemskap-oppslag er {string}")
-   @Gitt("gammelt resultat for gammel kjøring er {string}")
-   fun stiTilGammelKjoringFil(filSti:String){
+    @Gitt("gammelt resultat for gammel kjøring er {string}")
+    fun stiTilGammelKjoringFil(filSti: String) {
 
-       val fileContent = Datagrunnlag::class.java.classLoader.getResource(filSti).readText(Charsets.UTF_8)
-       this.gammelkjøringResultat = JacksonParser().toDomainObject(fileContent)
-       this.udi_oppholdsilatelse = gammelkjøringResultat!!.datagrunnlag.oppholdstillatelse
+        val fileContent = Datagrunnlag::class.java.classLoader.getResource(filSti).readText(Charsets.UTF_8)
+        this.gammelkjøringResultat = JacksonParser().toDomainObject(fileContent)
+        this.udi_oppholdsilatelse = gammelkjøringResultat!!.datagrunnlag.oppholdstillatelse
         println("lest gammel kjøring fra fil")
-   }
+    }
 
     @Gitt("arbeidUtenforNorgeGammelModell er {string}")
-    fun function(arbeidutenfornorge:String){
+    fun function(arbeidutenfornorge: String) {
         this.arbeidUtenforNorgeGammelModell = arbeidutenfornorge.toBoolean()
     }
 
 
     @Gitt("OppholdUtenforEosMedFlereInnslag")
-    fun OppholdUtenforEos(){
-            this.oppholdUtenforEos = no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.OppholdUtenforEos(
+    fun OppholdUtenforEos() {
+        this.oppholdUtenforEos =
+            no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.OppholdUtenforEos(
                 id = UUID.randomUUID().toString(),
                 sporsmalstekst = "",
-                svar=true,
+                svar = true,
                 oppholdUtenforEOS = listOf(
                     Opphold(
                         id = UUID.randomUUID().toString(),
@@ -98,8 +99,10 @@ class RegelSteps  {
                         perioder = listOf(
                             Periode(
                                 LocalDate.now().minusMonths(11).toString(),
-                                LocalDate.now().minusMonths(10).toString())),
+                                LocalDate.now().minusMonths(10).toString()
+                            )
                         ),
+                    ),
                     Opphold(
                         id = UUID.randomUUID().toString(),
                         land = "Tyrkia",
@@ -107,70 +110,72 @@ class RegelSteps  {
                         perioder = listOf(
                             Periode(
                                 LocalDate.now().minusMonths(7).toString(),
-                                LocalDate.now().minusMonths(6).toString())),
+                                LocalDate.now().minusMonths(6).toString()
+                            )
+                        ),
                     )
 
-            ))
-    }
-    @Gitt("OppholdUtenforNorgeMedFlereInnslag")
-    fun OppholdUtenforNorge(){
-        this.oppholdUtenforNorge = no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.OppholdUtenforNorge(
-            id = UUID.randomUUID().toString(),
-            sporsmalstekst = "",
-            svar=true,
-            oppholdUtenforNorge = listOf(
-                Opphold(
-                    id = UUID.randomUUID().toString(),
-                    land = "Tyrkia",
-                    grunn = "ferie",
-                    perioder = listOf(
-                        Periode(
-                            LocalDate.now().minusMonths(11).toString(),
-                            LocalDate.now().minusMonths(10).toString())),
-                ),
-                Opphold(
-                    id = UUID.randomUUID().toString(),
-                    land = "Tyrkia",
-                    grunn = "ferie",
-                    perioder = listOf(
-                        Periode(
-                            LocalDate.now().minusMonths(7).toString(),
-                            LocalDate.now().minusMonths(6).toString())),
                 )
+            )
+    }
 
-            ))
+    @Gitt("OppholdUtenforNorgeMedFlereInnslag")
+    fun OppholdUtenforNorge() {
+        this.oppholdUtenforNorge =
+            no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.OppholdUtenforNorge(
+                id = UUID.randomUUID().toString(),
+                sporsmalstekst = "",
+                svar = true,
+                oppholdUtenforNorge = listOf(
+                    Opphold(
+                        id = UUID.randomUUID().toString(),
+                        land = "Tyrkia",
+                        grunn = "ferie",
+                        perioder = listOf(
+                            Periode(
+                                LocalDate.now().minusMonths(11).toString(),
+                                LocalDate.now().minusMonths(10).toString()
+                            )
+                        ),
+                    ),
+                    Opphold(
+                        id = UUID.randomUUID().toString(),
+                        land = "Tyrkia",
+                        grunn = "ferie",
+                        perioder = listOf(
+                            Periode(
+                                LocalDate.now().minusMonths(7).toString(),
+                                LocalDate.now().minusMonths(6).toString()
+                            )
+                        ),
+                    )
+
+                )
+            )
     }
-    @Gitt("OppholdUtenforEos")
-    fun OppholdUtenforEos(datatable: DataTable){
-        this.oppholdUtenforEos = DomainMapper().mapOppholdUtenforEos(datatable)
-        //brukerinput = Brukerinput(false, oppholdUtenforEos = this.oppholdUtenforEos)
-    }
-    @Gitt("OppholdUtenforEosMedFerie")
-    fun OppholdUtenforEosMedFerie(datatable: DataTable){
-        this.oppholdUtenforEos = DomainMapper().mapOppholdUtenforEos(datatable, true)
-        //brukerinput = Brukerinput(false, oppholdUtenforEos = this.oppholdUtenforEos)
-    }
+
     @Gitt("OppholdUtenforNorge")
-    fun OppholdUtenforNorge(datatable: DataTable){
+    fun OppholdUtenforNorge(datatable: DataTable) {
         this.oppholdUtenforNorge = DomainMapper().mapOppholdUtenforNorge(datatable)
     }
 
     @Og("InputPeriode")
-    fun InputPeriode(datatable: DataTable){
+    fun InputPeriode(datatable: DataTable) {
         this.inputPeriode = DomainMapper().mapInputPeriode(datatable)
     }
 
     @Og("utfoertArbeidUtenforNorge")
-    fun arbeidUtenforNorgeNyModell(datatable: DataTable){
+    fun arbeidUtenforNorgeNyModell(datatable: DataTable) {
         this.utfortAarbeidUtenforNorge = DomainMapper().mapArbeidUtlandNyModell(datatable)
     }
 
     @Gitt("årsaker i gammel kjøring")
-    fun årsaker(datatable:DataTable){
+    fun årsaker(datatable: DataTable) {
         this.årsaker.addAll(DomainMapper().mapÅrsaker(datatable))
     }
+
     @Når("medlemskap beregnes med følgende parametre")
-    fun fun1(datatable:DataTable){
+    fun fun1(datatable: DataTable) {
 
         val rows: List<Map<String, String>> = datatable.asMaps(
             String::class.java,
@@ -178,97 +183,103 @@ class RegelSteps  {
         )
         val v = rows.first()["Har hatt arbeid utenfor Norge"]
 
-        if ("Ja" == v){
-            svar= "NOT_OK"
-        }
-        else
-            svar =  "OK"
+        if ("Ja" == v) {
+            svar = "NOT_OK"
+        } else
+            svar = "OK"
     }
+
     @Så("skal svar være {string}")
-    fun skal_svar_være( statsborgerskapskategori: String){
+    fun skal_svar_være(statsborgerskapskategori: String) {
         Assertions.assertEquals(statsborgerskapskategori, svar)
     }
+
     @Når("gammelt resultat for gammelregelkjøring er {string}")
-    fun gammeltResultatForGammelregelkjoring(resultat_gammel_kjoring:String){
+    fun gammeltResultatForGammelregelkjoring(resultat_gammel_kjoring: String) {
         this.resultat_gammel_kjoring = resultat_gammel_kjoring
         //println("Resultat gammel kjøring : $resultat_gammel_kjoring")
     }
 
     @Når("oppholdUtenforEØSRegler kjøres")
-    fun oppholdUtenforEØSReglerKjøres(){
+    fun oppholdUtenforEØSReglerKjøres() {
         regelkjoringResultat = ReglerForOppholdUtenforEOS.fraDatagrunnlag(hentDatagrunnlag()).kjørHovedflyt()
         print("oppholdUtenforEØSRegler kjøres")
     }
+
     @Når("oppholdUtenforNorgeRegler kjøres")
-    fun oppholdUtenforNorgeReglerKjøres(){
+    fun oppholdUtenforNorgeReglerKjøres() {
         regelkjoringResultat = ReglerForOppholdUtenforNorge.fraDatagrunnlag(hentDatagrunnlag()).kjørHovedflyt()
         print("oppholdUtenforEØSRegler kjøres")
     }
 
     @Når("oppholdstilatelseRegler kjøres")
-    fun oppholdtilatelseReglerKjøres(){
-        regelkjoringResultat = ReglerForOppholdstilatelse.fraDatagrunnlag(hentDatagrunnlag(),this.gammelkjøringResultat!!.resultat).kjørHovedflyt()
+    fun oppholdtilatelseReglerKjøres() {
+        regelkjoringResultat =
+            ReglerForOppholdstilatelse.fraDatagrunnlag(hentDatagrunnlag(), this.gammelkjøringResultat!!.resultat)
+                .kjørHovedflyt()
         udi_oppholdsilatelse = gammelkjøringResultat!!.datagrunnlag.oppholdstillatelse
         print("oppholdstilatelseRegler kjøres")
     }
 
     @Når("arbeidutenforNorgeFlyt kjøres")
-    fun arbeidutenforNorgeFlytkjøres(){
+    fun arbeidutenforNorgeFlytkjøres() {
         regelkjoringResultat = ArbeidUtenforNorgeRegelFlyt.fraDatagrunnlag(hentDatagrunnlag()).kjørHovedflyt()
         print("test")
     }
 
     @Når("regel {string} kjøres")
-    fun NårRegelKjøres(regelId: String){
+    fun NårRegelKjøres(regelId: String) {
 
-    val regelFactory = RegelFactory(hentDatagrunnlag(),this.årsaker)
-    val regel = regelFactory.create(regelId)
+        val regelFactory = RegelFactory(hentDatagrunnlag(), this.årsaker)
+        val regel = regelFactory.create(regelId)
         regelkjoringResultat = regel.utfør()
     }
 
 
     private fun hentDatagrunnlag(): Datagrunnlag {
-    return Datagrunnlag(
-        ytelse = Ytelse.SYKEPENGER,
-        periode = inputPeriode,
-        fnr = "12345678901",
-        brukerinput = Brukerinput(
-            arbeidUtenforNorge = this.arbeidUtenforNorgeGammelModell,
-            oppholdUtenforEos = this.oppholdUtenforEos,
-            utfortAarbeidUtenforNorge = this.utfortAarbeidUtenforNorge,
-            oppholdUtenforNorge = this.oppholdUtenforNorge,
-            oppholdstilatelse = this.oppholdstilatelse,
-        ),
-        pdlpersonhistorikk = PdlPersonHistorikk(),
-        oppholdstillatelse = udi_oppholdsilatelse
+        return Datagrunnlag(
+            ytelse = Ytelse.SYKEPENGER,
+            periode = inputPeriode,
+            fnr = "12345678901",
+            brukerinput = Brukerinput(
+                arbeidUtenforNorge = this.arbeidUtenforNorgeGammelModell,
+                oppholdUtenforEos = this.oppholdUtenforEos,
+                utfortAarbeidUtenforNorge = this.utfortAarbeidUtenforNorge,
+                oppholdUtenforNorge = this.oppholdUtenforNorge,
+                oppholdstilatelse = this.oppholdstilatelse,
+            ),
+            pdlpersonhistorikk = PdlPersonHistorikk(),
+            oppholdstillatelse = udi_oppholdsilatelse
 
-    )
+        )
     }
 
 
     @Og("årsaker er {string}")
-    fun arsakerEr(årsaker:String){
-        årsaker.split(",").forEach { this.årsaker.add(Årsak(it,"", Svar.JA)) }
+    fun arsakerEr(årsaker: String) {
+        årsaker.split(",").forEach { this.årsaker.add(Årsak(it, "", Svar.JA)) }
         val kjøring = Kjøring(
             tidspunkt = LocalDateTime.now(),
             kanal = "",
             datagrunnlag = Datagrunnlag(
                 ytelse = Ytelse.SYKEPENGER,
                 periode = InputPeriode(
-                    fom=LocalDate.now(),
-                    tom = LocalDate.now()),
+                    fom = LocalDate.now(),
+                    tom = LocalDate.now()
+                ),
                 fnr = "",
                 pdlpersonhistorikk = PdlPersonHistorikk(emptyList()),
                 oppholdstillatelse = null,
-                brukerinput= Brukerinput(
+                brukerinput = Brukerinput(
                     arbeidUtenforNorge = false,
                     oppholdstilatelse = null,
                     utfortAarbeidUtenforNorge = null,
-                    oppholdUtenforNorge = null)
+                    oppholdUtenforNorge = null
+                )
             ),
             resultat = GammelkjøringResultat(
                 regelId = "",
-                svar= Svar.valueOf(resultat_gammel_kjoring!!),
+                svar = Svar.valueOf(resultat_gammel_kjoring!!),
                 begrunnelse = "",
                 avklaring = "",
                 delresultat = emptyList(),
@@ -280,12 +291,12 @@ class RegelSteps  {
     }
 
     @Så("skal resultat av regel være {string}")
-    fun skalResultatAvRegelVære( forventetSvar: String?){
-        Assertions.assertEquals(forventetSvar,regelkjoringResultat?.svar?.name)
+    fun skalResultatAvRegelVære(forventetSvar: String?) {
+        Assertions.assertEquals(forventetSvar, regelkjoringResultat?.svar?.name)
     }
 
     @Og("årsak etter regelkjøring er {string}")
-    fun årsak_etter_regelkjøring_er(forventetÅrsakRegelID :String){
+    fun årsak_etter_regelkjøring_er(forventetÅrsakRegelID: String) {
         assertEquals(
             forventetÅrsakRegelID.trim(),
             regelkjoringResultat?.årsaker?.map { it.regelId.identifikator }.toString().filter { it != '[' && it != ']' }
@@ -294,12 +305,13 @@ class RegelSteps  {
     }
 
     @Og("begrunnelse på årsak er {string}")
-    fun begrunnelse_paa_aarsak_er(begrunnelse :String){
+    fun begrunnelse_paa_aarsak_er(begrunnelse: String) {
         if (begrunnelse.isNotEmpty()) {
-            assertEquals(begrunnelse,
-                regelkjoringResultat?.årsaker?.first()?.begrunnelse?: "")
-        }
-        else{
+            assertEquals(
+                begrunnelse,
+                regelkjoringResultat?.årsaker?.first()?.begrunnelse ?: ""
+            )
+        } else {
             assertTrue(regelkjoringResultat!!.årsaker.isEmpty())
         }
     }
