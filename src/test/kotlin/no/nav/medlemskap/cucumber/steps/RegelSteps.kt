@@ -7,6 +7,7 @@ import io.cucumber.java.no.Gitt
 import io.cucumber.java.no.Når
 import io.cucumber.java.no.Og
 import io.cucumber.java.no.Så
+import no.nav.medlemskap.cucumber.mapping.BasisDomeneSpraakParser
 import no.nav.medlemskap.cucumber.mapping.brukersvar.BrukersvarDomeneSpraakParser
 import no.nav.medlemskap.cucumber.mapping.udi.UdiDomeneSpraakParser
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.JacksonParser
@@ -21,6 +22,8 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdsRegler.ReglerForOppholdUtenforNorge
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.oppholdstilatelse.ReglerForOppholdstilatelse
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
@@ -29,6 +32,7 @@ import java.util.*
 class RegelSteps  {
     private val udiDomenespraakParser = UdiDomeneSpraakParser()
     private val brukersvarDomenespraakParser = BrukersvarDomeneSpraakParser()
+    private val basisDomeneSpraakParser = BasisDomeneSpraakParser()
     var brukerinput :Brukerinput? = null
     var resultat_gammel_kjoring :String? = null
     var utfortAarbeidUtenforNorge:UtfortAarbeidUtenforNorge? = null
@@ -52,6 +56,16 @@ class RegelSteps  {
     @Gitt("følgende brukersvar om oppholdstillatelse")
     fun brukersvarOppholdstillatelse(dataTable: DataTable){
         oppholdstilatelse = brukersvarDomenespraakParser.mapOppholdstillatelseBrukersvar(dataTable)
+    }
+
+    @Gitt("Følgende brukersvar om opphold utenfor EØS")
+    fun brukersvarOppholdUtenforEØS(dataTable: DataTable){
+        oppholdUtenforEos = brukersvarDomenespraakParser.mapOppholdUtenforEosBrukersvar(dataTable)
+    }
+
+    @Gitt("Følgende inputperiode")
+    fun inputPeriode(dataTable: DataTable){
+        inputPeriode = basisDomeneSpraakParser.mapInputperiode(dataTable)
     }
 
     //@Gitt("resultat av medlemskap-oppslag er {string}")
@@ -272,24 +286,21 @@ class RegelSteps  {
 
     @Og("årsak etter regelkjøring er {string}")
     fun årsak_etter_regelkjøring_er(forventetÅrsakRegelID :String){
-        if ("NULL".equals(forventetÅrsakRegelID.uppercase()))
-            {
-            Assertions.assertTrue(regelkjoringResultat!!.årsaker.isEmpty())
-            }
-        else{
-            Assertions.assertEquals(forventetÅrsakRegelID,
-                regelkjoringResultat?.årsaker?.first()?.regelId?.name ?: "")
-        }
+        assertEquals(
+            forventetÅrsakRegelID.trim(),
+            regelkjoringResultat?.årsaker?.map { it.regelId.identifikator }.toString().filter { it != '[' && it != ']' }
+                .trim()
+        )
     }
+
     @Og("begrunnelse på årsak er {string}")
     fun begrunnelse_paa_aarsak_er(begrunnelse :String){
-        if ("NULL".equals(begrunnelse.uppercase()))
-        {
-            Assertions.assertTrue(regelkjoringResultat!!.årsaker.isEmpty())
+        if (begrunnelse.isNotEmpty()) {
+            assertEquals(begrunnelse,
+                regelkjoringResultat?.årsaker?.first()?.begrunnelse?: "")
         }
         else{
-            Assertions.assertEquals(begrunnelse,
-                regelkjoringResultat?.årsaker?.first()?.begrunnelse?: "")
+            assertTrue(regelkjoringResultat!!.årsaker.isEmpty())
         }
     }
 }
