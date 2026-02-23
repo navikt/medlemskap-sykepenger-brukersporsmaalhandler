@@ -40,82 +40,6 @@ class DomainMapper {
 
     }
 
-    fun mapOppholdsTilatelse(datatable: DataTable): Oppholdstilatelse? {
-        val rows: List<Map<String, String>> = datatable.asMaps(
-            String::class.java,
-            String::class.java
-        )
-        val permanent = rows.first()["Permanent"].toBoolean()
-        if (permanent){
-            var fom = rows.first()["FOM"]
-            if (fom.equals("TODAYS_DATE")){
-                fom = LocalDate.now().toString()
-            }
-
-            var vdate = rows.first()["VDATO"]
-            if (vdate.equals("TODAYS_DATE")){
-                vdate = LocalDate.now().toString()
-            }
-            return Oppholdstilatelse(
-                id = UUID.randomUUID().toString(),
-                sporsmalstekst = "",
-                svar = true,
-                vedtaksdato = LocalDate.parse(vdate),
-                vedtaksTypePermanent = true,
-                perioder = listOf(Periode(fom!!,LocalDate.MAX.toString()))
-            )
-        }
-        else{
-            var fom = rows.first()["FOM"]
-            if (fom.equals("TODAYS_DATE")){
-                fom = LocalDate.now().toString()
-            }
-            var tom = rows.first()["TOM"]
-            if (tom.equals("TODAYS_DATE")){
-                tom = LocalDate.now().toString()
-            }
-            val vdate = rows.first()["VDATO"]
-            return Oppholdstilatelse(
-                id = UUID.randomUUID().toString(),
-                sporsmalstekst = "",
-                svar = true,
-                vedtaksdato = LocalDate.parse(vdate),
-                vedtaksTypePermanent = false,
-                perioder = listOf(Periode(fom!!,tom!!))
-            )
-        }
-        return null
-    }
-
-    fun mapUdiOppholdsTilatelse(datatable: DataTable):UdiOppholdsTilatelse {
-        val rows: List<Map<String, String>> = datatable.asMaps(
-            String::class.java,
-            String::class.java
-        )
-        val fom = rows.first()["UDI_FOM"]
-        val tom = rows.first()["UDI_TOM"]
-        val type = rows.first()["TYPE"]
-        val udiFrom = LocalDate.parse(fom)
-        var udiTom : LocalDate? = null
-        try{
-             udiTom = LocalDate.parse(tom)
-        }
-        catch (e:Exception){
-            //null er default verdi
-        }
-        return UdiOppholdsTilatelse(
-            gjeldendeOppholdsstatus = GjeldendeOppholdsstatus(
-                oppholdstillatelsePaSammeVilkar = OppholdstillatelsePaSammeVilkar
-                    (
-                    periode = UdiPeriode(udiFrom,udiTom),
-                    type=type,
-                    soknadIkkeAvgjort=null,
-
-                )
-            )
-        )
-    }
-
     fun mapOppholdUtenforNorge(datatable: DataTable): OppholdUtenforNorge? {
         val rows: List<Map<String, String>> = datatable.asMaps(
             String::class.java,
@@ -176,45 +100,6 @@ class DomainMapper {
         return InputPeriode(fomDato,tomDato)
     }
 
-    fun mapOppholdUtenforEos(datatable: DataTable, ferie: Boolean = false): OppholdUtenforEos? {
-        val rows: List<Map<String, String>> = datatable.asMaps(
-            String::class.java,
-            String::class.java
-        )
-        val haroppholdtsegutenforEØS = rows.first()["Har oppholdt seg utenfor EØS"].toBoolean()
-        if (haroppholdtsegutenforEØS){
-            var fom = rows.first()["Fra og med dato"]
-            if (fom.equals("TODAYS_DATE")){
-              fom = LocalDate.now().toString()
-            }
-            var tom = rows.first()["Til og med dato"]
-            if (tom.equals("TODAYS_DATE")){
-                tom = LocalDate.now().toString()
-            }
-            val ferie = if (ferie) "Jeg var på ferie" else ""
-            val land = rows.first()["LAND"]
-            return OppholdUtenforEos(id =UUID.randomUUID().toString(),
-                sporsmalstekst = "spørsmåltext ",
-                svar= true,
-                oppholdUtenforEOS = listOf(
-                    Opphold(
-                        id = "",
-                        land=land!!,
-                        grunn = ferie,
-                        perioder = listOf(Periode(fom!!,tom!!))
-                    )
-                )
-            )
-        }
-        else{
-            return OppholdUtenforEos(id =UUID.randomUUID().toString(),
-                sporsmalstekst = "spørsmåltext ",
-                svar= false,
-                oppholdUtenforEOS = emptyList()
-            )
-        }
-        return null
-    }
     fun mapÅrsaker(datatable: DataTable): List<Årsak> {
         val rows: List<Map<String, String>> = datatable.asMaps(
             String::class.java,

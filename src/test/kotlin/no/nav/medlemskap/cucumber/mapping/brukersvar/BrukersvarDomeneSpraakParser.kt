@@ -6,12 +6,18 @@ import no.nav.medlemskap.cucumber.steps.BasisDomeneParser.Companion.mapDataTable
 import no.nav.medlemskap.cucumber.steps.BasisDomeneParser.Companion.parseBoolean
 import no.nav.medlemskap.cucumber.steps.BasisDomeneParser.Companion.parseDato
 import no.nav.medlemskap.cucumber.steps.BasisDomeneParser.Companion.parseString
+import no.nav.medlemskap.cucumber.steps.BasisDomeneParser.Companion.parseValgfriDato
+import no.nav.medlemskap.cucumber.steps.BasisDomeneParser.Companion.parseValgfriString
 import no.nav.medlemskap.cucumber.steps.RadMapper
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.*
 
 class BrukersvarDomeneSpraakParser {
     fun mapBrukersvar(dataTable: DataTable): Brukerinput {
         return mapDataTable(dataTable, BrukersvarMapper())[0]
+    }
+
+    fun mapOppholdUtenforEosBrukersvar(dataTable: DataTable): OppholdUtenforEos {
+        return mapDataTable(dataTable, OppholdUtenforEosBrukersvarMapper())[0]
     }
 
     fun mapOppholdstillatelseBrukersvar(dataTable: DataTable): Oppholdstilatelse {
@@ -27,6 +33,12 @@ class BrukersvarDomeneSpraakParser {
                 oppholdUtenforEos = parseOppholdUtenforEos(rad),
                 oppholdUtenforNorge = parseOppholdUtenforNorge(rad)
             )
+        }
+    }
+
+    class OppholdUtenforEosBrukersvarMapper: RadMapper<OppholdUtenforEos> {
+        override fun mapRad(rad: Map<String, String>): OppholdUtenforEos {
+            return parseOppholdUtenforEos(rad)
         }
     }
 
@@ -91,7 +103,7 @@ fun parseOpphold(rad: Map<String, String>): List<Opphold> {
         Opphold(
             id = "",
             land = parseString(BrukersvarDomenebegrep.LAND, rad),
-            grunn = parseString(BrukersvarDomenebegrep.GRUNN, rad),
+            grunn = parseValgfriString(BrukersvarDomenebegrep.GRUNN, rad) ?: "",
             perioder = parsePerioder(rad)
         )
     )
@@ -100,8 +112,8 @@ fun parseOpphold(rad: Map<String, String>): List<Opphold> {
 fun parsePerioder(rad: Map<String, String>): List<Periode> {
     return listOf(
         Periode(
-            fom = parseDato(BrukersvarDomenebegrep.FOM, rad).toString(),
-            tom = parseDato(BrukersvarDomenebegrep.TOM, rad).toString()
+            fom = parseValgfriDato(BrukersvarDomenebegrep.FOM, rad).toString(),
+            tom = parseValgfriDato(BrukersvarDomenebegrep.TOM, rad).toString()
         )
     )
 }
@@ -113,8 +125,8 @@ enum class BrukersvarDomenebegrep(val nøkkel: String) : Domenenøkkel {
     SVAR("Svar"),
     VEDTAKS_DATO("Vedtaksdato"),
     VEDTAKSTYPE_PERMANENT("Vedtakstype permanent"),
-    LAND("Land"),
-    GRUNN("Grunn")
+    GRUNN("Grunn"),
+    LAND("Land")
     ;
 
     override fun nøkkel(): String = nøkkel

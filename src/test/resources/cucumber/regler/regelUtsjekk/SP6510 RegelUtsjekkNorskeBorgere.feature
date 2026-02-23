@@ -13,9 +13,9 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
 
     Når regel "SP6510" kjøres
@@ -39,9 +39,9 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
 
     Når regel "SP6510" kjøres
@@ -64,9 +64,9 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
 
     Når regel "SP6510" kjøres
@@ -74,10 +74,10 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | JA      | true               | true              |
+      | JA       | true               | true              |
       | JA       | false              | false             |
       | JA       | false              | true              |
-      | JA      | true               | false             |
+      | JA       | true               | false             |
 
   Scenariomal: SP6510 bli kalt med nye brukerspørsmål der REGEL_15 bryter
     Gitt årsaker i gammel kjøring
@@ -88,9 +88,9 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
 
     Når regel "SP6510" kjøres
@@ -98,23 +98,23 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | JA      | true               | true              |
+      | JA       | true               | true              |
       | JA       | false              | false             |
-      | JA      | false              | true              |
-      | JA      | true               | false             |
+      | JA       | false              | true              |
+      | JA       | true               | false             |
 
   Scenariomal: SP6510 bli kalt med nye brukerspørsmål der REGEL_C bryter
     Gitt årsaker i gammel kjøring
       | REGELBRUDD |
-      | REGEL_C   |
+      | REGEL_C    |
 
     Og utfoertArbeidUtenforNorge
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
 
     Når regel "SP6510" kjøres
@@ -122,23 +122,23 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | JA      | true               | true              |
+      | JA       | true               | true              |
       | JA       | false              | false             |
       | JA       | false              | true              |
-      | JA      | true               | false             |
+      | JA       | true               | false             |
 
   Scenariomal: SP6510 bli kalt med nye brukerspørsmål der REGEL_X bryter
     Gitt årsaker i gammel kjøring
       | REGELBRUDD |
-      | REGEL_X   |
+      | REGEL_X    |
 
     Og utfoertArbeidUtenforNorge
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
 
     Når regel "SP6510" kjøres
@@ -164,34 +164,33 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
-
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
     Når regel "SP6510" kjøres
     Så skal resultat av regel være "<Resultat>"
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | JA      | true               | true              |
-      | JA      | false              | false             |
-      | JA      | false              | true              |
-      | JA      | true               | false             |
+      | JA       | true               | true              |
+      | JA       | false              | false             |
+      | JA       | false              | true              |
+      | JA       | true               | false             |
 
   Scenariomal: SP6510 bli kalt med nye brukerspørsmål der REGEL_12 bryter
     Gitt årsaker i gammel kjøring
-      | REGELBRUDD     |
-      | REGEL_12       |
+      | REGELBRUDD |
+      | REGEL_12   |
 
 
     Og utfoertArbeidUtenforNorge
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
 
     Når regel "SP6510" kjøres
@@ -199,10 +198,10 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | JA      | true               | true              |
-      | JA      | false              | false             |
-      | JA      | false              | true              |
-      | JA      | true               | false             |
+      | JA       | true               | true              |
+      | JA       | false              | false             |
+      | JA       | false              | true              |
+      | JA       | true               | false             |
 
   Scenariomal: SP6510 bli kalt med nye brukerspørsmål der REGEL_21 bryter
     Gitt årsaker i gammel kjøring
@@ -213,9 +212,9 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
 
     Når regel "SP6510" kjøres
@@ -223,10 +222,10 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | JA      | true               | true              |
-      | JA      | false              | false             |
-      | JA      | false              | true              |
-      | JA      | true               | false             |
+      | JA       | true               | true              |
+      | JA       | false              | false             |
+      | JA       | false              | true              |
+      | JA       | true               | false             |
 
   Scenariomal: SP6510 bli kalt med nye brukerspørsmål der REGEL_25 bryter
     Gitt årsaker i gammel kjøring
@@ -237,9 +236,9 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
 
     Når regel "SP6510" kjøres
@@ -247,10 +246,10 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | JA      | true               | true              |
-      | JA      | false              | false             |
-      | JA      | false              | true              |
-      | JA      | true               | false             |
+      | JA       | true               | true              |
+      | JA       | false              | false             |
+      | JA       | false              | true              |
+      | JA       | true               | false             |
 
   Scenariomal: SP6510 bli kalt med nye brukerspørsmål der REGEL_10 bryter
     Gitt årsaker i gammel kjøring
@@ -261,9 +260,9 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
 
     Når regel "SP6510" kjøres
@@ -271,23 +270,23 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | JA      | true               | true              |
-      | JA      | false              | false             |
-      | JA      | false              | true              |
-      | JA      | true               | false             |
+      | JA       | true               | true              |
+      | JA       | false              | false             |
+      | JA       | false              | true              |
+      | JA       | true               | false             |
 
   Scenariomal: SP6510 bli kalt med nye brukerspørsmål der REGEL_5 bryter
     Gitt årsaker i gammel kjøring
       | REGELBRUDD |
-      | REGEL_5   |
+      | REGEL_5    |
 
     Og utfoertArbeidUtenforNorge
       | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
       | null            | null            | <arbeidUtenforNorge>          | <LAND> |
 
-    Og OppholdUtenforEos
-      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
-      | null            | null            | <oppholdUtenforEOS>          | THAILAND |
+    Og Følgende brukersvar om opphold utenfor EØS
+      | fom | tom | Svar                | Land     | Grunn |
+      |     |     | <oppholdUtenforEOS> | THAILAND |       |
 
 
     Når regel "SP6510" kjøres
@@ -295,7 +294,7 @@ Egenskap: SP6510 RegelUtsjekk Norske borgere
 
     Eksempler:
       | Resultat | arbeidUtenforNorge | oppholdUtenforEOS |
-      | JA      | true               | true              |
-      | JA      | false              | false             |
-      | JA      | false              | true              |
-      | JA      | true               | false             |
+      | JA       | true               | true              |
+      | JA       | false              | false             |
+      | JA       | false              | true              |
+      | JA       | true               | false             |
