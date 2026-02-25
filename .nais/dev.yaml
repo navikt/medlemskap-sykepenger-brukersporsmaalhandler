@@ -32,6 +32,8 @@ spec:
       memory: "512Mi"
   ingresses:
     - https://medlemskap-sykepenger-brukersporsmaalhandler.intern.dev.nav.no
+  envFrom:
+    - secret: medlemskap-brukersporsmaalhandler-secret
   readiness:
     path: "/isReady"
     port: 8080
