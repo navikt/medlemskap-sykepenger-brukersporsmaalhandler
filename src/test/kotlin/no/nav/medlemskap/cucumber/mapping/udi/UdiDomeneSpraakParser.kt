@@ -17,28 +17,33 @@ class UdiDomeneSpraakParser {
 
     class UdiOppholdstillatelseMapper : RadMapper<UdiOppholdsTilatelse> {
         override fun mapRad(rad: Map<String, String>): UdiOppholdsTilatelse {
-            return UdiOppholdsTilatelse(gjeldendeOppholdsstatus =
+            return UdiOppholdsTilatelse(
+                gjeldendeOppholdsstatus =
                     GjeldendeOppholdsstatus(
-                oppholdstillatelsePaSammeVilkar =
-                    OppholdstillatelsePaSammeVilkar(
-                        periode = UdiPeriode(
-                            parseDato(UdiDomenebegrep.FOM, rad),
-                            parseValgfriDato(UdiDomenebegrep.TOM, rad)
-                        ),
-                        type = parseValgfriString(UdiDomenebegrep.TYPE, rad),
-                        soknadIkkeAvgjort = parseValgfriBoolean(UdiDomenebegrep.SOKNAD_IKKE_AVGJORT.nøkkel, rad)
+                        oppholdstillatelsePaSammeVilkar =
+                            OppholdstillatelsePaSammeVilkar(
+                                periode = UdiPeriode(
+                                    parseDato(UdiDomenebegrep.FOM, rad),
+                                    parseValgfriDato(UdiDomenebegrep.TOM, rad)
+                                ),
+                                type = parseValgfriString(UdiDomenebegrep.TYPE, rad),
+                                soknadIkkeAvgjort = parseValgfriBoolean(UdiDomenebegrep.SOKNAD_IKKE_AVGJORT.nøkkel, rad)
+                            ),
+                        eosellerEFTAOpphold = null,
+                        ikkeOppholdstillatelseIkkeOppholdsPaSammeVilkarIkkeVisum = null,
+                        uavklart = null
                     )
-                )
             )
         }
     }
 }
 
-enum class UdiDomenebegrep(val nøkkel: String): Domenenøkkel {
+enum class UdiDomenebegrep(val nøkkel: String) : Domenenøkkel {
     FOM("fom"),
     TOM("tom"),
     TYPE("Type"),
     SOKNAD_IKKE_AVGJORT("Søknad ikke avgjort")
     ;
+
     override fun nøkkel(): String = nøkkel
 }

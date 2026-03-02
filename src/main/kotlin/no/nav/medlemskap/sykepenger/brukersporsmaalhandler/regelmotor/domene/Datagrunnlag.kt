@@ -119,13 +119,123 @@ data class UdiOppholdsTilatelse(
     val gjeldendeOppholdsstatus:GjeldendeOppholdsstatus?
 )
 data class GjeldendeOppholdsstatus(
-    val oppholdstillatelsePaSammeVilkar:OppholdstillatelsePaSammeVilkar?
+    val oppholdstillatelsePaSammeVilkar:OppholdstillatelsePaSammeVilkar?,
+    val eosellerEFTAOpphold: EOSellerEFTAOpphold?,
+    val ikkeOppholdstillatelseIkkeOppholdsPaSammeVilkarIkkeVisum: IkkeOppholdstillatelseIkkeOppholdsPaSammeVilkarIkkeVisum?,
+    val uavklart: Uavklart?
 )
+data class EOSellerEFTAOpphold(
+    val periode: Periode?,
+    val eosellerEFTAOppholdType: EOSellerEFTAOppholdType,
+    val eosellerEFTAGrunnlagskategoriOppholdsrettType: EOSellerEFTAGrunnlagskategoriOppholdsrettType?,
+    val eosellerEFTAGrunnlagskategoriOppholdstillatelseType: EOSellerEFTAGrunnlagskategoriOppholdsTillatelseType?
+)
+
 data class OppholdstillatelsePaSammeVilkar(
     val periode:UdiPeriode,
     val type: String? = null,
     val soknadIkkeAvgjort: Boolean? = null
 )
+
+data class IkkeOppholdstillatelseIkkeOppholdsPaSammeVilkarIkkeVisum(
+    val utvistMedInnreiseForbud: UtvistMedInnreiseForbud?,
+    var avslagEllerBortfallAvPOBOSellerTilbakekallEllerFormeltVedtak: AvslagEllerBortfallAvPOBOSellerTilbakekallEllerFormeltVedtak?,
+    var ovrigIkkeOpphold: OvrigIkkeOpphold?
+)
+
+data class Uavklart(
+    val uavklart: Boolean = false
+)
+
+data class UtvistMedInnreiseForbud(
+    val innreiseForbud: JaNeiUavklart?
+)
+
+data class AvslagEllerBortfallAvPOBOSellerTilbakekallEllerFormeltVedtak(
+    val avgjorelsesDato: LocalDate?
+)
+
+data class OvrigIkkeOpphold(
+    val ovrigIkkeOppholdsKategori: OvrigIkkeOppholdsKategori?
+)
+
+enum class OvrigIkkeOppholdsKategori(val kodeverdi: String) {
+    OPPHEVET_INNREISEFORBUD("OpphevetInnreiseforbud"),
+    ANNULERING_AV_VISUM("AnnuleringAvVisum"),
+    UTLOPT_OPPHOLDSTILLATELSE("UtloptOppholdstillatelse"),
+    UTLOPT_EO_SELLER_EFTA_OPPHOLDSRETT_ELLER_EO_SELLER_EFTA_OPPHOLDSTILLATELSE("UtloptEOSellerEFTAOppholdsrettEllerEOSellerEFTAOppholdstillatelse");
+
+    companion object {
+        fun fraOvrigIkkeOppholdsKategoriType(
+            ovrigIkkeOppholdsKategori: String?
+        ): OvrigIkkeOppholdsKategori? {
+            return OvrigIkkeOppholdsKategori.values()
+                .firstOrNull { it.kodeverdi == ovrigIkkeOppholdsKategori }
+        }
+    }
+}
+
+enum class JaNeiUavklart(val jaNeiUavklart: String) {
+    JA("Ja"),
+    NEI("Nei"),
+    UAVKLART("Uavklart");
+
+    companion object {
+        fun fraJaNeiUavklartVerdi(jaNeiUavklartVerdi: String?): JaNeiUavklart? {
+            if (jaNeiUavklartVerdi.isNullOrEmpty()) return null
+            return valueOf(jaNeiUavklartVerdi.toUpperCase())
+        }
+    }
+}
+
+enum class EOSellerEFTAOppholdType(val kodeverdi: String) {
+    EOS_ELLER_EFTA_BESLUTNING_OM_OPPHOLDSRETT("EOSellerEFTABeslutningOmOppholdsrett"),
+    EOS_ELLER_EFTA_VEDTAK_OM_VARIG_OPPHOLDSRETT("EOSellerEFTAVedtakOmVarigOppholdsrett"),
+    EOS_ELLER_EFTA_OPPHOLDSTILLATELSE("EOSellerEFTAOppholdstillatelse");
+
+    companion object {
+        fun fraEOSellerEFTAOppholdTypeVerdi(EOSellerEFTAOppholdTypeVerdi: String?): EOSellerEFTAOppholdType? {
+            return values().firstOrNull { it.kodeverdi == EOSellerEFTAOppholdTypeVerdi }
+        }
+    }
+}
+
+enum class EOSellerEFTAGrunnlagskategoriOppholdsrettType(val kodeverdi: String) {
+    VARIG("Varig"),
+    INGEN_INFORMASJON("IngenInformasjon"),
+    FAMILIE("Familie"),
+    TJENESTEYTING_ELLER_ETABLERING("TjenesteytingEllerEtablering"),
+    UAVKLART("Uavklart");
+
+    companion object {
+        fun fraEOSellerEFTAGrunnlagskategoriOppholdsrettType(
+            eosEllerEFTAGrunnlagskategoriOppholdsrettType: String?
+        ): EOSellerEFTAGrunnlagskategoriOppholdsrettType? {
+            return EOSellerEFTAGrunnlagskategoriOppholdsrettType.values()
+                .firstOrNull { it.kodeverdi == eosEllerEFTAGrunnlagskategoriOppholdsrettType }
+        }
+    }
+}
+
+enum class EOSellerEFTAGrunnlagskategoriOppholdsTillatelseType(val kodeverdi: String) {
+    EGNE_MIDLER_ELLER_FASTE_PERIODISKE_YTELSER("EgneMidlerEllerFastePeriodiskeYtelser"),
+    ARBEID("Arbeid"),
+    UTDANNING("Utdanning"),
+    FAMILIE("Familie"),
+    TJENESTEYTING_ELLER_ETABLERING("TjenesteytingEllerEtablering"),
+    UAVKLART("Uavklart");
+
+    companion object {
+        fun fraEOSellerEFTAGrunnlagskategoriOppholdsTillatelseType(
+            eosEllerEFTAGrunnlagskategoriOppholdsTillatelseType: String?
+        ): EOSellerEFTAGrunnlagskategoriOppholdsTillatelseType? {
+            return EOSellerEFTAGrunnlagskategoriOppholdsTillatelseType.values()
+                .firstOrNull { it.kodeverdi == eosEllerEFTAGrunnlagskategoriOppholdsTillatelseType }
+        }
+    }
+}
+
+
 data class UdiPeriode(
     val fom:LocalDate?,
     val tom:LocalDate?
