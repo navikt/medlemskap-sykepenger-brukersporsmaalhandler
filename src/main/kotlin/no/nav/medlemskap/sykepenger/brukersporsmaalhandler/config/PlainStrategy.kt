@@ -7,7 +7,8 @@ import org.apache.kafka.common.security.auth.SecurityProtocol
 
 internal class PlainStrategy(private val environment: Environment) :
     KafkaConfig.SecurityStrategy {
-    private val isLocal = EnvironmentKey.IS_LOCAL.equals("true")
+    private val isLocal = EnvironmentKey.
+    IS_LOCAL.equals("true")
 
     override fun securityConfig() = mapOf(
         CommonClientConfigs.SECURITY_PROTOCOL_CONFIG to SecurityProtocol.SASL_SSL.name,

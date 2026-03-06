@@ -26,10 +26,10 @@ spec:
     timeout: 90
   resources:
     limits:
-      memory: "512Mi"
+      memory: 512Mi
     requests:
-      cpu: "200m"
-      memory: "512Mi"
+      cpu: 200m
+      memory: 512Mi
   ingresses:
     - https://medlemskap-sykepenger-brukersporsmaalhandler.intern.dev.nav.no
   readiness:
