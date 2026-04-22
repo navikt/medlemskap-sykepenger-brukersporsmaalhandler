@@ -21,7 +21,7 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
         )
     val reglerSomKanSjekkesUt =
         listOf(
-            "REGEL_3", "REGEL_9", "REGEL_C", "REGEL_15","REGEL_12", "REGEL_21", "REGEL_25", "REGEL_10", "REGEL_5"
+            "REGEL_3", "REGEL_9", "REGEL_C", "REGEL_15","REGEL_12", "REGEL_21", "REGEL_25", "REGEL_10", "REGEL_5", "REGEL_51", "REGEL_55", "REGEL_58", "REGEL_62", "REGEL_64", "REGEL_66"
         )
 
     override fun operasjon(): Resultat {
@@ -69,6 +69,10 @@ class KanAlleRegelBruddSjekkesUtNorskeBorgereRegel(
 
 fun Brukerinput.bådeArbeidUtlandOgOppholdUtenforEOSOppgitt() :Boolean{
     return (utfortAarbeidUtenforNorge?.svar !=null ) && (oppholdUtenforEos?.svar !=null)
+}
+
+fun Brukerinput.bådeArbeidUtlandOgOppholdUtenforNorgeOppgitt() :Boolean{
+    return (utfortAarbeidUtenforNorge?.svar !=null ) && (oppholdUtenforNorge?.svar !=null)
 }
 
 

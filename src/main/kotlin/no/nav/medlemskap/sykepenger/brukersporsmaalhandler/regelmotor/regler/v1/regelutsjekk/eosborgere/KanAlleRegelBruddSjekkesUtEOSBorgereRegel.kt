@@ -7,6 +7,7 @@ import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Dat
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene.Årsak
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.KanAlleRegelBruddSjekkesUtNorskeBorgereRegel
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.bådeArbeidUtlandOgOppholdUtenforEOSOppgitt
+import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.regler.v1.regelutsjekk.bådeArbeidUtlandOgOppholdUtenforNorgeOppgitt
 import java.time.LocalDate
 
 class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
@@ -23,7 +24,7 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
         )
     val reglerSomKanSjekkesUt =
         listOf(
-            "REGEL_3", "REGEL_9", "REGEL_C", "REGEL_15", "REGEL_21", "REGEL_25", "REGEL_10", "REGEL_5"
+            "REGEL_3", "REGEL_9", "REGEL_C", "REGEL_15", "REGEL_21", "REGEL_25", "REGEL_10", "REGEL_5", "REGEL_51", "REGEL_55", "REGEL_58", "REGEL_62", "REGEL_64", "REGEL_66"
         )
 
     override fun operasjon(): Resultat {
@@ -33,8 +34,8 @@ class KanAlleRegelBruddSjekkesUtEOSBorgereRegel(
         }
         val toBeControlled: MutableList<Årsak> = mutableListOf()
         toBeControlled.addAll(årsaker)
-        //fjern alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet
-        if (brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSOppgitt() == true) {
+        //fjern alle regler som kan sjekkes ut med ingen arbeid i utlandet og ingen opphold i utlandet || arbeid utenfor Norge + opphold utenfor Norge
+        if ((brukerInput?.bådeArbeidUtlandOgOppholdUtenforEOSOppgitt() == true) || (brukerInput?.bådeArbeidUtlandOgOppholdUtenforNorgeOppgitt() == true)) {
             toBeControlled.removeIf { reglerSomKanSjekkesUt.contains(it.regelId) }
             //fjern alle innslag som starter med angitt regel i multiRegelLista
             multiReglerSomKanSjekkesUt.forEach { regel ->
