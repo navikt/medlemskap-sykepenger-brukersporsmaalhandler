@@ -28,7 +28,7 @@ Egenskap: Flyt test av opphold utenfor EØS
       | Resultat | oppholdUtenforEOS | FOM        | TOM        | LAND  | ÅRSAK  | BEGRUNNELSE                                                                 |
       | UAVKLART | Ja                | 2022-10-06 | 2023-10-02 | india | SP6314 | Oppholdet utenfor EØS er lengere en 180 dager                               |
       | JA       | Ja                | 2023-11-16 | 2023-11-19 | india |        |                                                                             |
-      | UAVKLART | Ja                | 2026-01-01 | 2026-02-10 | india | SP6321 | Opphold ikke ferie, eller mer enn 30 dager, eller mindre enn 30 dager siden |
+      | UAVKLART | Ja                | 2026-01-01 | 2026-12-10 | india | SP6321 | Opphold ikke ferie, eller mer enn 30 dager, eller mindre enn 30 dager siden |
 
   Scenariomal: opphold utenforNorge EØS blir kalt med nye bruker spørsmål og flere utlandsopphold
     Gitt OppholdUtenforEosMedFlereInnslag
