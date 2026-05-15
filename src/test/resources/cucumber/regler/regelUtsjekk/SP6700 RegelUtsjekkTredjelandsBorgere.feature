@@ -321,3 +321,147 @@ Egenskap: 6700 RegelUtsjekk Norske borgere
       | JA      | false              | false             |
       | JA      | false              | true              |
       | JA      | true               | false             |
+
+  Scenariomal: SP6700 bli kalt med nye brukerspørsmål der REGEL_51 bryter
+    Gitt årsaker i gammel kjøring
+      | REGELBRUDD |
+      | REGEL_51   |
+
+    Og utfoertArbeidUtenforNorge
+      | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
+      | null            | null            | <arbeidUtenforNorge>          | <LAND> |
+
+    Og OppholdUtenforNorge
+      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
+      | null            | null            | <OppholdUtenforNorge>          | THAILAND |
+
+
+    Når regel "SP6700" kjøres
+    Så skal resultat av regel være "<Resultat>"
+
+    Eksempler:
+      | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
+      | JA      | true               | true              |
+      | JA      | false              | false             |
+      | JA      | false              | true              |
+      | JA      | true               | false             |
+
+  Scenariomal: SP6700 bli kalt med nye brukerspørsmål der REGEL_55 bryter
+    Gitt årsaker i gammel kjøring
+      | REGELBRUDD |
+      | REGEL_55   |
+
+    Og utfoertArbeidUtenforNorge
+      | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
+      | null            | null            | <arbeidUtenforNorge>          | <LAND> |
+
+    Og OppholdUtenforNorge
+      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
+      | null            | null            | <OppholdUtenforNorge>          | THAILAND |
+
+
+    Når regel "SP6700" kjøres
+    Så skal resultat av regel være "<Resultat>"
+
+    Eksempler:
+      | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
+      | JA      | true               | true              |
+      | JA      | false              | false             |
+      | JA      | false              | true              |
+      | JA      | true               | false             |
+
+  Scenariomal: SP6700 bli kalt med nye brukerspørsmål der REGEL_58 bryter
+    Gitt årsaker i gammel kjøring
+      | REGELBRUDD |
+      | REGEL_58   |
+
+    Og utfoertArbeidUtenforNorge
+      | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
+      | null            | null            | <arbeidUtenforNorge>          | <LAND> |
+
+    Og OppholdUtenforNorge
+      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
+      | null            | null            | <OppholdUtenforNorge>          | THAILAND |
+
+
+    Når regel "SP6700" kjøres
+    Så skal resultat av regel være "<Resultat>"
+
+    Eksempler:
+      | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
+      | JA      | true               | true              |
+      | JA      | false              | false             |
+      | JA      | false              | true              |
+      | JA      | true               | false             |
+
+  Scenariomal: SP6700 bli kalt med nye brukerspørsmål der REGEL_62 bryter
+    Gitt årsaker i gammel kjøring
+      | REGELBRUDD |
+      | REGEL_62   |
+
+    Og utfoertArbeidUtenforNorge
+      | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
+      | null            | null            | <arbeidUtenforNorge>          | <LAND> |
+
+    Og OppholdUtenforNorge
+      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
+      | null            | null            | <OppholdUtenforNorge>          | THAILAND |
+
+
+    Når regel "SP6700" kjøres
+    Så skal resultat av regel være "<Resultat>"
+
+    Eksempler:
+      | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
+      | JA      | true               | true              |
+      | JA      | false              | false             |
+      | JA      | false              | true              |
+      | JA      | true               | false             |
+
+  Scenariomal: SP6700 bli kalt med nye brukerspørsmål der REGEL_64 bryter
+    Gitt årsaker i gammel kjøring
+      | REGELBRUDD |
+      | REGEL_64   |
+
+    Og utfoertArbeidUtenforNorge
+      | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
+      | null            | null            | <arbeidUtenforNorge>          | <LAND> |
+
+    Og OppholdUtenforNorge
+      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
+      | null            | null            | <OppholdUtenforNorge>          | THAILAND |
+
+
+    Når regel "SP6700" kjøres
+    Så skal resultat av regel være "<Resultat>"
+
+    Eksempler:
+      | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
+      | JA      | true               | true              |
+      | JA      | false              | false             |
+      | JA      | false              | true              |
+      | JA      | true               | false             |
+
+  Scenariomal: SP6700 bli kalt med nye brukerspørsmål der REGEL_66 bryter
+    Gitt årsaker i gammel kjøring
+      | REGELBRUDD |
+      | REGEL_66  |
+
+    Og utfoertArbeidUtenforNorge
+      | Fra og med dato | Til og med dato | Har hatt arbeid utenfor Norge | LAND   |
+      | null            | null            | <arbeidUtenforNorge>          | <LAND> |
+
+    Og OppholdUtenforNorge
+      | Fra og med dato | Til og med dato | Har oppholdt seg utenfor EØS | LAND     |
+      | null            | null            | <OppholdUtenforNorge>          | THAILAND |
+
+
+    Når regel "SP6700" kjøres
+    Så skal resultat av regel være "<Resultat>"
+
+    Eksempler:
+      | Resultat | arbeidUtenforNorge | OppholdUtenforNorge |
+      | JA      | true               | true              |
+      | JA      | false              | false             |
+      | JA      | false              | true              |
+      | JA      | true               | false             |
