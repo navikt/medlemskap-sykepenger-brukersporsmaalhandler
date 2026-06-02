@@ -15,11 +15,12 @@ fun Routing.naisRoutes(
     consumeJob: KafkaStreams
 ) {
     get("/isAlive") {
-        if (consumeJob.state().isRunning) {
+        val state = consumeJob.state()
+        if (state == KafkaStreams.State.RUNNING || state == KafkaStreams.State.REBALANCING) {
             call.respondText("Alive!", ContentType.Text.Plain, HttpStatusCode.OK)
         } else {
-            logger.warn("Consumejob sin status er  ${consumeJob.state().name} ")
-            call.respondText("Alive!", ContentType.Text.Plain, HttpStatusCode.OK)
+            logger.error("Consumejob sin status er ${state.name} — returnerer 503 slik at poden restartes")
+            call.respondText("Not alive!", ContentType.Text.Plain, HttpStatusCode.ServiceUnavailable)
         }
     }
     get("/isReady") {
