@@ -125,7 +125,7 @@ data class GjeldendeOppholdsstatus(
     val uavklart: Uavklart?
 )
 data class EOSellerEFTAOpphold(
-    val periode: Periode?,
+    val periode: UdiPeriode,
     val eosellerEFTAOppholdType: EOSellerEFTAOppholdType,
     val eosellerEFTAGrunnlagskategoriOppholdsrettType: EOSellerEFTAGrunnlagskategoriOppholdsrettType?,
     val eosellerEFTAGrunnlagskategoriOppholdstillatelseType: EOSellerEFTAGrunnlagskategoriOppholdsTillatelseType?
@@ -224,15 +224,6 @@ enum class EOSellerEFTAGrunnlagskategoriOppholdsTillatelseType(val kodeverdi: St
     FAMILIE("Familie"),
     TJENESTEYTING_ELLER_ETABLERING("TjenesteytingEllerEtablering"),
     UAVKLART("Uavklart");
-
-    companion object {
-        fun fraEOSellerEFTAGrunnlagskategoriOppholdsTillatelseType(
-            eosEllerEFTAGrunnlagskategoriOppholdsTillatelseType: String?
-        ): EOSellerEFTAGrunnlagskategoriOppholdsTillatelseType? {
-            return EOSellerEFTAGrunnlagskategoriOppholdsTillatelseType.values()
-                .firstOrNull { it.kodeverdi == eosEllerEFTAGrunnlagskategoriOppholdsTillatelseType }
-        }
-    }
 }
 
 
