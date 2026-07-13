@@ -19,6 +19,10 @@ Egenskap: Flyt test av Oppholdstilatelse
       | Vedtakstype permanent | fom   | tom   | Vedtaksdato | Svar |
       | <Permanent>           | <FOM> | <TOM> | <VDATO>     | Ja   |
 
+    Og Følgende inputperiode
+      | fom        | tom        |
+      | 2024-10-01 | 2024-10-06 |
+
     Gitt gammelt resultat for gammel kjøring er "<FIL>"
     Når oppholdstilatelseRegler kjøres
     Så skal resultat av regel være "<Resultat>"
