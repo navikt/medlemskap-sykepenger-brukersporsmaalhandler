@@ -19,6 +19,10 @@ Egenskap: Flyt test av opphold utenfor Norge
       | Fra og med dato | Til og med dato | Har oppholdt seg utenfor Norge | LAND   |
       | <FOM>           | <TOM>           | <oppholdUtenforNorge>          | <LAND> |
 
+    Og Følgende inputperiode
+      | fom        | tom        |
+      | 2024-10-01 | 2024-10-06 |
+
     Når oppholdUtenforNorgeRegler kjøres
     Så skal resultat av regel være "<Resultat>"
     Og årsak etter regelkjøring er "<ÅRSAK>"
@@ -29,7 +33,7 @@ Egenskap: Flyt test av opphold utenfor Norge
       | UAVKLART | true                | 2022-10-06  | 2023-10-02  | india | SP6414 | Oppholdet utenfor Norge er lengere en 180 dager                     |
       | JA       | true                | 2023-11-16  | 2023-11-19  | india |        |                                                                     |
       | JA       | false               |             |             |       |        |                                                                     |
-      | UAVKLART | true                | TODAYS_DATE | TODAYS_DATE | india | SP6413 | Det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet |
+      | UAVKLART | true                | 2024-10-01  | 2024-10-01  | india | SP6413 | Det er mindre en 90 dager siden oppholdet utenfor EØS ble avsluttet |
 
   Scenario: opphold utenforNorge Norge blir kalt med nye bruker spørsmål og flere utlandsopphold
     Gitt OppholdUtenforNorgeMedFlereInnslag

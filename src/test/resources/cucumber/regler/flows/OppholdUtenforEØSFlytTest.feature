@@ -19,6 +19,10 @@ Egenskap: Flyt test av opphold utenfor EØS
       | fom   | tom   | Svar                | Land   |
       | <FOM> | <TOM> | <oppholdUtenforEOS> | <LAND> |
 
+    Og Følgende inputperiode
+      | fom        | tom        |
+      | 2024-10-01 | 2024-10-06 |
+
     Når oppholdUtenforEØSRegler kjøres
     Så skal resultat av regel være "<Resultat>"
     Og årsak etter regelkjøring er "<ÅRSAK>"
