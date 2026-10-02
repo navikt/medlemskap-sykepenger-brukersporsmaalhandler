@@ -18,7 +18,6 @@ spec:
   azure:
     application:
       enabled: true
-  image: {{image}}
   liveness:
     path: "/isAlive"
     port: 8080
