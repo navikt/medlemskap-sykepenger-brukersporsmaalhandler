@@ -4,6 +4,7 @@ package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene
 import no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.Ytelse
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
+import java.util.Locale
 
 data class Datagrunnlag(
     val ytelse: Ytelse,
@@ -183,7 +184,7 @@ enum class JaNeiUavklart(val jaNeiUavklart: String) {
     companion object {
         fun fraJaNeiUavklartVerdi(jaNeiUavklartVerdi: String?): JaNeiUavklart? {
             if (jaNeiUavklartVerdi.isNullOrEmpty()) return null
-            return valueOf(jaNeiUavklartVerdi.toUpperCase())
+            return valueOf(jaNeiUavklartVerdi.uppercase(Locale.getDefault()))
         }
     }
 }

@@ -4,7 +4,6 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.prometheus.client.exporter.common.TextFormat
 import mu.KotlinLogging
 import org.apache.kafka.streams.KafkaStreams
 
@@ -27,9 +26,6 @@ fun Routing.naisRoutes(
         call.respondText("Ready!", ContentType.Text.Plain, HttpStatusCode.OK)
     }
     get("/metrics") {
-        call.respondTextWriter(ContentType.parse(TextFormat.CONTENT_TYPE_004)) {
-            writeMetrics004(this, Metrics.registry)
-        }
+        call.respondText(Metrics.registry.scrape(), ContentType.parse("text/plain; version=0.0.4; charset=utf-8"))
     }
-
 }

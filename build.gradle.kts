@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 val ktorVersion = "2.3.13"
 val kafkaVersion = "3.3.1"
-val jacksonVersion = "2.22"
+val jacksonVersion = "2.22.3"
+val jacksonAnnotationsVersion = "2.22"
 val konfigVersion = "1.6.10.0"
 val kotlinLoggerVersion = "1.12.5"
 val resilience4jVersion = "1.7.1"
@@ -13,7 +16,7 @@ val httpClientVersion = "4.5.14"
 val mainClass = "no.nav.medlemskap.sykepenger.brukersporsmaalhandler.ApplicationKt"
 
 plugins {
-    kotlin("jvm") version "1.9.25"
+    kotlin("jvm") version "2.2.21"
     application
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
@@ -34,7 +37,7 @@ dependencies {
     implementation("io.github.resilience4j:resilience4j-retry:$resilience4jVersion")
     implementation("io.github.resilience4j:resilience4j-kotlin:$resilience4jVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonAnnotationsVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion") {
@@ -66,12 +69,11 @@ dependencies {
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("io.ktor:ktor-server-metrics-micrometer-jvm:2.3.13")
-    // 2.8.0 er tilgjengelig, burde kanskje oppdatere
-    //implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
     testImplementation(platform("org.junit:junit-bom:5.14.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.mockk:mockk:1.14.11")
     testImplementation("io.ktor:ktor-client-mock:$ktorVersion")
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
     testImplementation(platform("io.cucumber:cucumber-bom:7.34.9"))
 
     testImplementation("io.cucumber:cucumber-java")
@@ -84,13 +86,15 @@ dependencies {
 tasks {
 
     compileTestKotlin{
-        kotlinOptions {
-            jvmTarget = "20"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_20)
         }
     }
     compileKotlin {
-        kotlinOptions.jvmTarget = "20"
-        kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_20)
+            freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+        }
     }
 
     shadowJar {

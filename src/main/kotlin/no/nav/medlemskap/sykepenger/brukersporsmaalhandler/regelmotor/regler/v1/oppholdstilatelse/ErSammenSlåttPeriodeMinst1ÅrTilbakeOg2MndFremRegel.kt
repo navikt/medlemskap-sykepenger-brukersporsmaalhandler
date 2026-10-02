@@ -22,13 +22,12 @@ class ErSammenSlåttPeriodeMinst1ÅrTilbakeOg2MndFremRegel(
 
     override fun operasjon(): Resultat {
 
-        if (brukerInput!!.oppholdstilatelse == null || udiOpphold == null || udiOpphold.periode() == null ){
-            return nei(regelId)
-        }
+        val oppholdstilatelse = brukerInput?.oppholdstilatelse ?: return nei(regelId)
+        val udiPeriode = udiOpphold?.periode() ?: return nei(regelId)
 
         var brukerinputFom:LocalDate = LocalDate.MAX
         try{
-           brukerinputFom = LocalDate.parse(brukerInput.oppholdstilatelse!!.perioder.first().fom)
+           brukerinputFom = LocalDate.parse(oppholdstilatelse.perioder.first().fom)
         }
         catch (e:Exception){
             //brukerinputFom LocalDate.max default valure
@@ -36,8 +35,8 @@ class ErSammenSlåttPeriodeMinst1ÅrTilbakeOg2MndFremRegel(
         if (
             brukerinputFom.isBefore(startDatoForYtelse.minusYears(1)) &&
             (
-                    udiOpphold.gjeldendeOppholdsstatus?.oppholdstillatelsePaSammeVilkar?.periode!!.tom == null ||
-                    udiOpphold.gjeldendeOppholdsstatus?.oppholdstillatelsePaSammeVilkar?.periode.tom!!.isAfter(startDatoForYtelse.plusMonths(2)))
+                    udiPeriode.tom == null ||
+                    udiPeriode.tom.isAfter(startDatoForYtelse.plusMonths(2)))
             ) {
             return ja(regelId)
         }
