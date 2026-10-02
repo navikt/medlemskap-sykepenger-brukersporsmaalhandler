@@ -14,11 +14,9 @@ spec:
     autoInstrumentation:
       enabled: true
       runtime: java
-  gcp:
   azure:
     application:
       enabled: true
-  image: {{image}}
   liveness:
     path: "/isAlive"
     port: 8080
@@ -56,4 +54,3 @@ spec:
           namespace: nais-system
       external:
         - host: login.microsoftonline.com
-  env:
