@@ -14,7 +14,6 @@ spec:
     autoInstrumentation:
       enabled: true
       runtime: java
-  gcp:
   azure:
     application:
       enabled: true
@@ -55,4 +54,3 @@ spec:
           namespace: nais-system
       external:
         - host: login.microsoftonline.com
-  env:
