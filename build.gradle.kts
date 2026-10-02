@@ -1,21 +1,24 @@
-val ktorVersion = "2.1.3"
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+val ktorVersion = "2.3.13"
 val kafkaVersion = "3.3.1"
-val jacksonVersion = "2.14.0"
+val jacksonVersion = "2.22.3"
+val jacksonAnnotationsVersion = "2.22"
 val konfigVersion = "1.6.10.0"
-val kotlinLoggerVersion = "1.8.3"
-val resilience4jVersion = "1.5.0"
+val kotlinLoggerVersion = "1.12.5"
+val resilience4jVersion = "1.7.1"
 val logstashVersion = "8.1"
-val logbackVersion = "1.5.18"
+val logbackVersion = "1.6.4"
 val flywayVersion = "6.5.0"
 val hikariVersion = "3.4.5"
 val kotliqueryVersion = "1.3.1"
-val httpClientVersion = "4.5.13"
+val httpClientVersion = "4.5.14"
 val mainClass = "no.nav.medlemskap.sykepenger.brukersporsmaalhandler.ApplicationKt"
 
 plugins {
-    kotlin("jvm") version "1.9.20"
+    kotlin("jvm") version "2.2.21"
     application
-    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "no.nav.medlemskap"
@@ -34,7 +37,7 @@ dependencies {
     implementation("io.github.resilience4j:resilience4j-retry:$resilience4jVersion")
     implementation("io.github.resilience4j:resilience4j-kotlin:$resilience4jVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonAnnotationsVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion") {
@@ -42,8 +45,8 @@ dependencies {
         exclude(group = "io.netty", module = "netty-codec-http")
     }
     //streams
-    implementation("org.apache.kafka:kafka-streams:2.2.1")
-    implementation("org.apache.kafka:kafka-clients:2.2.1")
+    implementation("org.apache.kafka:kafka-streams:2.8.2")
+    implementation("org.apache.kafka:kafka-clients:2.8.2")
     //streams ending
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
@@ -60,19 +63,18 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("io.ktor:ktor-client-json:$ktorVersion")
     implementation("org.apache.httpcomponents:httpclient:$httpClientVersion")
-    implementation("io.micrometer:micrometer-registry-prometheus:1.7.0")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.17.1")
     implementation("com.natpryce:konfig:$konfigVersion")
     implementation("io.github.microutils:kotlin-logging:$kotlinLoggerVersion")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
-    implementation("io.ktor:ktor-server-metrics-micrometer-jvm:2.1.2")
-    // 2.8.0 er tilgjengelig, burde kanskje oppdatere
-    //implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
-    testImplementation(platform("org.junit:junit-bom:5.7.1"))
+    implementation("io.ktor:ktor-server-metrics-micrometer-jvm:2.3.13")
+    testImplementation(platform("org.junit:junit-bom:5.14.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("io.mockk:mockk:1.11.0")
+    testImplementation("io.mockk:mockk:1.14.11")
     testImplementation("io.ktor:ktor-client-mock:$ktorVersion")
-    testImplementation(platform("io.cucumber:cucumber-bom:7.11.0"))
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation(platform("io.cucumber:cucumber-bom:7.34.9"))
 
     testImplementation("io.cucumber:cucumber-java")
     testImplementation("io.cucumber:cucumber-junit-platform-engine")
@@ -84,13 +86,15 @@ dependencies {
 tasks {
 
     compileTestKotlin{
-        kotlinOptions {
-            jvmTarget = "20"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_20)
         }
     }
     compileKotlin {
-        kotlinOptions.jvmTarget = "20"
-        kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_20)
+            freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+        }
     }
 
     shadowJar {

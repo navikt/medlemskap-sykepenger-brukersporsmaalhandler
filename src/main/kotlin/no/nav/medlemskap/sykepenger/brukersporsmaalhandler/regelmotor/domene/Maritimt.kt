@@ -1,5 +1,7 @@
 package no.nav.medlemskap.sykepenger.brukersporsmaalhandler.regelmotor.domene
 
+import java.util.Locale
+
 enum class Skipsregister(val beskrivelse: String) {
     NIS("Norsk InternasjonaltSkipsregister"),
     NOR("Norsk Ordinært Skipsregister"),
@@ -8,7 +10,7 @@ enum class Skipsregister(val beskrivelse: String) {
     companion object {
         fun fraSkipsregisterVerdi(skipsregisterValue: String?): Skipsregister? {
             if (skipsregisterValue.isNullOrEmpty()) return null
-            return valueOf(skipsregisterValue.toUpperCase())
+            return valueOf(skipsregisterValue.uppercase(Locale.getDefault()))
         }
     }
 }
@@ -21,7 +23,7 @@ enum class Fartsomraade(val beskrivelse: String) {
     companion object {
         fun fraFartsomraadeVerdi(fartsomradeValue: String?): Fartsomraade? {
             if (fartsomradeValue.isNullOrEmpty()) return null
-            return valueOf(fartsomradeValue.toUpperCase())
+            return valueOf(fartsomradeValue.uppercase(Locale.getDefault()))
         }
     }
 }
@@ -34,7 +36,7 @@ enum class Skipstype {
     companion object {
         fun fraSkipstypeVerdi(skipstypeValue: String?): Skipstype? {
             if (skipstypeValue.isNullOrEmpty()) return null
-            return valueOf(skipstypeValue.toUpperCase())
+            return valueOf(skipstypeValue.uppercase(Locale.getDefault()))
         }
     }
 }
