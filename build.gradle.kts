@@ -8,7 +8,7 @@ val konfigVersion = "1.6.10.0"
 val kotlinLoggerVersion = "1.12.5"
 val resilience4jVersion = "1.7.1"
 val logstashVersion = "8.1"
-val logbackVersion = "1.6.4"
+val logbackVersion = "1.6.5"
 val flywayVersion = "6.5.0"
 val hikariVersion = "3.4.5"
 val kotliqueryVersion = "1.3.1"
@@ -16,7 +16,7 @@ val httpClientVersion = "4.5.14"
 val mainClass = "no.nav.medlemskap.sykepenger.brukersporsmaalhandler.ApplicationKt"
 
 plugins {
-    kotlin("jvm") version "2.2.21"
+    kotlin("jvm") version "2.4.20"
     application
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
