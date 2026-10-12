@@ -16,7 +16,7 @@ val httpClientVersion = "4.5.14"
 val mainClass = "no.nav.medlemskap.sykepenger.brukersporsmaalhandler.ApplicationKt"
 
 plugins {
-    kotlin("jvm") version "2.4.20"
+    kotlin("jvm") version "2.4.21"
     application
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
