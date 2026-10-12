@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("io.netty:netty-bom:4.1.136.Final"))
+    implementation(platform("io.netty:netty-bom:4.1.139.Final"))
     implementation(kotlin("stdlib"))
     implementation("io.github.resilience4j:resilience4j-retry:$resilience4jVersion")
     implementation("io.github.resilience4j:resilience4j-kotlin:$resilience4jVersion")
