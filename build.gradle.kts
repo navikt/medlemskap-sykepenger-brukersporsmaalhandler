@@ -33,6 +33,7 @@ repositories {
 }
 
 dependencies {
+    implementation(platform("io.netty:netty-bom:4.1.139.Final"))
     implementation(kotlin("stdlib"))
     implementation("io.github.resilience4j:resilience4j-retry:$resilience4jVersion")
     implementation("io.github.resilience4j:resilience4j-kotlin:$resilience4jVersion")
@@ -40,10 +41,6 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonAnnotationsVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
-    implementation("io.ktor:ktor-server-netty:$ktorVersion") {
-        exclude(group = "io.netty", module = "netty-codec")
-        exclude(group = "io.netty", module = "netty-codec-http")
-    }
     //streams
     implementation("org.apache.kafka:kafka-streams:2.8.2")
     implementation("org.apache.kafka:kafka-clients:2.8.2")
