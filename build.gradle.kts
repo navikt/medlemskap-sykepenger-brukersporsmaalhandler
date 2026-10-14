@@ -16,7 +16,7 @@ val httpClientVersion = "4.5.14"
 val mainClass = "no.nav.medlemskap.sykepenger.brukersporsmaalhandler.ApplicationKt"
 
 plugins {
-    kotlin("jvm") version "2.4.20"
+    kotlin("jvm") version "2.4.21"
     application
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("io.netty:netty-bom:4.1.139.Final"))
+    implementation(platform("io.netty:netty-bom:4.2.19.Final"))
     implementation(kotlin("stdlib"))
     implementation("io.github.resilience4j:resilience4j-retry:$resilience4jVersion")
     implementation("io.github.resilience4j:resilience4j-kotlin:$resilience4jVersion")
