@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 val ktorVersion = "2.3.13"
 val kafkaVersion = "3.3.1"
-val jacksonVersion = "2.22.3"
+val jacksonVersion = "2.22.4"
 val jacksonAnnotationsVersion = "2.22"
 val konfigVersion = "1.6.10.0"
 val kotlinLoggerVersion = "1.12.5"
@@ -60,7 +60,7 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("io.ktor:ktor-client-json:$ktorVersion")
     implementation("org.apache.httpcomponents:httpclient:$httpClientVersion")
-    implementation("io.micrometer:micrometer-registry-prometheus:1.17.1")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.17.2")
     implementation("com.natpryce:konfig:$konfigVersion")
     implementation("io.github.microutils:kotlin-logging:$kotlinLoggerVersion")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashVersion")
